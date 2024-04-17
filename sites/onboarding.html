@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onboarding</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <style>
+    :root {
+      font-family: Inter, sans-serif;
+      font-feature-settings: 'liga' 1, 'calt' 1;
+      user-select: none;
+    }
+
+    @supports (font-variation-settings: normal) {
+      :root {
+        font-family: InterVariable, sans-serif;
+      }
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1f2937;
+    }
+
+    .question {
+      width: 400px;
+      max-width: 90%;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      margin-right: 8px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="max-w-md w-full py-12">
+    <h1 class="text-4xl font-bold mb-8 text-center text-white">
+      Welcome to Beat Sorter!
+    </h1>
+    <form id="onboarding-form" class="space-y-4" onsubmit="return saveUserData(event)">
+      <div id="question-1" class="question mx-auto">
+        <label for="username" class="text-lg text-white font-medium">Your Name:</label>
+        <input type="text" id="username" name="username" required
+          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
+        <button type="button" id="next-question-1"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Next
+        </button>
+      </div>
+      <div id="question-2" class="question mx-auto hidden">
+        <label for="folders" class="text-lg text-white">Select Folders to Sort:</label>
+        <input type="file" id="folders" name="folders" webkitdirectory directory required
+          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
+        <button type="button" id="prev-question-3"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Previous
+        </button>
+        <button type="button" id="next-question-2"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Next
+        </button>
+      </div>
+      <div id="question-3" class="question mx-auto hidden">
+        <label for="profile-pic" class="text-lg text-white">Upload Profile Picture:</label>
+        <input type="file" id="profile-pic" name="profile-pic"
+          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
+        <button type="button" id="prev-question-3"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Previous
+        </button>
+        <button type="button" id="next-question-4"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Next
+        </button>
+      </div>
+      <div id="question-4" class="question mx-auto hidden">
+        <label for="accent-color" class="text-lg text-white">Select Accent Color:</label>
+        <input type="color" id="accent-color" name="accent-color"
+          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
+        <button type="button" id="prev-question-4"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Previous
+        </button>
+        <button type="button" id="next-question-5"
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+          Next
+        </button>
+      </div>
+      <div id="question-5" class="question mx-auto hidden">
+        <label for="tags" class="text-lg text-white">Create Tags:</label>
+        <div id="tags-input" class="relative">
+          <input type="text" id="tags" name="tags" required
+            class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500"
+            placeholder="Tag1, Tag2" />
+          <div id="tag-badges" class="mt-2"></div>
+          <button type="button" id="prev-question-5"
+            class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+            Previous
+          </button>
+          <button type="submit"
+            class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const questions = document.querySelectorAll(".question");
+      let currentQuestion = 0;
+
+      function showQuestion(index) {
+        questions.forEach((question, idx) => {
+          if (idx === index) {
+            question.classList.remove("hidden");
+          } else {
+            question.classList.add("hidden");
+          }
+        });
+      }
+
+      function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion(currentQuestion);
+        }
+      }
+
+      function prevQuestion() {
+        currentQuestion--;
+        if (currentQuestion >= 0) {
+          showQuestion(currentQuestion);
+        }
+      }
+
+      document
+        .getElementById("next-question-1")
+        .addEventListener("click", nextQuestion);
+      document
+        .getElementById("next-question-2")
+        .addEventListener("click", function () {
+          showQuestion(currentQuestion);
+          nextQuestion();
+        });
+      document
+        .getElementById("next-question-4")
+        .addEventListener("click", nextQuestion);
+      document
+        .getElementById("next-question-5")
+        .addEventListener("click", nextQuestion);
+
+      document
+        .getElementById("prev-question-3")
+        .addEventListener("click", prevQuestion);
+      document
+        .getElementById("prev-question-4")
+        .addEventListener("click", prevQuestion);
+      document
+        .getElementById("prev-question-5")
+        .addEventListener("click", prevQuestion);
+
+      document.getElementById("tags").addEventListener("input", function () {
+        const tagsInput = this.value;
+        const tagsArray = tagsInput.split(",").map((tag) => tag.trim());
+        const tagBadgesContainer = document.getElementById("tag-badges");
+        tagBadgesContainer.innerHTML = "";
+        tagsArray.forEach((tag) => {
+          if (tag !== "") {
+            const tagBadge = document.createElement("span");
+            tagBadge.classList.add(
+              "tag-badge",
+              "bg-gray-50",
+              "text-gray-600",
+              "ring-1",
+              "ring-inset",
+              "ring-gray-500/10"
+            );
+            tagBadge.textContent = tag;
+            tagBadgesContainer.appendChild(tagBadge);
+          }
+        });
+      });
+    });
+
+    async function saveUserData(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const folders = document.getElementById("folders").value;
+      const tags = document.getElementById("tags").value;
+      const profilePic = document.getElementById("profile-pic").value;
+      const accentColor = document.getElementById("accent-color").value;
+
+      const userData = {
+        username: username,
+        folders: folders,
+        tags: tags,
+        profilePic: profilePic,
+        accentColor: accentColor,
+        onboarding_complete: true,
+      };
+
+      // Speichern der Benutzerdaten im Local Storage
+      localStorage.setItem('userData', JSON.stringify(userData));
+
+      // Formular leeren
+      document.getElementById("onboarding-form").reset();
+
+      // Anzeige einer Erfolgsmeldung
+      const formContainer = document.querySelector('.max-w-md');
+      formContainer.innerHTML = "<h1 class='text-4xl font-bold mb-8 text-center text-white'>Thank You!</h1>";
+
+      // Weiterleitung nach 5 Sekunden
+      setTimeout(() => {
+        window.location.href = "home.html";
+      }, 5000);
+    }
+  </script>
+</body>
+
+</html>

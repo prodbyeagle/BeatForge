@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        :root {
+            font-family: Inter, sans-serif;
+            font-feature-settings: 'liga' 1, 'calt' 1;
+            /* fix for Chrome */
+            user-select: none;
+        }
+
+        @supports (font-variation-settings: normal) {
+            :root {
+                font-family: InterVariable, sans-serif;
+            }
+        }
+
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            background-color: #1f2937;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 70px;
+            background-color: #374151;
+            border-radius: 10px;
+            padding: 20px;
+            margin-right: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar:hover {
+            width: 300px;
+        }
+
+        .sidebar h1 {
+            color: #f9fafb;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .sidebar p {
+            color: #d1d5db;
+            font-size: 16px;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .sidebar hr {
+            border: 1px solid #6b7280;
+            margin: 20px 0;
+        }
+
+        .sidebar .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d1d5db;
+            font-size: 18px;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #f9fafb;
+        }
+
+        .sidebar:hover h1,
+        .sidebar:hover p {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img class="profile-pic" src="https://via.placeholder.com/40" alt="Profile Picture">
+            <h1 id="userDataHeader"></h1>
+            <p>🏠 Home</p>
+            <p>⚙️ Settings</p>
+            <p>📖 Library</p>
+            <hr />
+            <p>🚪 Sign Out</p>
+        </div>
+        <div class="card">
+            <h1>
+                <span id="greeting">Good Morning</span>, <span class="accent-color" id="username">Username</span>!
+            </h1>
+            <p>Select folders, create tags, upload a profile picture, and customize your accent color to get started
+                sorting your beats.</p>
+        </div>
+        <div class="card">
+            <h1>Latest Beats</h1>
+            <ul id="latest-beats">
+                <li>Beat 1</li>
+                <li>Beat 2</li>
+                <li>Beat 3</li>
+                <li>Beat 4</li>
+                <li>Beat 5</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h1>Sort a Random Beat</h1>
+            <button id="sort-random-beat" class="accent-color hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">
+                Sort Random Beat
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userDataHeader = document.getElementById("userDataHeader");
+            const greetingElement = document.getElementById("greeting");
+            const sortButton = document.getElementById("sort-random-beat");
+
+            // Update sidebar with user data
+            const savedUserData = localStorage.getItem("userData");
+            if (savedUserData) {
+                const userData = JSON.parse(savedUserData);
+                userDataHeader.textContent = `${userData.profilePic} ${userData.username}`;
+            }
+
+            // Dummy data for latest beats
+            const latestBeatsElement = document.getElementById("latest-beats");
+            const latestBeats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4", "Beat 5"];
+            latestBeats.forEach((beat) => {
+                const li = document.createElement("li");
+                li.textContent = beat;
+                latestBeatsElement.appendChild(li);
+            });
+
+            // Update greeting
+            const time = new Date().getHours();
+            if (time < 6) {
+                greetingElement.textContent = "🌛 Good Night";
+            } else if (time < 12) {
+                greetingElement.textContent = "🌄 Good Morning";
+            } else if (time < 18) {
+                greetingElement.textContent = "🌞 Good Afternoon";
+            } else {
+                greetingElement.textContent = "🌆 Good Evening";
+            }
+
+            // Sort random beat
+            sortButton.addEventListener("click", function () {
+                alert("Sorting a random beat...");
+                // Add your logic to sort a random beat here
+            });
+        });
+    </script>
+</body>
+
+</html>
