@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
@@ -24,57 +25,29 @@
 
         body {
             display: flex;
-            justify-content: flex-start;
             align-items: center;
             height: 100vh;
             background-color: #1f2937;
             overflow-x: hidden;
         }
 
-        .container {
-            display: flex;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-
         .sidebar {
-            width: 70px;
+            width: 100px;
             background-color: #374151;
             border-radius: 10px;
             padding: 20px;
             margin-right: 20px;
+            overflow: hidden;
+            /* Verhindert, dass der Text im Nicht-Hover-Zustand sichtbar ist */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Schatten für einen erhöhten Effekt */
             transition: width 0.3s ease;
+            /* Übergang für die Animation */
         }
 
         .sidebar:hover {
-            width: 300px;
-        }
-
-        .sidebar h1 {
-            color: #f9fafb;
-            font-size: 24px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .sidebar p {
-            color: #d1d5db;
-            font-size: 16px;
-            line-height: 1.5;
-            display: none;
-        }
-
-        .sidebar hr {
-            border: 1px solid #6b7280;
-            margin: 20px 0;
-        }
-
-        .sidebar .profile-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-bottom: 10px;
+            width: 250px;
+            /* Breite ändern, wenn die Sidebar gehovert wird */
         }
 
         .sidebar a {
@@ -93,21 +66,68 @@
         .sidebar:hover h1,
         .sidebar:hover p {
             display: block;
+            /* Text anzeigen, wenn die Sidebar gehovert wird */
+        }
+
+        .sidebar h1,
+        .sidebar p {
+            display: none;
+            /* Text im Nicht-Hover-Modus ausblenden */
+        }
+
+        .sidebar .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+        }
+
+        .card {
+            background-color: #374151;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Schatten für Karten */
+        }
+
+        .card h1 {
+            color: #f9fafb;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #d1d5db;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #sort-random-beat:hover {
+            filter: brightness(0.8);
         }
     </style>
 </head>
 
 <body>
+    <div class="sidebar">
+        <img class="profile-pic" src="https://via.placeholder.com/40" alt="Profile Picture">
+        <hr />
+        <h1><i class="fas fa-home"></i></h1>
+        <p><i class="fas fa-cog"></i></p>
+        <p><i class="fas fa-book"></i></p>
+        <hr />
+        <p><i class="fas fa-sign-out-alt"></i></p>
+    </div>
     <div class="container">
-        <div class="sidebar">
-            <img class="profile-pic" src="https://via.placeholder.com/40" alt="Profile Picture">
-            <h1 id="userDataHeader"></h1>
-            <p>🏠 Home</p>
-            <p>⚙️ Settings</p>
-            <p>📖 Library</p>
-            <hr />
-            <p>🚪 Sign Out</p>
-        </div>
         <div class="card">
             <h1>
                 <span id="greeting">Good Morning</span>, <span class="accent-color" id="username">Username</span>!
@@ -118,11 +138,6 @@
         <div class="card">
             <h1>Latest Beats</h1>
             <ul id="latest-beats">
-                <li>Beat 1</li>
-                <li>Beat 2</li>
-                <li>Beat 3</li>
-                <li>Beat 4</li>
-                <li>Beat 5</li>
             </ul>
         </div>
         <div class="card">
@@ -138,13 +153,7 @@
             const userDataHeader = document.getElementById("userDataHeader");
             const greetingElement = document.getElementById("greeting");
             const sortButton = document.getElementById("sort-random-beat");
-
-            // Update sidebar with user data
-            const savedUserData = localStorage.getItem("userData");
-            if (savedUserData) {
-                const userData = JSON.parse(savedUserData);
-                userDataHeader.textContent = `${userData.profilePic} ${userData.username}`;
-            }
+            const usernameElement = document.getElementById("username");
 
             // Dummy data for latest beats
             const latestBeatsElement = document.getElementById("latest-beats");
@@ -155,16 +164,25 @@
                 latestBeatsElement.appendChild(li);
             });
 
-            // Update greeting
-            const time = new Date().getHours();
-            if (time < 6) {
-                greetingElement.textContent = "🌛 Good Night";
-            } else if (time < 12) {
-                greetingElement.textContent = "🌄 Good Morning";
-            } else if (time < 18) {
-                greetingElement.textContent = "🌞 Good Afternoon";
-            } else {
-                greetingElement.textContent = "🌆 Good Evening";
+            // Update username, greeting, and sort button accent color
+            const savedUserData = localStorage.getItem("userData");
+            if (savedUserData) {
+                const userData = JSON.parse(savedUserData);
+                usernameElement.textContent = userData.username;
+                userDataHeader.textContent = `${userData.profilePic} ${userData.username}`;
+                const accentColor = userData.accentColor || "#000000"; // Default black if not provided
+                usernameElement.style.color = accentColor;
+                sortButton.style.backgroundColor = accentColor;
+                const time = new Date().getHours();
+                if (time < 6) {
+                    greetingElement.textContent = "🌛 Good Night";
+                } else if (time < 12) {
+                    greetingElement.textContent = "🌄 Good Morning";
+                } else if (time < 18) {
+                    greetingElement.textContent = "🌞 Good Afternoon";
+                } else {
+                    greetingElement.textContent = "🌆 Good Evening";
+                }
             }
 
             // Sort random beat

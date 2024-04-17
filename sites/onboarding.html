@@ -155,31 +155,19 @@
         }
       }
 
-      document
-        .getElementById("next-question-1")
-        .addEventListener("click", nextQuestion);
-      document
-        .getElementById("next-question-2")
-        .addEventListener("click", function () {
-          showQuestion(currentQuestion);
-          nextQuestion();
-        });
-      document
-        .getElementById("next-question-4")
-        .addEventListener("click", nextQuestion);
-      document
-        .getElementById("next-question-5")
-        .addEventListener("click", nextQuestion);
+      document.getElementById("next-question-1").addEventListener("click", nextQuestion);
+      document.getElementById("next-question-2").addEventListener("click", function () {
+        const foldersInput = document.getElementById("folders");
+        const folders = foldersInput.files[0].path;
+        localStorage.setItem('foldersPath', folders);
+        nextQuestion();
+      });
+      document.getElementById("next-question-4").addEventListener("click", nextQuestion);
+      document.getElementById("next-question-5").addEventListener("click", nextQuestion);
 
-      document
-        .getElementById("prev-question-3")
-        .addEventListener("click", prevQuestion);
-      document
-        .getElementById("prev-question-4")
-        .addEventListener("click", prevQuestion);
-      document
-        .getElementById("prev-question-5")
-        .addEventListener("click", prevQuestion);
+      document.getElementById("prev-question-3").addEventListener("click", prevQuestion);
+      document.getElementById("prev-question-4").addEventListener("click", prevQuestion);
+      document.getElementById("prev-question-5").addEventListener("click", prevQuestion);
 
       document.getElementById("tags").addEventListener("input", function () {
         const tagsInput = this.value;
@@ -208,14 +196,16 @@
       event.preventDefault();
 
       const username = document.getElementById("username").value;
-      const folders = document.getElementById("folders").value;
       const tags = document.getElementById("tags").value;
-      const profilePic = document.getElementById("profile-pic").value;
+      const profilePic = document.getElementById("profile-pic").files[0].path;
       const accentColor = document.getElementById("accent-color").value;
+
+      // Abrufen des Ordnerpfads aus dem Local Storage
+      const foldersPath = localStorage.getItem('foldersPath');
 
       const userData = {
         username: username,
-        folders: folders,
+        folders: foldersPath,
         tags: tags,
         profilePic: profilePic,
         accentColor: accentColor,
