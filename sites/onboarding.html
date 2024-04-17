@@ -93,18 +93,17 @@
           Next
         </button>
       </div>
-      <div id="question-4" class="question mx-auto hidden">
+      <div class="question mx-auto hidden" id="question-4">
         <label for="accent-color" class="text-lg text-white">Select Accent Color:</label>
-        <input type="color" id="accent-color" name="accent-color"
-          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
+        <div class="flex items-center mt-2">
+          <input type="color" id="accent-color" name="accent-color"
+            class="appearance-none w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 focus:outline-none">
+          <span id="accent-color-value" class="ml-3 text-white">Selected Color</span>
+        </div>
         <button type="button" id="prev-question-4"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Previous
-        </button>
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">Previous</button>
         <button type="button" id="next-question-5"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Next
-        </button>
+          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">Next</button>
       </div>
       <div id="question-5" class="question mx-auto hidden">
         <label for="tags" class="text-lg text-white">Create Tags:</label>
@@ -189,6 +188,17 @@
             tagBadgesContainer.appendChild(tagBadge);
           }
         });
+      });
+
+      const accentColorInput = document.getElementById("accent-color");
+      const accentColorValue = document.getElementById("accent-color-value");
+
+      // Set initial color value
+      accentColorValue.textContent = accentColorInput.value;
+
+      // Update color value when color changes
+      accentColorInput.addEventListener("input", function () {
+        accentColorValue.textContent = this.value;
       });
     });
 
