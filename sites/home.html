@@ -13,7 +13,6 @@
         :root {
             font-family: Inter, sans-serif;
             font-feature-settings: 'liga' 1, 'calt' 1;
-            /* fix for Chrome */
             user-select: none;
         }
 
@@ -25,68 +24,81 @@
 
         body {
             display: flex;
-            align-items: center;
             height: 100vh;
             background-color: #1f2937;
             overflow-x: hidden;
         }
 
         .sidebar {
-            width: 100px;
+            width: 90px;
             background-color: #374151;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 1px 10px 10px 0px;
+            padding: 30px 30px;
             margin-right: 20px;
             overflow: hidden;
-            /* Verhindert, dass der Text im Nicht-Hover-Zustand sichtbar ist */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* Schatten für einen erhöhten Effekt */
             transition: width 0.3s ease;
-            /* Übergang für die Animation */
+            position: relative;
         }
 
         .sidebar:hover {
             width: 250px;
-            /* Breite ändern, wenn die Sidebar gehovert wird */
         }
 
         .sidebar a {
-            display: block;
+            display: flex;
+            align-items: center;
             color: #d1d5db;
             font-size: 18px;
             text-decoration: none;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             transition: color 0.3s ease;
         }
 
         .sidebar a:hover {
-            color: #f9fafb;
+            color: #8181818a;
         }
 
-        .sidebar:hover h1,
-        .sidebar:hover p {
-            display: block;
-            /* Text anzeigen, wenn die Sidebar gehovert wird */
+        .sidebar a i {
+            margin-right: 8px;
         }
 
-        .sidebar h1,
-        .sidebar p {
+        .sidebar a .sidebar-text {
             display: none;
-            /* Text im Nicht-Hover-Modus ausblenden */
+        }
+
+        .sidebar a:hover .sidebar-text {
+            display: block;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #374151;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
         }
 
         .sidebar .profile-pic {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-right: 10px;
+            object-fit: scale-down;
+            cursor: pointer;
+        }
+
+        .sidebar hr {
+            border: none;
+            border-top: 2px solid #4b5563;
+            margin: 20px 0;
         }
 
         .container {
-            max-width: 800px;
-            margin: auto;
+            flex: 1;
             padding: 20px;
             display: flex;
+            flex-direction: column;
         }
 
         .card {
@@ -94,9 +106,8 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            flex-grow: 1;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Schatten für Karten */
+            flex-grow: 1;
         }
 
         .card h1 {
@@ -119,13 +130,13 @@
 
 <body>
     <div class="sidebar">
-        <img class="profile-pic" src="https://via.placeholder.com/40" alt="Profile Picture">
+        <img class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40" alt="Profile Picture">
         <hr />
-        <h1><i class="fas fa-home"></i></h1>
-        <p><i class="fas fa-cog"></i></p>
-        <p><i class="fas fa-book"></i></p>
+        <a href="#"><i class="fas fa-home"></i><span class="sidebar-text">Home</span></a>
+        <a href="#"><i class="fas fa-cog"></i><span class="sidebar-text">Settings</span></a>
+        <a href="#"><i class="fas fa-book"></i><span class="sidebar-text">Books</span></a>
         <hr />
-        <p><i class="fas fa-sign-out-alt"></i></p>
+        <a href="#"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text">Sign Out</span></a>
     </div>
     <div class="container">
         <div class="card">
@@ -154,6 +165,7 @@
             const greetingElement = document.getElementById("greeting");
             const sortButton = document.getElementById("sort-random-beat");
             const usernameElement = document.getElementById("username");
+            const profilePicImg = document.getElementById("profilePicImg");
 
             // Dummy data for latest beats
             const latestBeatsElement = document.getElementById("latest-beats");
@@ -168,28 +180,57 @@
             const savedUserData = localStorage.getItem("userData");
             if (savedUserData) {
                 const userData = JSON.parse(savedUserData);
+                const accentColor = userData.accentColor || "#000000";
+                console.log(accentColor);
+                const sidebarTextElements = document.querySelectorAll(".sidebar-text");
+                const sidebarIcons = document.querySelectorAll(".sidebar a i");
                 usernameElement.textContent = userData.username;
-                userDataHeader.textContent = `${userData.profilePic} ${userData.username}`;
-                const accentColor = userData.accentColor || "#000000"; // Default black if not provided
                 usernameElement.style.color = accentColor;
                 sortButton.style.backgroundColor = accentColor;
-                const time = new Date().getHours();
-                if (time < 6) {
-                    greetingElement.textContent = "🌛 Good Night";
-                } else if (time < 12) {
-                    greetingElement.textContent = "🌄 Good Morning";
-                } else if (time < 18) {
-                    greetingElement.textContent = "🌞 Good Afternoon";
-                } else {
-                    greetingElement.textContent = "🌆 Good Evening";
-                }
+                sidebarTextElements.forEach((element) => {
+                    element.addEventListener("mouseenter", function () {
+                        element.style.display = "block";
+                        element.style.color = accentColor;
+                        element.previousElementSibling.style.color = accentColor; // Ändern Sie auch die Farbe des zugehörigen Icons
+                    });
+                    element.addEventListener("mouseleave", function () {
+                        element.style.color = "#d1d5db"; // Standardfarbe zurücksetzen
+                        element.previousElementSibling.style.color = "#d1d5db"; // Standardfarbe des zugehörigen Icons zurücksetzen
+                        element.style.display = "none";
+                    });
+                // Hinzufügen von Übergängen für die Farbänderung
+                element.style.transition = "color 0.2s ease";
+                element.previousElementSibling.style.transition = "color 0.2s ease";
+            });
+
+        sidebarIcons.forEach((icon) => {
+            icon.addEventListener("mouseenter", function () {
+                icon.style.color = accentColor;
+                icon.nextElementSibling.style.color = accentColor; // Ändern Sie auch die Farbe des zugehörigen Texts
+            });
+            icon.addEventListener("mouseleave", function () {
+                icon.style.color = "#d1d5db"; // Standardfarbe zurücksetzen
+                icon.nextElementSibling.style.color = "#d1d5db"; // Standardfarbe des zugehörigen Texts zurücksetzen
+            });
+        });
+        const time = new Date().getHours();
+        if (time < 6) {
+            greetingElement.textContent = "🌛 Good Night";
+        } else if (time < 12) {
+            greetingElement.textContent = "🌄 Good Morning";
+        } else if (time < 18) {
+            greetingElement.textContent = "🌞 Good Afternoon";
+        } else {
+            greetingElement.textContent = "🌆 Good Evening";
+        }
+        profilePicImg.src = userData.profilePic;
             }
 
-            // Sort random beat
-            sortButton.addEventListener("click", function () {
-                alert("Sorting a random beat...");
-                // Add your logic to sort a random beat here
-            });
+        // Sort random beat
+        sortButton.addEventListener("click", function () {
+            alert("Soon!");
+        });
+
         });
     </script>
 </body>
