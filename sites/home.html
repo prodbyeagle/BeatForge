@@ -9,135 +9,26 @@
     <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <style>
-        :root {
-            font-family: Inter, sans-serif;
-            font-feature-settings: 'liga' 1, 'calt' 1;
-            user-select: none;
-        }
-
-        @supports (font-variation-settings: normal) {
-            :root {
-                font-family: InterVariable, sans-serif;
-            }
-        }
-
-        body {
-            display: flex;
-            height: 100vh;
-            background-color: #1f2937;
-            overflow-x: hidden;
-        }
-
-        .sidebar {
-            width: 90px;
-            background-color: #374151;
-            border-radius: 1px 10px 10px 0px;
-            padding: 30px 30px;
-            margin-right: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
-            position: relative;
-        }
-
-        .sidebar:hover {
-            width: 250px;
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #d1d5db;
-            font-size: 18px;
-            text-decoration: none;
-            margin-bottom: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .sidebar a:hover {
-            color: #8181818a;
-        }
-
-        .sidebar a i {
-            margin-right: 8px;
-        }
-
-        .sidebar a .sidebar-text {
-            display: none;
-        }
-
-        .sidebar a:hover .sidebar-text {
-            display: block;
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #374151;
-            padding: 5px;
-            border-radius: 5px;
-            white-space: nowrap;
-        }
-
-        .sidebar .profile-pic {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            object-fit: scale-down;
-            cursor: pointer;
-        }
-
-        .sidebar hr {
-            border: none;
-            border-top: 2px solid #4b5563;
-            margin: 20px 0;
-        }
-
-        .container {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card {
-            background-color: #374151;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-grow: 1;
-        }
-
-        .card h1 {
-            color: #f9fafb;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #d1d5db;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        #sort-random-beat:hover {
-            filter: brightness(0.8);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/home.css">
 </head>
 
 <body>
-    <div class="sidebar">
-        <img class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40" alt="Profile Picture">
-        <hr />
-        <a href="#"><i class="fas fa-home"></i><span class="sidebar-text">Home</span></a>
-        <a href="#"><i class="fas fa-cog"></i><span class="sidebar-text">Settings</span></a>
-        <a href="#"><i class="fas fa-book"></i><span class="sidebar-text">Books</span></a>
-        <hr />
-        <a href="#"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text">Sign Out</span></a>
+<div class="sidebar">
+    <div class="profile-info">
+        <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
+            alt="Profile Picture">
     </div>
+    <hr />
+    <a href="#" title="Home"><i class="fas fa-home" title="Home"></i><span class="sidebar-text">Home</span></a>
+    <a href="#" title="Settings"><i class="fas fa-cog" title="Settings"></i><span
+            class="sidebar-text">Settings</span></a>
+    <a href="#" title="Library"><i class="fas fa-book" title="Library"></i><span class="sidebar-text">Library</span></a>
+    <a href="onboarding.html" title="Onboarding"><i class="fas fa-bug" title="Onboarding"></i><span
+            class="sidebar-text">Onboarding</span></a>
+    <hr />
+    <a title="Alpha v0.1"><i class="fa-solid fa-circle-info" title="Alpha v0.1"></i><span class="sidebar-text">v0.1</span></a>
+</div>
+
     <div class="container">
         <div class="card">
             <h1>
@@ -158,81 +49,7 @@
             </button>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const userDataHeader = document.getElementById("userDataHeader");
-            const greetingElement = document.getElementById("greeting");
-            const sortButton = document.getElementById("sort-random-beat");
-            const usernameElement = document.getElementById("username");
-            const profilePicImg = document.getElementById("profilePicImg");
-
-            // Dummy data for latest beats
-            const latestBeatsElement = document.getElementById("latest-beats");
-            const latestBeats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4", "Beat 5"];
-            latestBeats.forEach((beat) => {
-                const li = document.createElement("li");
-                li.textContent = beat;
-                latestBeatsElement.appendChild(li);
-            });
-
-            // Update username, greeting, and sort button accent color
-            const savedUserData = localStorage.getItem("userData");
-            if (savedUserData) {
-                const userData = JSON.parse(savedUserData);
-                const accentColor = userData.accentColor || "#000000";
-                console.log(accentColor);
-                const sidebarTextElements = document.querySelectorAll(".sidebar-text");
-                const sidebarIcons = document.querySelectorAll(".sidebar a i");
-                usernameElement.textContent = userData.username;
-                usernameElement.style.color = accentColor;
-                sortButton.style.backgroundColor = accentColor;
-                sidebarTextElements.forEach((element) => {
-                    element.addEventListener("mouseenter", function () {
-                        element.style.display = "block";
-                        element.style.color = accentColor;
-                        element.previousElementSibling.style.color = accentColor; // Ändern Sie auch die Farbe des zugehörigen Icons
-                    });
-                    element.addEventListener("mouseleave", function () {
-                        element.style.color = "#d1d5db"; // Standardfarbe zurücksetzen
-                        element.previousElementSibling.style.color = "#d1d5db"; // Standardfarbe des zugehörigen Icons zurücksetzen
-                        element.style.display = "none";
-                    });
-                // Hinzufügen von Übergängen für die Farbänderung
-                element.style.transition = "color 0.2s ease";
-                element.previousElementSibling.style.transition = "color 0.2s ease";
-            });
-
-        sidebarIcons.forEach((icon) => {
-            icon.addEventListener("mouseenter", function () {
-                icon.style.color = accentColor;
-                icon.nextElementSibling.style.color = accentColor; // Ändern Sie auch die Farbe des zugehörigen Texts
-            });
-            icon.addEventListener("mouseleave", function () {
-                icon.style.color = "#d1d5db"; // Standardfarbe zurücksetzen
-                icon.nextElementSibling.style.color = "#d1d5db"; // Standardfarbe des zugehörigen Texts zurücksetzen
-            });
-        });
-        const time = new Date().getHours();
-        if (time < 6) {
-            greetingElement.textContent = "🌛 Good Night";
-        } else if (time < 12) {
-            greetingElement.textContent = "🌄 Good Morning";
-        } else if (time < 18) {
-            greetingElement.textContent = "🌞 Good Afternoon";
-        } else {
-            greetingElement.textContent = "🌆 Good Evening";
-        }
-        profilePicImg.src = userData.profilePic;
-            }
-
-        // Sort random beat
-        sortButton.addEventListener("click", function () {
-            alert("Soon!");
-        });
-
-        });
-    </script>
+    <script src="../js/home.js"></script>
 </body>
 
 </html>
