@@ -79,9 +79,15 @@ async function saveUserData(event) {
 
     const username = document.getElementById("username").value;
     const tags = document.getElementById("tags").value;
-    const profilePic = document.getElementById("profile-pic").files[0].path;
+    const profilePic = document.getElementById("profile-pic").files[0].path; // Direkter Zugriff auf den Dateinamen
     const accentColor = document.getElementById("accent-color").value;
-    const configFilePath = path.join(app.getPath('userData'), 'config.json');
+
+    // Falls es ein Element mit der ID "folders" gibt
+    const foldersInput = document.getElementById("folders");
+    let folders;
+    if (foldersInput) {
+        folders = foldersInput.files[0].name; // Direkter Zugriff auf den Dateinamen
+    }
 
     // Prüfen, ob das Onboarding bereits abgeschlossen wurde
     const config = loadConfig();
@@ -91,20 +97,29 @@ async function saveUserData(event) {
         return;
     }
 
-    // Abrufen des Ordnerpfads aus dem Local Storage
-    const foldersPath = localStorage.getItem('foldersPath');
-
+    // Speichern der Benutzerdaten im Local Storage
     const userData = {
         username: username,
-        folders: foldersPath,
+        folders: folders,
         tags: tags,
         profilePic: profilePic,
         accentColor: accentColor,
         onboarding_complete: true,
     };
-
-    // Speichern der Benutzerdaten im Local Storage
     localStorage.setItem('userData', JSON.stringify(userData));
+
+    // Senden einer IPC-Nachricht an den Hauptprozess, um das Onboarding als abgeschlossen zu markieren
+    if (window.ipcRenderer) {
+        window.ipcRenderer.send('onboarding-complete', {
+            username,
+            tags,
+            profilePic,
+            accentColor
+        });
+
+    } else {
+        console.error("ipcRenderer not initialized.");
+    }
 
     // Setzen von onboardingCompleted auf true in der config.json-Datei
     try {
@@ -128,14 +143,56 @@ async function saveUserData(event) {
     }, 3000);
 }
 
+document.getElementById("onboarding-form").addEventListener("submit", saveUserData);
+
+// Definition der loadConfig()-Funktion
+function loadConfig() {
+    try {
+        const data = localStorage.getItem('config');
+        return JSON.parse(data) || {};
+    } catch (err) {
+        console.log("Fehler beim Laden der Konfigurationsdatei:", err.message);
+        return {};
+    }
+}
+
+// Definition der saveConfig()-Funktion
+function saveConfig(config) {
+    localStorage.setItem('config', JSON.stringify(config));
+}
+
+// Event-Listener für das Submit-Ereignis des Onboarding-Formulars
 document.getElementById("onboarding-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const username = document.getElementById("username").value
-    const folders = document.getElementById("folders").files[0].path;
+    const username = document.getElementById("username").value;
     const tags = document.getElementById("tags").value;
-    const profilePic = document.getElementById("profile-pic").files[0].path;
+    const profilePic = document.getElementById("profile-pic").files[0].path; // Direkter Zugriff auf den Dateinamen
     const accentColor = document.getElementById("accent-color").value;
+
+    // Abrufen des Ordnerpfads aus dem Local Storage
+    const foldersPath = localStorage.getItem('foldersPath');
+
+    // Speichern der Benutzerdaten im Local Storage
+    const userData = {
+        username: username,
+        folders: foldersPath,
+        tags: tags,
+        profilePic: profilePic,
+        accentColor: accentColor,
+        onboarding_complete: true,
+    };
+    localStorage.setItem('userData', JSON.stringify(userData));
+    console.log("set userData in localStorage")
+
+    // Laden der Konfiguration
+    const config = loadConfig();
+
+    // Setzen von onboardingCompleted auf true in der Konfiguration
+    config.onboardingCompleted = true;
+
+    // Speichern der Konfiguration
+    saveConfig(config);
 
     // Senden einer IPC-Nachricht an den Hauptprozess, um das Onboarding als abgeschlossen zu markieren
     if (window.ipcRenderer) {
