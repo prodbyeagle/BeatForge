@@ -76,7 +76,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Sortieren eines zufälligen Beats
     sortButton.addEventListener("click", function () {
-        alert("Soon!");
+        Toastify({
+            text: "Searching for an beat...",
+            duration: 1500,
+            gravity: "bottom",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            stopOnFocus: true
+        }).showToast();
     });
 
     document.addEventListener('auxclick', function (event) {
