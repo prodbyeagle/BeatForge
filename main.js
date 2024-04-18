@@ -69,8 +69,12 @@ app.on('ready', () => {
     } else {
         console.log("Onboarding noch nicht abgeschlossen. Öffne Onboarding-Fenster.");
         const onboardingWindow = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: 1280,
+            height: 900,
+            maxWidth: 1920,
+            maxHeight: 1080,
+            minWidth: 800,
+            minHeight: 900,
             autoHideMenuBar: true,
             webPreferences: {
                 nodeIntegration: true,
