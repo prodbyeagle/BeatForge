@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="../css/home.css"> <!-- Verwende hier das gleiche CSS wie für die Home-Seite -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+
+<body>
+<div class="sidebar">
+    <div class="profile-info">
+        <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
+            alt="Profile Picture">
+    </div>
+    <hr />
+    <a href="home.html" title="Home"><i class="fas fa-home" title="Home"></i><span class="sidebar-text">Home</span></a>
+    <a href="#" title="Settings"><i class="fas fa-cog" title="Settings"></i><span
+            class="sidebar-text">Settings</span></a>
+    <a href="libary.html" title="Library"><i class="fas fa-book" title="Library"></i><span class="sidebar-text">Library</span></a>
+    <hr />
+    <a title="Alpha v0.1"><i class="fa-solid fa-circle-info" title="Alpha v0.1"></i><span
+            class="sidebar-text">v0.1</span></a>
+</div>
+    <div class="container">
+        <div class="card">
+            <h1>Settings</h1>
+            <form id="settings-form">
+                <div class="mb-4">
+                    <label for="username" class="block text-white font-bold mb-2">Change Username</label>
+                    <input type="text" id="username" name="username"
+                        class="w-full rounded bg-gray-800 border-gray-700 text-white py-2 px-3 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
+                </div>
+                <div class="mb-4">
+                    <label for="profile-pic" class="block text-white font-bold mb-2">Change Profile Picture</label>
+                    <input type="file" id="profile-pic" name="profile-pic" accept="image/*"
+                        class="w-full rounded bg-gray-800 border-gray-700 text-white py-2 px-3 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
+                </div>
+                <div class="mb-4">
+                    <label for="accent-color" class="block text-white font-bold mb-2">Change Accent Color</label>
+                    <input type="color" id="accent-color" name="accent-color"
+                        class="w-full rounded bg-gray-800 border-gray-700 text-white py-2 px-3 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
+                </div>
+                <div class="mb-4">
+                    <label for="folders" class="block text-white font-bold mb-2">Add / Remove Folders</label>
+                    <input type="file" id="folders" name="folders" multiple directory
+                        class="w-full rounded bg-gray-800 border-gray-700 text-white py-2 px-3 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
+                </div>
+                <button type="submit"
+                    class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/settings.js"></script>
+</body>
+
+</html>

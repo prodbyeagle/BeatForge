@@ -1,0 +1,127 @@
+        :root {
+            font-family: Inter, sans-serif;
+            font-feature-settings: 'liga' 1, 'calt' 1;
+            user-select: none;
+        }
+
+        @supports (font-variation-settings: normal) {
+            :root {
+                font-family: InterVariable, sans-serif;
+            }
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #1f2937;
+            overflow-x: hidden;
+            font-weight: 600;
+        }
+
+        .sidebar {
+            width: 90px;
+            background-color: #374151;
+            border-radius: 1px 10px 10px 0px;
+            padding: 30px 30px;
+            margin-right: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .sidebar:hover {
+            width: 180px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+            font-size: 18px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .sidebar a i {
+            margin-right: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar a .sidebar-text {
+            display: none;
+            position: absolute;
+            left: calc(10% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #374151;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 1;
+            transition: display 0.8s ease;
+        }
+
+        .sidebar:hover a .sidebar-text {
+            display: block;
+        }
+
+        .sidebar:hover .username {
+            display: block;
+        }
+
+        .sidebar .profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-bottom: 1px;
+            object-fit: scale-down;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar hr {
+            border: none;
+            border-top: 2px solid #4b5563;
+            margin: 20px 0;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            background-color: #374151;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        .card h1 {
+            color: #f9fafb;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #d1d5db;
+            font-size: 16px;
+            line-height: 1.5;
+        }
