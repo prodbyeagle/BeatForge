@@ -1,0 +1,38 @@
+    :root {
+      font-family: Inter, sans-serif;
+      font-feature-settings: 'liga' 1, 'calt' 1;
+      user-select: none;
+    }
+
+    @supports (font-variation-settings: normal) {
+      :root {
+        font-family: InterVariable, sans-serif;
+      }
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1f2937;
+    }
+
+    .question {
+      width: 400px;
+      max-width: 90%;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      margin-right: 8px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .hidden {
+      display: none;
+    }
