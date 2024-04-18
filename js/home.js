@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const sortButton = document.getElementById("sort-random-beat");
     const usernameElement = document.getElementById("username");
     const profilePicImg = document.getElementById("profilePicImg");
-    const profileInfo = document.querySelector(".profile-info");
+    const versionElement = document.querySelector(".sidebar a.title");
+    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(".modal");
+    const closeModalButton = document.querySelector(".close-modal");
 
     // Dummy-Daten für die neuesten Beats
     const latestBeatsElement = document.getElementById("latest-beats");
@@ -93,4 +96,27 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault(); // Verhindert das Standardverhalten der mittleren Maustaste
         }
     });
+
+    // Version anklickbar machen und Update-Logs anzeigen
+    versionElement.addEventListener("click", function () {
+        // Hintergrund verschwommen und dunkler machen
+        overlay.classList.add("show");
+        modal.classList.add("show");
+    });
+
+    // Event-Listener für das Overlay, um das Modal zu schließen
+    overlay.addEventListener("click", function () {
+        closeModal();
+    });
+
+    // Event-Listener für den Schließen-Button im Modal
+    closeModalButton.addEventListener("click", function () {
+        closeModal();
+    });
+
+    // Funktion zum Schließen des Modals
+    function closeModal() {
+        overlay.classList.remove("show");
+        modal.classList.remove("show");
+    }
 });
