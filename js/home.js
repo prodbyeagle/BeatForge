@@ -104,19 +104,16 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.classList.add("show");
     });
 
-    // Event-Listener für das Overlay, um das Modal zu schließen
-    overlay.addEventListener("click", function () {
-        closeModal();
-    });
-
-    // Event-Listener für den Schließen-Button im Modal
+    // Schließen des modalen Popups
     closeModalButton.addEventListener("click", function () {
-        closeModal();
-    });
-
-    // Funktion zum Schließen des Modals
-    function closeModal() {
+        // Hintergrund wiederherstellen
         overlay.classList.remove("show");
         modal.classList.remove("show");
-    }
+    });
+
+    // Klicken auf das Overlay zum Schließen des Modals
+    overlay.addEventListener("click", function () {
+        overlay.classList.remove("show");
+        modal.classList.remove("show");
+    });
 });

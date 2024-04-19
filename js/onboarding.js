@@ -125,7 +125,6 @@ async function saveUserData(event) {
     try {
         config.onboardingCompleted = true;
         saveConfig(config);
-        console.log("onboardingCompleted in config.json auf true gesetzt.");
     } catch (err) {
         console.error("Fehler beim Setzen von onboardingCompleted:", err.message);
     }
@@ -151,7 +150,7 @@ function loadConfig() {
         const data = localStorage.getItem('config');
         return JSON.parse(data) || {};
     } catch (err) {
-        console.log("Fehler beim Laden der Konfigurationsdatei:", err.message);
+        console.error("Fehler beim Laden der Konfigurationsdatei:", err.message);
         return {};
     }
 }
@@ -183,7 +182,6 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
         onboarding_complete: true,
     };
     localStorage.setItem('userData', JSON.stringify(userData));
-    console.log("set userData in localStorage")
 
     // Laden der Konfiguration
     const config = loadConfig();
