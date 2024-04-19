@@ -9,7 +9,7 @@ function loadConfig() {
         const data = fs.readFileSync(configFilePath);
         return JSON.parse(data);
     } catch (err) {
-        console.log("Konfigurationsdatei konnte nicht geladen werden:", err.message);
+        console.error("Konfigurationsdatei konnte nicht geladen werden:", err.message);
         return {};
     }
 }
@@ -20,7 +20,6 @@ function saveConfig(config) {
 
 function createConfigFile() {
     if (!fs.existsSync(configFilePath)) {
-        console.log("Konfigurationsdatei nicht gefunden. Neue Datei wird erstellt.");
         const initialConfig = {
             onboardingCompleted: false
         };
@@ -33,7 +32,6 @@ app.on('ready', () => {
 
     // Ereignis abhören, wenn das Onboarding abgeschlossen wurde
     ipcMain.on('onboarding-complete', (_, userData) => {
-        console.log("Onboarding abgeschlossen. Speichere Konfiguration und öffne Hauptfenster.");
 
         // Laden der Konfiguration
         const config = loadConfig();
@@ -49,7 +47,6 @@ app.on('ready', () => {
     // Weiterleitung zum Hauptfenster, wenn das Onboarding bereits abgeschlossen wurde
     const config = loadConfig();
     if (config.onboardingCompleted) {
-        console.log("Onboarding bereits abgeschlossen. Öffne Hauptfenster.");
         const mainWindow = new BrowserWindow({
             width: 1280,
             height: 900,
@@ -67,7 +64,6 @@ app.on('ready', () => {
         // HTML-Datei im Hauptfenster laden
         mainWindow.loadFile(path.join(__dirname, 'sites', 'home.html'));
     } else {
-        console.log("Onboarding noch nicht abgeschlossen. Öffne Onboarding-Fenster.");
         const onboardingWindow = new BrowserWindow({
             width: 1280,
             height: 900,
