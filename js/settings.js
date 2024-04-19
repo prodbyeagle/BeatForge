@@ -41,15 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
     function saveSettings(event) {
         event.preventDefault();
         const username = form.username.value;
-        const profilePic = form["profile-pic"].files[0].path;
+        const profilePicInput = form["profile-pic"]; // Input-Element für das Profilbild
         const accentColor = form["accent-color"].value;
         const userData = JSON.parse(localStorage.getItem("userData"));
 
         if (username !== "" && username !== userData.username) {
             userData.username = username;
         }
-        if (profilePic && profilePic !== userData.profilePic) {
-            userData.profilePic = profilePic;
+        if (profilePicInput.files.length > 0) {
+            // Überprüfen, ob ein Bild ausgewählt wurde
+            const profilePic = profilePicInput.files[0].path; // Dateipfad nur, wenn ein Bild ausgewählt wurde
+            if (profilePic !== userData.profilePic) {
+                userData.profilePic = profilePic;
+            }
         }
         if (accentColor !== "" && accentColor !== userData.accentColor) {
             userData.accentColor = accentColor;
@@ -70,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
             stopOnFocus: true
         }).showToast();
     }
-
     form.addEventListener("submit", saveSettings);
 
     document.addEventListener("auxclick", function (event) {
@@ -85,4 +88,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const userData = JSON.parse(savedUserData);
         updateUI(userData);
     }
+
+    const versionElement = document.querySelector(".sidebar a.title");
+    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(".modal");
+    const closeModalButton = document.querySelector(".close-modal");
+
+    // Version anklickbar machen und Update-Logs anzeigen
+    versionElement.addEventListener("click", function () {
+        // Hintergrund verschwommen und dunkler machen
+        overlay.classList.add("show");
+        modal.classList.add("show");
+    });
+
+    // Schließen des modalen Popups
+    closeModalButton.addEventListener("click", function () {
+        // Hintergrund wiederherstellen
+        overlay.classList.remove("show");
+        modal.classList.remove("show");
+    });
+
+    // Klicken auf das Overlay zum Schließen des Modals
+    overlay.addEventListener("click", function () {
+        overlay.classList.remove("show");
+        modal.classList.remove("show");
+    });
 });

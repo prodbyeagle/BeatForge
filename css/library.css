@@ -43,6 +43,7 @@
             margin-bottom: 20px;
             transition: color 0.2s ease;
             position: relative;
+            /* Damit die .sidebar-text relativ zu .sidebar a positioniert wird */
         }
 
         .sidebar a i {
@@ -52,8 +53,10 @@
 
         .sidebar a .sidebar-text {
             display: none;
+            /* Standardmäßig ausblenden */
             position: absolute;
             left: calc(10% + 10px);
+            /* Abstand vom Icon */
             top: 50%;
             transform: translateY(-50%);
             background-color: #374151;
@@ -62,14 +65,17 @@
             white-space: nowrap;
             z-index: 1;
             transition: display 0.8s ease;
+            /* Damit der Text über den anderen Elementen liegt */
         }
 
         .sidebar:hover a .sidebar-text {
             display: block;
+            /* Bei Hover anzeigen */
         }
 
         .sidebar:hover .username {
             display: block;
+            /* Bei Hover anzeigen */
         }
 
         .sidebar .profile-pic {
@@ -89,7 +95,9 @@
 
         .profile-info {
             display: flex;
+            /* Flexbox verwenden */
             align-items: center;
+            /* Elemente vertikal zentrieren */
         }
 
         .sidebar hr {
@@ -189,4 +197,109 @@
 
         .overlay.show {
             display: block;
+        }
+
+        .card {
+            background-color: #1f2937;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h1 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        #library-list {
+            padding: 0;
+            list-style: none;
+        }
+
+        #library-list li {
+            padding: 20px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        #library-list li:last-child {
+            border-bottom: none;
+        }
+
+        #library-list li h2 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        #library-list li p {
+            color: #d1d5db;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* Filter und Suchleiste */
+        .filters-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-dropdown {
+            width: 200px;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #4b5563;
+            color: #d1d5db;
+            border: none;
+            outline: none;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #4b5563;
+            color: #d1d5db;
+            border: none;
+            outline: none;
+        }
+
+        /* Abschnitte */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .library-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .library-item {
+            background-color: #374151;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .library-item h2 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .library-item p {
+            color: #d1d5db;
+            font-size: 16px;
+            margin-bottom: 5px;
         }
