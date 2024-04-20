@@ -36,3 +36,94 @@
     .hidden {
       display: none;
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      max-width: 400px;
+      width: 100%;
+      padding: 40px;
+      background-color: #111827;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+      text-align: center;
+    }
+
+    .card h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #f3f4f6;
+    }
+
+    .card label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #f3f4f6;
+    }
+
+    .card input[type="text"],
+    .card input[type="file"],
+    .card input[type="color"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #6b7280;
+      color: #f3f4f6;
+      font-size: 16px;
+    }
+
+    .card button {
+      width: calc(50% - 10px);
+      padding: 12px 0;
+      display: flex;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4b5563;
+      color: #f3f4f6;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      justify-content: center;
+    }
+
+    .card button:hover {
+      background-color: #374151;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 5px;
+      /* Abstand nach oben hinzufügen */
+    }
+
+    .button-container button {
+      width: calc(33.33% - 0.5rem);
+    }

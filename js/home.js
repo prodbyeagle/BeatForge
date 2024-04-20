@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Begrüßung aktualisieren
         updateGreeting();
-
-        // Profilbild aktualisieren
         profilePicImg.src = userData.profilePic;
     }
 

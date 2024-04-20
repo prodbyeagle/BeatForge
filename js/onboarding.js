@@ -26,14 +26,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function checkAndToast(message) {
+        Toastify({
+            text: message,
+            duration: 3000,
+            gravity: "bottom",
+            backgroundColor: "#ff4242",
+            stopOnFocus: true
+        }).showToast();
+    }
+
     document.getElementById("next-question-1").addEventListener("click", nextQuestion);
+
     document.getElementById("next-question-2").addEventListener("click", function () {
         const foldersInput = document.getElementById("folders");
-        const folders = foldersInput.files[0].path;
-        localStorage.setItem('foldersPath', folders);
-        nextQuestion();
+        const folders = foldersInput.files.length > 0 ? foldersInput.files[0].path : null;
+        if (folders) {
+            localStorage.setItem('foldersPath', folders);
+            nextQuestion();
+        } else {
+            checkAndToast("You need to select a folder.");
+        }
     });
-    document.getElementById("next-question-4").addEventListener("click", nextQuestion);
+
+    document.getElementById("next-question-4").addEventListener("click", function () {
+        const profilePicInput = document.getElementById("profile-pic");
+        if (profilePicInput.files.length > 0) {
+            nextQuestion();
+        } else {
+            checkAndToast("You need to select a profile picture.");
+        }
+    });
+
     document.getElementById("next-question-5").addEventListener("click", nextQuestion);
 
     document.getElementById("prev-question-3").addEventListener("click", prevQuestion);
@@ -79,34 +103,47 @@ async function saveUserData(event) {
 
     const username = document.getElementById("username").value;
     const tags = document.getElementById("tags").value;
-    const profilePic = document.getElementById("profile-pic").files[0].path; // Direkter Zugriff auf den Dateinamen
+    const profilePicInput = document.getElementById("profile-pic");
+    const profilePic = profilePicInput.files.length ? profilePicInput.files[0].path : null;
     const accentColor = document.getElementById("accent-color").value;
 
-    // Falls es ein Element mit der ID "folders" gibt
     const foldersInput = document.getElementById("folders");
-    let folders;
-    if (foldersInput) {
-        folders = foldersInput.files[0].name; // Direkter Zugriff auf den Dateinamen
-    }
-
-    // Prüfen, ob das Onboarding bereits abgeschlossen wurde
-    const config = loadConfig();
-    if (config.onboardingCompleted) {
-        // Falls das Onboarding bereits abgeschlossen wurde, direkt zur Hauptseite weiterleiten
-        window.location.href = "home.html";
+    if (!username) {
+        checkAndToast("You need to enter a username.");
+        return;
+    } else if (foldersInput && !foldersInput.files.length) {
+        checkAndToast("You need to select a folder.");
+        return;
+    } else if (!profilePic) {
+        checkAndToast("You need to select a profile picture.");
+        return;
+    } else if (!accentColor) {
+        checkAndToast("You need to select an accent color.");
+        return;
+    } else if (!tags) {
+        checkAndToast("You need to enter at least one tag.");
         return;
     }
 
     // Speichern der Benutzerdaten im Local Storage
     const userData = {
         username: username,
-        folders: folders,
+        folders: foldersInput ? foldersInput.files[0].path : null,
         tags: tags,
         profilePic: profilePic,
         accentColor: accentColor,
         onboarding_complete: true,
     };
     localStorage.setItem('userData', JSON.stringify(userData));
+
+    // Laden der Konfiguration
+    const config = loadConfig();
+
+    // Setzen von onboardingCompleted auf true in der Konfiguration
+    config.onboardingCompleted = true;
+
+    // Speichern der Konfiguration
+    saveConfig(config);
 
     // Senden einer IPC-Nachricht an den Hauptprozess, um das Onboarding als abgeschlossen zu markieren
     if (window.ipcRenderer) {
@@ -116,30 +153,12 @@ async function saveUserData(event) {
             profilePic,
             accentColor
         });
-
     } else {
         console.error("ipcRenderer not initialized.");
     }
 
-    // Setzen von onboardingCompleted auf true in der config.json-Datei
-    try {
-        config.onboardingCompleted = true;
-        saveConfig(config);
-    } catch (err) {
-        console.error("Fehler beim Setzen von onboardingCompleted:", err.message);
-    }
-
-    // Formular leeren
-    document.getElementById("onboarding-form").reset();
-
-    // Anzeige einer Erfolgsmeldung
-    const formContainer = document.querySelector('.max-w-md');
-    formContainer.innerHTML = "<h1 class='text-4xl font-bold mb-8 text-center text-white'>✅ Thank You!</h1>";
-
-    // Weiterleitung nach 5 Sekunden
-    setTimeout(() => {
-        window.location.href = "home.html";
-    }, 3000);
+    // Weiterleitung zur Hauptseite
+    window.location.href = "home.html";
 }
 
 document.getElementById("onboarding-form").addEventListener("submit", saveUserData);
