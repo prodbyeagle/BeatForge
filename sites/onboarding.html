@@ -11,79 +11,83 @@
   <link rel="preconnect" href="https://rsms.me/">
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <link rel="stylesheet" href="../css/onboarding.css">
+      <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="max-w-md w-full py-12">
-    <h1 class="text-4xl font-bold mb-8 text-center text-white">
-      Welcome to Beat Sorter!
-    </h1>
-    <form id="onboarding-form" class="space-y-4" onsubmit="return saveUserData(event)">
-      <div id="question-1" class="question mx-auto">
-        <label for="username" class="text-lg text-white font-medium">Your Name:</label>
-        <input type="text" id="username" name="username" required
-          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
-        <button type="button" id="next-question-1"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Next
-        </button>
-      </div>
-      <div id="question-2" class="question mx-auto hidden">
-        <label for="folders" class="text-lg text-white">Select Folders to Sort:</label>
-        <input type="file" id="folders" name="folders" webkitdirectory directory required
-          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
-        <button type="button" id="prev-question-3"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Previous
-        </button>
-        <button type="button" id="next-question-2"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Next
-        </button>
-      </div>
-      <div id="question-3" class="question mx-auto hidden">
-        <label for="profile-pic" class="text-lg text-white">Upload Profile Picture:</label>
-        <input type="file" id="profile-pic" name="profile-pic"
-          class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500" />
-        <button type="button" id="prev-question-3"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Previous
-        </button>
-        <button type="button" id="next-question-4"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-          Next
-        </button>
-      </div>
-      <div class="question mx-auto hidden" id="question-4">
-        <label for="accent-color" class="text-lg text-white">Select Accent Color:</label>
-        <div class="flex items-center mt-2">
-          <input type="color" id="accent-color" name="accent-color"
-            class="appearance-none w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 focus:outline-none">
-          <span id="accent-color-value" class="ml-3 text-white">Selected Color</span>
+  <div class="container">
+    <div class="card">
+      <h1>Welcome to Beat Sorter!</h1>
+      <form id="onboarding-form" class="space-y-4" onsubmit="return saveUserData(event)">
+        <div id="question-1" class="question mx-auto animate__animated animate__fadeIn">
+          <label for="username">First things first: What's your name?</label>
+          <input type="text" id="username" name="username" required />
+          <div class="button-container">
+            <button type="button" id="next-question-1"
+              class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
-        <button type="button" id="prev-question-4"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">Previous</button>
-        <button type="button" id="next-question-5"
-          class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">Next</button>
-      </div>
-      <div id="question-5" class="question mx-auto hidden">
-        <label for="tags" class="text-lg text-white">Create Tags:</label>
-        <div id="tags-input" class="relative">
-          <input type="text" id="tags" name="tags" required
-            class="block w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-gray-500"
-            placeholder="Tag1, Tag2" />
-          <div id="tag-badges" class="mt-2"></div>
-          <button type="button" id="prev-question-5"
-            class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-            Previous
-          </button>
-          <button type="submit"
-            class="mt-4 px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 block mx-auto">
-            Submit
-          </button>
+        <div id="question-2" class="question mx-auto animate__animated animate__fadeIn hidden">
+          <label for="folders">Which Beat Folder would you like to start with?</label>
+          <input type="file" id="folders" name="folders" webkitdirectory directory required />
+          <div class="button-container">
+            <button type="button" id="prev-question-3">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="button" id="next-question-2">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+        <div id="question-3" class="question mx-auto animate__animated animate__fadeIn hidden">
+          <label for="profile-pic">Let's find you a profile picture:</label>
+          <input type="file" id="profile-pic" name="profile-pic" required />
+          <div class="button-container">
+            <button type="button" id="prev-question-3">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="button" id="next-question-4"
+              class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="question mx-auto animate__animated animate__fadeIn hidden" id="question-4">
+          <label for="accent-color">Do you have a favorite color? Please tell me:</label>
+          <div class="flex items-center mt-2">
+            <input type="color" id="accent-color" name="accent-color" required
+              class="appearance-none w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 focus:outline-none">
+            <span id="accent-color-value" class="ml-3 text-white">Selected Color</span>
+          </div>
+          <div class="button-container">
+            <button type="button" id="prev-question-4">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="button" id="next-question-5"
+              class="px-4 py-2 mt-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <div id="question-5" class="question mx-auto animate__animated animate__fadeIn hidden">
+          <label for="tags">Now, create 3 tags or More to start with:</label>
+          <div id="tags-input" class="relative">
+            <input type="text" id="tags" name="tags" required placeholder="Tag1, Tag2" />
+            <div id="tag-badges" class="mt-2"></div>
+            <div class="button-container">
+              <button type="button" id="prev-question-5">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <button type="submit">
+                <i class="fas fa-check"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
   <script src="../js/onboarding.js"></script>
 </body>
