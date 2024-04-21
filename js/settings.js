@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = form.username.value;
     const profilePicInput = form["profile-pic"]; // Input-Element für das Profilbild
     const accentColor = form["accent-color"].value;
-    const foldersInput = form["folders"].files[0]; // Input-Element für die ausgewählten Ordner
+    const foldersInput = form["folders"]; // Input-Element für die ausgewählten Ordner
     const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (username !== "" && username !== userData.username) {
@@ -141,34 +141,22 @@ document.addEventListener("DOMContentLoaded", function () {
       userData.accentColor = accentColor;
     }
 
-    
-    foldersInput.addEventListener("change", function (event) {
-      const folderPath = event.target.files[0].path;
-      console.log("FOLDER PATH:", folderPath);
-
-      // Überprüfen, ob der Ordner mindestens eine MP3- oder WAV-Datei enthält
-      const containsAudioFiles = Array.from(event.target.files).some((file) => {
-        const extension = file.name.split(".").pop().toLowerCase();
-        return extension === "mp3" || extension === "wav";
-      });
-
-      if (!containsAudioFiles) {
-        console.log(
-          "Der ausgewählte Ordner enthält keine MP3- oder WAV-Dateien. Ordner wird nicht gespeichert."
-        );
-      } else {
-        // Speichere den Ordnerpfad
-        console.log("Adding folder:", folderPath);
-        addFolderAndUpdateUI(folderPath); // Hinzufügen des Ordners und Aktualisieren der Benutzeroberfläche
+    if (foldersInput.files.length > 0) {
+      const folders = foldersInput.files;
+      for (let i = 0; i < folders.length; i++) {
+        console.log("Selected folder:", folders[i].path);
+        addFolderAndUpdateUI(folders[i].path); // Hinzufügen des Ordners und Aktualisieren der Benutzeroberfläche
       }
-    });
+    } else {
+      console.error("Es wurden keine Ordner ausgewählt.");
+    }
 
     localStorage.setItem("userData", JSON.stringify(userData));
 
     updateUI(userData);
 
     Toastify({
-      text: "Settings saved successfully!",
+      text: "Einstellungen erfolgreich gespeichert!",
       duration: 3000,
       gravity: "bottom",
       position: "right",
@@ -178,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
       stopOnFocus: true,
     }).showToast();
   }
+
   form.addEventListener("submit", saveSettings);
 
   document.addEventListener("auxclick", function (event) {
