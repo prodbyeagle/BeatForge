@@ -26,8 +26,17 @@
             margin-right: 20px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
-            position: relative;
+            transition: width 0.2s ease;
+            position: fixed;
+            /* Änderung der Position auf fixed */
+            top: 0;
+            /* Fixierung am oberen Bildschirmrand */
+            bottom: 0;
+            /* Die Sidebar erstreckt sich bis zum unteren Rand des Viewports */
+            left: 0;
+            /* Die Sidebar klebt am linken Bildschirmrand */
+            z-index: 1000;
+            /* Stelle sicher, dass die Sidebar über anderen Inhalten liegt */
         }
 
         .sidebar:hover {
@@ -43,6 +52,7 @@
             margin-bottom: 20px;
             transition: color 0.2s ease;
             position: relative;
+            /* Damit die .sidebar-text relativ zu .sidebar a positioniert wird */
         }
 
         .sidebar a i {
@@ -52,8 +62,10 @@
 
         .sidebar a .sidebar-text {
             display: none;
+            /* Standardmäßig ausblenden */
             position: absolute;
             left: calc(10% + 10px);
+            /* Abstand vom Icon */
             top: 50%;
             transform: translateY(-50%);
             background-color: #374151;
@@ -62,14 +74,17 @@
             white-space: nowrap;
             z-index: 1;
             transition: display 0.8s ease;
+            /* Damit der Text über den anderen Elementen liegt */
         }
 
         .sidebar:hover a .sidebar-text {
             display: block;
+            /* Bei Hover anzeigen */
         }
 
         .sidebar:hover .username {
             display: block;
+            /* Bei Hover anzeigen */
         }
 
         .sidebar .profile-pic {
@@ -85,6 +100,19 @@
             left: 50%;
             transform: translateX(-50%);
             transition: transform 0.5s ease-in-out;
+        }
+
+        .profile-info {
+            display: flex;
+            /* Flexbox verwenden */
+            align-items: center;
+            /* Elemente vertikal zentrieren */
+        }
+
+        .sidebar hr {
+            border: none;
+            border-top: 2px solid #4b5563;
+            margin: 20px 0;
         }
 
         .profile-info {
@@ -189,4 +217,44 @@
 
         .overlay.show {
             display: block;
+        }
+
+        .beat-folders {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .beat-folder {
+            width: 100%;
+            /* Ändere die Breite auf 100% */
+            padding: 10px;
+            border: 1px solid #4b5563;
+            background-color: #1f2937;
+            box-sizing: border-box;
+            color: #d1d5db;
+        }
+
+        .folder-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .folder-info p {
+            margin: 0;
+        }
+
+        .folder-actions button {
+            background-color: transparent;
+            border: none;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .folder-actions button:hover {
+            color: #fff;
         }

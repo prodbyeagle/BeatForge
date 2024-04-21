@@ -26,8 +26,17 @@
             margin-right: 20px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
-            position: relative;
+            transition: width 0.2s ease;
+            position: fixed;
+            /* Änderung der Position auf fixed */
+            top: 0;
+            /* Fixierung am oberen Bildschirmrand */
+            bottom: 0;
+            /* Die Sidebar erstreckt sich bis zum unteren Rand des Viewports */
+            left: 0;
+            /* Die Sidebar klebt am linken Bildschirmrand */
+            z-index: 1000;
+            /* Stelle sicher, dass die Sidebar über anderen Inhalten liegt */
         }
 
         .sidebar:hover {
@@ -111,6 +120,8 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            margin-left: 140px;
+            /* Ändere den Abstand zur Sidebar, um Platz für die Sidebar zu machen */
         }
 
         .card {
@@ -118,7 +129,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
             flex-grow: 1;
         }
 
@@ -204,7 +215,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
         }
 
         .card h1 {
@@ -290,6 +301,12 @@
             background-color: #374151;
             border-radius: 10px;
             padding: 20px;
+            transition: transform 0.1s ease;
+            /* Übergangseffekt für die Transformation */
+        }
+
+        .library-item:hover {
+            transform: scale(1.03);
         }
 
         .library-item h2 {
@@ -302,4 +319,28 @@
             color: #d1d5db;
             font-size: 16px;
             margin-bottom: 5px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            /* Breite der Scrollleiste */
+        }
+
+        /* Hintergrund der Scrollleiste */
+        ::-webkit-scrollbar-track {
+            background-color: #4b5563;
+        }
+
+        /* Scrollbalken */
+        ::-webkit-scrollbar-thumb {
+            background-color: #6b7280;
+            /* Farbe des Scrollbalkens */
+            border-radius: 5px;
+            /* Abrundung des Scrollbalkens */
+        }
+
+        /* Wenn Hover-Effekte für die Scrollleiste gewünscht sind */
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #9ca3af;
+            /* Farbe des Scrollbalkens bei Hover */
         }

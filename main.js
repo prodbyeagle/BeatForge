@@ -55,6 +55,8 @@ app.on('ready', () => {
             minWidth: 800,
             minHeight: 900,
             autoHideMenuBar: true,
+            fullscreenable: false,
+            icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
@@ -72,6 +74,8 @@ app.on('ready', () => {
             minWidth: 800,
             minHeight: 900,
             autoHideMenuBar: true,
+            fullscreenable: false,
+            icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
