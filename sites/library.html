@@ -13,13 +13,24 @@
 </head>
 
 <body>
+    <div id="titlebar">
+        <div id="titlebar-drag-region"></div>
+        <div id="title">BeatForge - Library</div>
+        <div id="titlebar-controls">
+            <div class="control-button minimize" id="minimize"></div>
+            <div class="control-button maximize" id="maximize"></div>
+            <div class="control-button close" id="close"></div>
+        </div>
+    </div>
+
     <div class="sidebar">
         <div class="profile-info">
             <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
                 alt="Profile Picture">
         </div>
         <hr />
-        <a href="home.html" title="Home"><i class="fas fa-home" title="Home"></i><span class="sidebar-text">Home</span></a>
+        <a href="home.html" title="Home"><i class="fas fa-home" title="Home"></i><span
+                class="sidebar-text">Home</span></a>
         <a href="settings.html" title="Settings"><i class="fas fa-cog" title="Settings"></i><span
                 class="sidebar-text">Settings</span></a>
         <a href="#" title="Library"><i class="fas fa-book" title="Library"></i><span
@@ -87,9 +98,30 @@
             </div>
             <!-- Abschnitt für Alben -->
             <div class="section">
-                <h2 class="section-title">Albums</h2>
+                <h1>Albums</h1>
                 <ul id="albums-list" class="library-list">
                     <!-- Dummy-Daten für die Alben -->
+                    <li class="library-item">
+                        <h2>Album Title 1</h2>
+                        <p>Artist: Artist Name 1</p>
+                        <p>Year: 2022</p>
+                    </li>
+                    <li class="library-item">
+                        <h2>Album Title 2</h2>
+                        <p>Artist: Artist Name 2</p>
+                        <p>Year: 2023</p>
+                    </li>
+                    <!-- Weitere Dummy-Daten hier einfügen -->
+                    <li class="library-item">
+                        <h2>Album Title 3</h2>
+                        <p>Artist: Artist Name 3</p>
+                        <p>Year: 2021</p>
+                    </li>
+                    <li class="library-item">
+                        <h2>Album Title 4</h2>
+                        <p>Artist: Artist Name 4</p>
+                        <p>Year: 2020</p>
+                    </li>
                     <li class="library-item">
                         <h2>Album Title 1</h2>
                         <p>Artist: Artist Name 1</p>
@@ -115,7 +147,7 @@
             </div>
             <!-- Abschnitt für Produzenten -->
             <div class="section">
-                <h2 class="section-title">Producers</h2>
+                <h1>Producer</h1>
                 <ul id="producers-list" class="library-list">
                     <!-- Dummy-Daten für die Produzenten -->
                     <li class="library-item">
@@ -143,7 +175,7 @@
             </div>
         </div>
     </div>
-    <script src="../js/library.js"></script> <!-- Verwende hier das entsprechende JavaScript für die Bibliothek -->
+    <script src="../js/library.js"></script>
 </body>
 
 </html>

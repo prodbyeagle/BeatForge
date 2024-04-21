@@ -1,206 +1,261 @@
-        :root {
-            font-family: Inter, sans-serif;
-            font-feature-settings: 'liga' 1, 'calt' 1;
-            user-select: none;
-        }
+:root {
+    --primary-color: #635985;
+    --secondary-color: #443C68;
+    --tertiary-color: #FFE6E6;
+    --quaternary-color: #E1AFD1;
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+    user-select: none;
+}
 
-        @supports (font-variation-settings: normal) {
-            :root {
-                font-family: InterVariable, sans-serif;
-            }
-        }
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
+}
 
-        body {
-            display: flex;
-            height: 100vh;
-            background-color: #1f2937;
-            overflow-x: hidden;
-            font-weight: 600;
-        }
+body {
+    display: flex;
+    height: 100vh;
+    background-color: var(--secondary-color);
+    overflow-x: hidden;
+    font-weight: 600;
+}
 
-        .sidebar {
-            width: 90px;
-            background-color: #374151;
-            border-radius: 1px 10px 10px 0px;
-            padding: 30px 30px;
-            margin-right: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: width 0.2s ease;
-            position: relative;
-        }
+.sidebar {
+    width: 90px;
+    background-color: var(--primary-color);
+    border-radius: 1px 10px 10px 0px;
+    padding: 30px 30px;
+    margin-right: 20px;
+    margin-top: 40px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: width 0.2s ease;
+    position: relative;
+}
 
-        .sidebar:hover {
-            width: 180px;
-        }
+.sidebar:hover {
+    width: 180px;
+    margin-top: 40px;
+}
 
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: #d1d5db;
-            font-size: 18px;
-            text-decoration: none;
-            margin-bottom: 20px;
-            transition: color 0.2s ease;
-            position: relative;
-            /* Damit die .sidebar-text relativ zu .sidebar a positioniert wird */
-        }
+.sidebar a {
+    display: flex;
+    align-items: center;
+    color: #d1d5db;
+    font-size: 18px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: color 0.2s ease;
+    position: relative;
+}
 
-        .sidebar a i {
-            margin-right: 8px;
-            transition: color 0.2s ease;
-        }
+.sidebar a i {
+    margin-right: 8px;
+    transition: color 0.2s ease;
+}
 
-        .sidebar a .sidebar-text {
-            display: none;
-            /* Standardmäßig ausblenden */
-            position: absolute;
-            left: calc(10% + 10px);
-            /* Abstand vom Icon */
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #374151;
-            padding: 5px;
-            border-radius: 5px;
-            white-space: nowrap;
-            z-index: 1;
-            transition: display 0.8s ease;
-            /* Damit der Text über den anderen Elementen liegt */
-        }
+.sidebar a .sidebar-text {
+    display: none;
+    position: absolute;
+    left: calc(10% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1;
+    transition: display 0.8s ease;
+}
 
-        .sidebar:hover a .sidebar-text {
-            display: block;
-            /* Bei Hover anzeigen */
-        }
+.sidebar:hover a .sidebar-text {
+    display: block;
+}
 
-        .sidebar:hover .username {
-            display: block;
-            /* Bei Hover anzeigen */
-        }
+.sidebar:hover .username {
+    display: block;
+}
 
-        .sidebar .profile-pic {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            margin-bottom: 1px;
-            object-fit: scale-down;
-            cursor: pointer;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: transform 0.5s ease-in-out;
-        }
+.sidebar .profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 1px;
+    object-fit: scale-down;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.5s ease-in-out;
+}
 
-        .profile-info {
-            display: flex;
-            /* Flexbox verwenden */
-            align-items: center;
-            /* Elemente vertikal zentrieren */
-        }
+.profile-info {
+    display: flex;
+    align-items: center;
+}
 
-        .sidebar hr {
-            border: none;
-            border-top: 2px solid #4b5563;
-            margin: 20px 0;
-        }
+.sidebar hr {
+    border: none;
+    border-top: 2px solid var(--quaternary-color);
+    margin: 20px 0;
+}
 
-        .container {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
+.container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+}
 
-        .card {
-            background-color: #374151;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-grow: 1;
-        }
+.card {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
 
-        .card h1 {
-            color: #f9fafb;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+.card h1 {
+    color: var(--tertiary-color);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
-        .card p {
-            color: #d1d5db;
-            font-size: 16px;
-            line-height: 1.5;
-        }
+.card p {
+    color: #d1d5db;
+    font-size: 16px;
+    line-height: 1.5;
+}
 
-        #sort-random-beat:hover {
-            filter: brightness(0.8);
-        }
+#sort-random-beat:hover {
+    filter: brightness(0.8);
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff7e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            width: 60%;
-            max-width: 600px;
-            cursor: help;
-            /* Maximale Breite des Modals */
-            border: 1px solid #cfcfcf;
-            /* helle Border */
-        }
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff7e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 60%;
+    max-width: 600px;
+    cursor: help;
+    border: 1px solid #cfcfcf;
+}
 
-        .modal h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+.modal h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 
-        .modal ul {
-            list-style-type: none;
-            /* Entfernt die Aufzählungspunkte */
-            padding: 0;
-        }
+.modal ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-        .modal li {
-            font-size: 18px;
-            margin-bottom: 10px;
-            line-height: 1.5;
-            /* Zeilenhöhe für mehr Abstand zwischen den Absätzen */
-        }
+.modal li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
 
-        .show {
-            display: block;
-        }
+.show {
+    display: block;
+}
 
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(15px);
-            z-index: 999;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'), auto;
-            color: white;
-            /* Setze die Farbe des Cursors auf Weiß */
-        }
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    z-index: 999;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'), auto;
+    color: white;
+}
 
-        .overlay.show {
-            display: block;
-        }
+.overlay.show {
+    display: block;
+}
+
+#titlebar {
+    -webkit-app-region: drag;
+    background-color: var(--secondary-color);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+#titlebar-controls {
+    display: flex;
+    align-items: center;
+    order: -1;
+    /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
+}
+
+.control-button {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    background-color: #fff;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.control-button:hover {
+    cursor: pointer;
+}
+
+.control-button.minimize:hover {
+    background-color: #ff4d4d;
+}
+
+.control-button.maximize:hover {
+    background-color: #ffff66;
+}
+
+.control-button.close:hover {
+    background-color: #99ff99;
+}
+
+#title {
+    flex-grow: 1;
+    /* Nimmt den verfügbaren Platz ein, um in der Mitte zu zentrieren */
+    text-align: center;
+    /* Zentriert den Text innerhalb des Titelbereichs */
+    margin-left: -35px;
+    /* Verschiebung um 10 Pixel nach links */
+    color: #fff;
+}

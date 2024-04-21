@@ -15,6 +15,16 @@
 </head>
 
 <body>
+    <div id="titlebar">
+        <div id="titlebar-drag-region"></div>
+        <div id="title">BeatForge - Settings</div>
+        <div id="titlebar-controls">
+            <div class="control-button minimize" id="min-button"></div>
+            <div class="control-button maximize" id="max-button"></div>
+            <div class="control-button close" id="close-button"></div>
+        </div>
+    </div>
+
     <div class="sidebar">
         <div class="profile-info">
             <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
@@ -111,28 +121,7 @@
                 <div class="card">
                     <h1 class="text-lg font-semibold mb-4">Beat Folders</h1>
                     <div class="beat-folders">
-                        <!-- Beat-Ordner 1 -->
-                        <div class="beat-folder">
-                            <div class="folder-info">
-                                <p>path/to/folder</p>
-                                <p>345 Songs</p>
-                            </div>
-                            <div class="folder-actions">
-                                <button>X</button>
-                            </div>
-                        </div>
-                        <!-- Beat-Ordner 2 -->
-                        <div class="beat-folder">
-                            <div class="folder-info">
-                                <p>path/to/another/folder</p>
-                                <p>250 Songs</p>
-                            </div>
-                            <div class="folder-actions">
-                                <button>X</button>
-                            </div>
-                        </div>
-                        <!-- Weitere Beat-Ordner -->
-                        <!-- Hier weitere Beat-Ordner hinzufügen -->
+                        <div class="beat-folder"></div>
                     </div>
                 </div>
             </div>

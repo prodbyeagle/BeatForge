@@ -3,6 +3,26 @@ const path = require('path');
 const fs = require('fs');
 
 const configFilePath = path.join(app.getPath('userData'), 'config.json');
+let mainWindow; // Deklaration des mainWindow außerhalb der Bedingungen
+
+let maximizeToggle = false; // toggle back to original window size if maximize is clicked again
+ipcMain.on("manualMinimize", () => {
+    console.log('manualMinimize')
+    mainWindow.minimize();
+});
+ipcMain.on("manualMaximize", () => {
+    if (maximizeToggle) {
+        console.log('unmaximize')
+        mainWindow.unmaximize();
+    } else {
+        console.log('maximize')
+        mainWindow.maximize();
+    }
+    maximizeToggle = !maximizeToggle; // flip the value of maximizeToggle
+});
+ipcMain.on("manualClose", () => {
+    app.quit();
+});
 
 function loadConfig() {
     try {
@@ -47,7 +67,7 @@ app.on('ready', () => {
     // Weiterleitung zum Hauptfenster, wenn das Onboarding bereits abgeschlossen wurde
     const config = loadConfig();
     if (config.onboardingCompleted) {
-        const mainWindow = new BrowserWindow({
+        mainWindow = new BrowserWindow({
             width: 1280,
             height: 900,
             maxWidth: 1920,
@@ -56,6 +76,7 @@ app.on('ready', () => {
             minHeight: 900,
             autoHideMenuBar: true,
             fullscreenable: false,
+            frame: false,
             icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,
@@ -75,6 +96,7 @@ app.on('ready', () => {
             minHeight: 900,
             autoHideMenuBar: true,
             fullscreenable: false,
+            frame: false,
             icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,

@@ -15,14 +15,23 @@
 </head>
 
 <body>
+    <div id="titlebar">
+        <div id="titlebar-drag-region"></div>
+        <div id="title">BeatForge - Home</div>
+        <div id="titlebar-controls">
+            <div class="control-button minimize" id="minimize"></div>
+            <div class="control-button maximize" id="maximize"></div>
+            <div class="control-button close" id="close"></div>
+        </div>
+    </div>
+
     <div class="sidebar">
         <div class="profile-info">
             <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
                 alt="Profile Picture">
         </div>
         <hr />
-        <a href="#" title="Home"><i class="fas fa-home" title="Home"></i><span
-                class="sidebar-text">Home</span></a>
+        <a href="#" title="Home"><i class="fas fa-home" title="Home"></i><span class="sidebar-text">Home</span></a>
         <a href="settings.html" title="Settings"><i class="fas fa-cog" title="Settings"></i><span
                 class="sidebar-text">Settings</span></a>
         <a href="library.html" title="Library"><i class="fas fa-book" title="Library"></i><span
@@ -70,7 +79,6 @@
         <div class="card">
             <h1>Latest Beats</h1>
             <ul id="latest-beats">
-            </ul>
         </div>
         <div class="card">
             <h1>Sort a Random Beat</h1>
@@ -80,6 +88,7 @@
         </div>
     </div>
     <script src="../js/home.js"></script>
+    <script src="../titlebar.js"></script>
 </body>
 
 </html>

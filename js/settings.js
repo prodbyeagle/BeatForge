@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = form.username.value;
     const profilePicInput = form["profile-pic"]; // Input-Element für das Profilbild
     const accentColor = form["accent-color"].value;
-    const foldersInput = form["folders"].files[0].path; // Input-Element für die ausgewählten Ordner
+    const foldersInput = form["folders"].files[0]; // Input-Element für die ausgewählten Ordner
     const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (username !== "" && username !== userData.username) {
