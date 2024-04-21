@@ -53,17 +53,18 @@ body {
 
 .sidebar a i {
     margin-right: 8px;
+    margin-left: 5px;
     transition: color 0.2s ease;
 }
 
 .sidebar a .sidebar-text {
     display: none;
     position: absolute;
-    left: calc(10% + 10px);
+    left: calc(15% + 10px);
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--primary-color);
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
     white-space: nowrap;
     z-index: 1;
@@ -220,6 +221,7 @@ body {
     display: flex;
     align-items: center;
     order: -1;
+    -webkit-app-region: no-drag;
     /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
 }
 
@@ -238,24 +240,39 @@ body {
     cursor: pointer;
 }
 
+.control-button.minimize {
+    background-color: #fdfdbc;
+    /* Hellere Hover-Farbe für minimize */
+}
+
+.control-button.maximize {
+    background-color: #d3ffd3;
+    /* Hellere Hover-Farbe für maximize */
+}
+
+.control-button.close {
+    background-color: #ff9494;
+    /* Hellere Hover-Farbe für close */
+}
+
 .control-button.minimize:hover {
-    background-color: #ff4d4d;
+    background-color: #ffff66;
+    /* Lebendigere Hintergrundfarbe für minimize im Hover-Modus */
 }
 
 .control-button.maximize:hover {
-    background-color: #ffff66;
+    background-color: #99ff99;
+    /* Lebendigere Hintergrundfarbe für maximize im Hover-Modus */
 }
 
 .control-button.close:hover {
-    background-color: #99ff99;
+    background-color: #ff4d4d;
+    /* Lebendigere Hintergrundfarbe für close im Hover-Modus */
 }
 
 #title {
     flex-grow: 1;
-    /* Nimmt den verfügbaren Platz ein, um in der Mitte zu zentrieren */
     text-align: center;
-    /* Zentriert den Text innerhalb des Titelbereichs */
     margin-left: -35px;
-    /* Verschiebung um 10 Pixel nach links */
     color: #fff;
 }

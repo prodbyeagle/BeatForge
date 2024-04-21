@@ -3,25 +3,24 @@ const path = require('path');
 const fs = require('fs');
 
 const configFilePath = path.join(app.getPath('userData'), 'config.json');
-let mainWindow; // Deklaration des mainWindow außerhalb der Bedingungen
+let mainWindow;
+let windowMaximized = false;
 
-let maximizeToggle = false; // toggle back to original window size if maximize is clicked again
-ipcMain.on("manualMinimize", () => {
-    console.log('manualMinimize')
-    mainWindow.minimize();
-});
-ipcMain.on("manualMaximize", () => {
-    if (maximizeToggle) {
-        console.log('unmaximize')
-        mainWindow.unmaximize();
-    } else {
-        console.log('maximize')
-        mainWindow.maximize();
-    }
-    maximizeToggle = !maximizeToggle; // flip the value of maximizeToggle
-});
 ipcMain.on("manualClose", () => {
     app.quit();
+});
+
+ipcMain.on("manualMinimize", () => {
+    mainWindow.minimize();
+});
+
+ipcMain.on("manualMaximize", () => {
+    if (windowMaximized) {
+        mainWindow.unmaximize();
+    } else {
+        mainWindow.maximize();
+    }
+    windowMaximized = !windowMaximized;
 });
 
 function loadConfig() {
@@ -77,7 +76,7 @@ app.on('ready', () => {
             autoHideMenuBar: true,
             fullscreenable: false,
             frame: false,
-            icon: path.join(__dirname, 'assets', 'icon.png'),
+            icon: path.join(__dirname, 'assets', 'testicon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
@@ -86,6 +85,11 @@ app.on('ready', () => {
 
         // HTML-Datei im Hauptfenster laden
         mainWindow.loadFile(path.join(__dirname, 'sites', 'home.html'));
+
+        // Ereignishandler für Steuerungsschaltflächen im Hauptfenster registrieren
+        mainWindow.on('close', () => {
+            mainWindow = null;
+        });
     } else {
         const onboardingWindow = new BrowserWindow({
             width: 1280,
@@ -97,7 +101,7 @@ app.on('ready', () => {
             autoHideMenuBar: true,
             fullscreenable: false,
             frame: false,
-            icon: path.join(__dirname, 'assets', 'icon.png'),
+            icon: path.join(__dirname, 'assets', 'testicon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
@@ -106,6 +110,11 @@ app.on('ready', () => {
 
         // HTML-Datei im Onboarding-Fenster laden
         onboardingWindow.loadFile(path.join(__dirname, 'sites', 'onboarding.html'));
+
+        // Ereignishandler für Steuerungsschaltflächen im Onboarding-Fenster registrieren
+        onboardingWindow.on('close', () => {
+            app.quit();
+        });
     }
 });
 

@@ -23,6 +23,8 @@ body {
 }
 
 .sidebar {
+    user-select: none;
+
     width: 90px;
     background-color: var(--primary-color);
     border-radius: 1px 10px 10px 0px;
@@ -59,17 +61,18 @@ body {
 
 .sidebar a i {
     margin-right: 8px;
+    margin-left: 5px;
     transition: color 0.2s ease;
 }
 
 .sidebar a .sidebar-text {
     display: none;
     position: absolute;
-    left: calc(10% + 10px);
+    left: calc(15% + 10px);
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--primary-color);
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
     white-space: nowrap;
     z-index: 1;
@@ -96,7 +99,7 @@ body {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.9s ease;
 }
 
 .profile-info {
@@ -227,6 +230,7 @@ body {
     display: flex;
     align-items: center;
     order: -1;
+    -webkit-app-region: no-drag;
     /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
 }
 
@@ -234,36 +238,31 @@ body {
     width: 12px;
     height: 12px;
     margin-right: 5px;
-    background-color: #fff;
+    background-color: #ffffff;
     color: #fff;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
 }
-
-.control-button:hover {
+.control-button.minimize:hover {
+    background-color: #ffff66;
     cursor: pointer;
 }
 
-.control-button.minimize:hover {
-    background-color: #ff4d4d;
-}
-
 .control-button.maximize:hover {
-    background-color: #ffff66;
+    background-color: #99ff99;
+    cursor: pointer;
 }
 
 .control-button.close:hover {
-    background-color: #99ff99;
+    background-color: #ff4d4d;
+    cursor: pointer;
 }
 
 #title {
     flex-grow: 1;
-    /* Nimmt den verfügbaren Platz ein, um in der Mitte zu zentrieren */
     text-align: center;
-    /* Zentriert den Text innerhalb des Titelbereichs */
     margin-left: -35px;
-    /* Verschiebung um 10 Pixel nach links */
     color: #fff;
 }
 

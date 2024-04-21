@@ -149,6 +149,7 @@
       display: flex;
       align-items: center;
       order: -1;
+      -webkit-app-region: no-drag;
       /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
     }
 
@@ -168,23 +169,20 @@
     }
 
     .control-button.minimize:hover {
-      background-color: #ff4d4d;
-    }
-
-    .control-button.maximize:hover {
       background-color: #ffff66;
     }
 
-    .control-button.close:hover {
+    .control-button.maximize:hover {
       background-color: #99ff99;
+    }
+
+    .control-button.close:hover {
+      background-color: #ff4d4d;
     }
 
     #title {
       flex-grow: 1;
-      /* Nimmt den verfügbaren Platz ein, um in der Mitte zu zentrieren */
       text-align: center;
-      /* Zentriert den Text innerhalb des Titelbereichs */
-      margin-left: -55px;
-      /* Verschiebung um 10 Pixel nach links */
+      margin-left: -35px;
       color: #fff;
     }
