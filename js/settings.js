@@ -1,9 +1,9 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("settings-form");
 
   // Funktion zum Aktualisieren der Benutzeroberfläche
   function updateUI(userData) {
-    console.log("Updating UI with userData:", userData);
     const accentColor = userData.accentColor || "#000000";
     const sidebarIcons = document.querySelectorAll(".sidebar a i");
     const sidebarText = document.querySelectorAll(".sidebar a");
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Funktion zum Anzeigen der Beat-Ordner
   function showBeatFolders(userData) {
-    console.log("Showing beat folders for userData:", userData);
     const beatFoldersContainer = document.querySelector(".beat-folders");
     beatFoldersContainer.innerHTML = ""; // Lösche den Inhalt des Containers, um ihn neu zu füllen
 
@@ -182,30 +181,9 @@ document.addEventListener("DOMContentLoaded", function () {
     updateUI(userData);
   }
 
-  const versionElement = document.querySelector(".sidebar a.title");
-  const overlay = document.querySelector(".overlay");
-  const modal = document.querySelector(".modal");
-  const closeModalButton = document.querySelector(".close-modal");
-
-  // Version anklickbar machen und Update-Logs anzeigen
-  versionElement.addEventListener("click", function () {
-    // Hintergrund verschwommen und dunkler machen
-    overlay.classList.add("show");
-    modal.classList.add("show");
-  });
-
-  // Schließen des modalen Popups
-  closeModalButton.addEventListener("click", function () {
-    // Hintergrund wiederherstellen
-    overlay.classList.remove("show");
-    modal.classList.remove("show");
-  });
-
-  // Klicken auf das Overlay zum Schließen des Modals
-  overlay.addEventListener("click", function () {
-    overlay.classList.remove("show");
-    modal.classList.remove("show");
-  });
+  const designOverlay = document.getElementById("design_overlay");
+  const designModal = document.getElementById("design_modal");
+  const closeButton = document.querySelector(".close-btn");
 
   // Ereignislistener für das Hinzufügen von Ordnern über das Dateieingabefeld
   const foldersInput = document.getElementById("folders");
@@ -216,4 +194,171 @@ document.addEventListener("DOMContentLoaded", function () {
       addFolderAndUpdateUI(folders[i].path); // Hinzufügen des Ordners und Aktualisieren der Benutzeroberfläche
     }
   });
+
+  // Eventlistener für das Klicken auf das Overlay hinzufügen
+  designOverlay.addEventListener("click", function () {
+    closeDesignModal(); // Schließt das Overlay und das Modal
+  });
+
+  // Funktion zum Öffnen des Modals
+  function openDesignModal() {
+    designOverlay.style.display = "block";
+    designModal.style.display = "block";
+  }
+
+  // Funktion zum Schließen des Modals
+  function closeDesignModal() {
+    designOverlay.style.display = "none";
+    designModal.style.display = "none";
+  }
+
+  // Funktion zum Überprüfen, ob das Modal geöffnet ist
+  function isDesignModalOpen() {
+    return designModal.style.display === "block";
+  }
+
+  const openOverlayBtn = document.getElementById("openOverlayBtn");
+
+  // Eventlistener für den Button hinzufügen
+  openOverlayBtn.addEventListener("click", function () {
+    openDesignModal(); // Öffnet das Overlay und das Modal
+  });
 });
+
+//themes Browser
+
+// Event-Listener für das Laden der Themes registrieren
+ipcRenderer.on('load-themes', (themes) => {
+    console.log("Themes geladen:", themes);
+    addThemesToModal(themes); // Füge die Themes in das Modal hinzu
+});
+
+// Anforderung zum Laden der Themes senden
+ipcRenderer.send('load-themes');
+
+function createThemeOverlay(theme) {
+  const overlay = document.createElement("div");
+  overlay.classList.add("theme-overlay");
+
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
+
+  const themeName = document.createElement("h2");
+  themeName.textContent = theme.name;
+
+  const themeColors = document.createElement("div");
+  themeColors.classList.add("theme-colors");
+
+  // Erstelle einen Gradienten mit den Farben des Themes
+  const gradientString = theme.values.map(color => color.color).join(", ");
+  themeColors.style.background = `linear-gradient(to right, ${gradientString})`;
+
+  modalContent.appendChild(themeName);
+  modalContent.appendChild(themeColors);
+  modal.appendChild(modalContent);
+  overlay.appendChild(modal);
+
+  // Füge das Overlay in den DOM hinzu
+  document.body.appendChild(overlay);
+
+  return overlay;
+}
+
+/// Funktion zum Hinzufügen von Themes zum Modal
+function addThemesToModal(themes) {
+  const modalContent = document.querySelector("#design_modal .modal-content");
+
+  // Lösche vorhandene Inhalte im Modal
+  modalContent.innerHTML = "";
+
+  // Fügen Sie jeden Button für das Hinzufügen eines Themes hinzu
+  themes.forEach(theme => {
+    const themeElement = document.createElement("div");
+    themeElement.classList.add("theme-item"); // Füge die Klasse "theme-item" hinzu
+
+    const themeName = document.createElement("h3");
+    themeName.textContent = theme.name;
+
+    // Erstelle den "Add +"-Button
+    const addButton = document.createElement("button");
+    addButton.classList.add("add-button");
+    addButton.textContent = "+ Add";
+    addButton.title = "Click to add this theme";
+
+    addButton.addEventListener('click', () => {
+      // Setzen Sie die CSS-Variablen entsprechend den Farben des ausgewählten Themes
+      theme.values.forEach(color => {
+        document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+      });
+
+      // Speichern Sie das angewendete Theme im lokalen Speicher
+      localStorage.setItem('appliedTheme', JSON.stringify(theme));
+
+      // Zeigen Sie eine Benachrichtigung an, dass das Theme angewendet wurde
+      Toastify({
+        text: `Theme ${theme.name} applied`,
+        duration: 3000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        stopOnFocus: true,
+      }).showToast();
+
+      // Schließe das Overlay und das Modal
+      const designModal = document.querySelector("#design_modal");
+      const designOverlay = document.querySelector("#design_overlay");
+      designOverlay.style.display = "none";
+      designModal.style.display = "none";
+    });
+
+    // Fügen Sie das Theme-Element mit dem Button zum Modalinhalt hinzu
+    themeElement.appendChild(themeName);
+    themeElement.appendChild(addButton);
+    modalContent.appendChild(themeElement);
+
+    // Function to load the applied theme when the page loads
+    window.addEventListener('load', () => {
+      const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+      if (appliedTheme) {
+        // Apply the saved theme
+        appliedTheme.values.forEach(color => {
+          document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        });
+      } else {
+        // If no saved theme exists, show a notification
+        Toastify({
+          text: "The applied theme no longer exists.",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #FF5733, #FFB833)",
+          },
+          stopOnFocus: true,
+        }).showToast();
+      }
+    });
+
+    // Erstelle die Farbflächen als Gradienten mit Blur-Effekt entsprechend den Farben des Themes
+    const colorsContainer = document.createElement("div");
+    colorsContainer.classList.add("color-box");
+    const gradientColors = theme.values.map(c => c.color).join(", "); // Alle Farben in einem String zusammenführen
+    colorsContainer.style.background = `linear-gradient(to right, ${gradientColors})`;
+    colorsContainer.style.cursor = "help";
+    themeElement.title = theme.description;
+    colorsContainer.title = "Just to visualize the Theme colors.";
+
+    // Füge die Elemente zum Theme-Element hinzu
+    themeElement.appendChild(themeName);
+    themeElement.appendChild(addButton);
+    themeElement.appendChild(colorsContainer);
+
+    // Füge das Theme-Element dem Modal hinzu
+    modalContent.appendChild(themeElement);
+  });
+}
