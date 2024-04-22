@@ -180,9 +180,9 @@
       background-color: #ff4d4d;
     }
 
-    #title {
-      flex-grow: 1;
-      text-align: center;
-      margin-left: -35px;
-      color: #fff;
-    }
+#title {
+  flex-grow: 1;
+  text-align: center;
+  margin-left: -65px;
+  color: #fff;
+}
