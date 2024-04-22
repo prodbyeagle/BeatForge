@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const configFilePath = path.join(app.getPath('userData'), 'config.json');
+const themesFilePath = path.join(__dirname, 'themes.json');
 let mainWindow;
 let windowMaximized = false;
 
@@ -82,6 +83,8 @@ app.on('ready', () => {
                 preload: path.join(__dirname, 'preload.js')
             }
         });
+        sendThemesToRenderer();
+
 
         // HTML-Datei im Hauptfenster laden
         mainWindow.loadFile(path.join(__dirname, 'sites', 'home.html'));
@@ -107,6 +110,7 @@ app.on('ready', () => {
                 preload: path.join(__dirname, 'preload.js')
             }
         });
+        sendThemesToRenderer();
 
         // HTML-Datei im Onboarding-Fenster laden
         onboardingWindow.loadFile(path.join(__dirname, 'sites', 'onboarding.html'));
@@ -129,3 +133,32 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+ipcMain.on('load-themes', (event) => {
+    const themes = loadThemes(); // Funktion, um die Themes zu laden
+    mainWindow.webContents.send('load-themes', themes); // mainWindow ist Ihre BrowserWindow-Instanz
+});
+
+function loadThemes() {
+    try {
+        const data = fs.readFileSync(themesFilePath);
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Fehler beim Laden der Themes:', error);
+        return [];
+    }
+}
+
+// console.log(loadThemes());
+
+function sendThemesToRenderer() {
+    console.log('Lade Themes...');
+    try {
+        const themes = loadThemes();
+        console.log('Themes erfolgreich geladen');
+        mainWindow.webContents.send('load-themes', themes);
+    } catch (error) {
+        console.error('Fehler beim Laden der Themes:', error);
+        mainWindow.webContents.send('load-themes', []); // Leeres Array senden, wenn ein Fehler auftritt
+    }
+}
