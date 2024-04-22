@@ -40,33 +40,31 @@ if (savedUserData) {
     updateUI(userData);
 }
 
-const versionElement = document.querySelector(".sidebar a.title");
-const overlay = document.querySelector(".overlay");
-const modal = document.querySelector(".modal");
-const closeModalButton = document.querySelector(".close-modal");
-
-// Version anklickbar machen und Update-Logs anzeigen
-versionElement.addEventListener("click", function () {
-    // Hintergrund verschwommen und dunkler machen
-    overlay.classList.add("show");
-    modal.classList.add("show");
-});
-
-// Schließen des modalen Popups
-closeModalButton.addEventListener("click", function () {
-    // Hintergrund wiederherstellen
-    overlay.classList.remove("show");
-    modal.classList.remove("show");
-});
-
-// Klicken auf das Overlay zum Schließen des Modals
-overlay.addEventListener("click", function () {
-    overlay.classList.remove("show");
-    modal.classList.remove("show");
-});
-
 document.addEventListener('auxclick', function (event) {
     if (event.button === 1) {
         event.preventDefault(); // Verhindert das Standardverhalten der mittleren Maustaste
+    }
+});
+
+// Function to load the applied theme when the page loads
+window.addEventListener('load', () => {
+    const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+    if (appliedTheme) {
+        // Apply the saved theme
+        appliedTheme.values.forEach(color => {
+            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        });
+    } else {
+        // If no saved theme exists, show a notification
+        Toastify({
+            text: "The applied theme no longer exists.",
+            duration: 3000,
+            gravity: "bottom",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #FF5733, #FFB833)",
+            },
+            stopOnFocus: true,
+        }).showToast();
     }
 });

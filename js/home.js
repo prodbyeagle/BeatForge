@@ -116,3 +116,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Function to load the applied theme when the page loads
+window.addEventListener('load', () => {
+    const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+    if (appliedTheme) {
+        // Apply the saved theme
+        appliedTheme.values.forEach(color => {
+            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        });
+    } else {
+        // If no saved theme exists, show a notification
+        Toastify({
+            text: "The applied theme no longer exists.",
+            duration: 3000,
+            gravity: "bottom",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #FF5733, #FFB833)",
+            },
+            stopOnFocus: true,
+        }).showToast();
+    }
+});
