@@ -184,13 +184,12 @@ body {
   flex-grow: 1;
   /* Flexibles Wachstum */
   text-align: center;
-  /* Zentrierung des Textes */
-  margin-left: -10%;
-  /* Berechnung des linken Abstands */
+  top: 0;
+  left: 0;
+  right: 0;
   color: #fff;
   /* Textfarbe */
 }
-
 .button,
 #sort-random-beat {
   background-color: var(--secondary-color);

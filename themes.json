@@ -5,7 +5,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#0077B6"
+                "color": "#0077B6",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -27,7 +28,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#014421"
+                "color": "#014421",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -49,7 +51,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#D62828"
+                "color": "#D62828",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -71,7 +74,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#6C757D"
+                "color": "#6C757D",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -93,7 +97,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#C4A484"
+                "color": "#C4A484",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -112,10 +117,12 @@
     {
         "name": "Golden Hour",
         "description": "Witness the magical glow of the golden hour with this warm golden theme.",
+        "warning": true,
         "values": [
             {
                 "name": "primary",
-                "color": "#FFBA08"
+                "color": "#FFBA08",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -134,10 +141,12 @@
     {
         "name": "Spring Blossom",
         "description": "Celebrate the renewal of life with this fresh spring blossom theme.",
+        "warning": true,
         "values": [
             {
                 "name": "primary",
-                "color": "#8AC926"
+                "color": "#8AC926",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -156,10 +165,12 @@
     {
         "name": "Autumn Leaves",
         "description": "Fall in love with the colors of autumn with this rich leaf-inspired theme.",
+        "warning": true,
         "values": [
             {
                 "name": "primary",
-                "color": "#B5179E"
+                "color": "#B5179E",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -181,7 +192,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#A3F7B5"
+                "color": "#A3F7B5",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -200,10 +212,12 @@
     {
         "name": "Summer Sunshine",
         "description": "Bask in the warmth of summer sunshine with this cheerful yellow theme.",
+        "warning": true,
         "values": [
             {
                 "name": "primary",
-                "color": "#FFD166"
+                "color": "#FFD166",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -225,7 +239,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#B7F0B1"
+                "color": "#B7F0B1",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -247,7 +262,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#011627"
+                "color": "#011627",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -269,7 +285,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#4D6A6D"
+                "color": "#4D6A6D",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -291,7 +308,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#FFD166"
+                "color": "#FFD166",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -313,7 +331,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#003049"
+                "color": "#003049",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -335,7 +354,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#E5E5E5"
+                "color": "#E5E5E5",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -357,7 +377,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#00A0A0"
+                "color": "#00A0A0",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -379,7 +400,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#FF6B6B"
+                "color": "#FF6B6B",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -401,7 +423,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#635985"
+                "color": "#635985",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -423,7 +446,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#caa8f5"
+                "color": "#caa8f5",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -445,7 +469,8 @@
         "values": [
             {
                 "name": "primary",
-                "color": "#0B132B"
+                "color": "#0B132B",
+                "_comment": "Cards and Co."
             },
             {
                 "name": "secondary",
@@ -490,6 +515,7 @@
     {
         "name": "Color Craziness",
         "description": "made by @dwhincandi",
+        "warning": true,
         "values": [
             {
                 "name": "primary",

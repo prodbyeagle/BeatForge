@@ -281,6 +281,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const themeName = document.createElement("h3");
       themeName.textContent = theme.name;
 
+      if (theme.warning) {
+        const warningLabel = document.createElement("h4"); // Kleiner Schriftgröße
+        warningLabel.textContent = "EXPERIMENTAL";
+        warningLabel.style.color = "#f03232";
+        warningLabel.style.fontWeight = "bold";
+        warningLabel.title = "This Theme is very bright and can be hurting the eyes"
+        themeElement.appendChild(themeName);
+        themeElement.appendChild(warningLabel);
+      } else {
+        themeElement.appendChild(themeName);
+      }
+
       // Erstelle den "Add +"-Button
       const addButton = document.createElement("button");
       addButton.classList.add("add-button");
@@ -288,6 +300,18 @@ document.addEventListener("DOMContentLoaded", function () {
       addButton.title = "Click to add this theme";
 
       addButton.addEventListener('click', () => {
+        if (theme.warning) {
+          // Wenn das Theme eine Warnung hat, zeige eine Bestätigung an
+          openCustomConfirm(`Do you really want to apply ${theme.name} theme?`, () => {
+            applyTheme(theme);
+          });
+        } else {
+          applyTheme(theme);
+        }
+      });
+
+      // Funktion zum Anwenden des Themes
+      function applyTheme(theme) {
         // Setzen Sie die CSS-Variablen entsprechend den Farben des ausgewählten Themes
         theme.values.forEach(color => {
           document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
@@ -313,35 +337,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const designOverlay = document.querySelector("#design_overlay");
         designOverlay.style.display = "none";
         designModal.style.display = "none";
-      });
+      }
 
-      // Fügen Sie das Theme-Element mit dem Button zum Modalinhalt hinzu
       themeElement.appendChild(themeName);
       themeElement.appendChild(addButton);
       modalContent.appendChild(themeElement);
-
-      // Function to load the applied theme when the page loads
-      window.addEventListener('load', () => {
-        const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
-        if (appliedTheme) {
-          // Apply the saved theme
-          appliedTheme.values.forEach(color => {
-            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
-          });
-        } else {
-          // If no saved theme exists, show a notification
-          Toastify({
-            text: "The applied theme no longer exists.",
-            duration: 3000,
-            gravity: "bottom",
-            position: "right",
-            style: {
-              background: "linear-gradient(to right, #FF5733, #FFB833)",
-            },
-            stopOnFocus: true,
-          }).showToast();
-        }
-      });
 
       // Erstelle die Farbflächen als Gradienten mit Blur-Effekt entsprechend den Farben des Themes
       const colorsContainer = document.createElement("div");
@@ -359,6 +359,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Füge das Theme-Element dem Modal hinzu
       modalContent.appendChild(themeElement);
+
+      // Fügen Sie das Theme-Element mit dem Button zum Modalinhalt hinzu
+
+    });
+
+    // Function to load the applied theme when the page loads
+    window.addEventListener('load', () => {
+      const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+      if (appliedTheme) {
+        // Apply the saved theme
+        appliedTheme.values.forEach(color => {
+          document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        });
+      } else {
+        // If no saved theme exists, show a notification
+        Toastify({
+          text: "The applied theme no longer exists.",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #FF5733, #FFB833)",
+          },
+          stopOnFocus: true,
+        }).showToast();
+      }
     });
 
     // Theme Creator
@@ -420,6 +446,26 @@ document.addEventListener("DOMContentLoaded", function () {
       hrElements.forEach(hrElement => {
         hrElement.style.backgroundColor = quaternaryColor;
       });
+    }
+  }
+
+  function openCustomConfirm(message, onConfirm) {
+    const confirm = document.getElementById('confirm');
+    const confirmationText = document.getElementById('confirmation_text');
+
+    confirmationText.textContent = message;
+    confirm.style.display = 'block';
+
+    const confirmButton = document.getElementById('confirm_button');
+    const cancelButton = document.getElementById('cancel_button');
+
+    confirmButton.onclick = function () {
+      confirm.style.display = 'none';
+      onConfirm();
+    }
+
+    cancelButton.onclick = function () {
+      confirm.style.display = 'none';
     }
   }
 });

@@ -270,9 +270,10 @@ body {
     flex-grow: 1;
     /* Flexibles Wachstum */
     text-align: center;
-    /* Zentrierung des Textes */
-    margin-left: -10%;
-    /* Berechnung des linken Abstands */
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 10px;
     color: #fff;
     /* Textfarbe */
 }
@@ -316,4 +317,48 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #9ca3af;
     /* Farbe des Scrollbalkens bei Hover */
+}
+
+.confirm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff7e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    width: 60%;
+    max-width: 600px;
+    cursor: help;
+    border: 1px solid #cfcfcf;
+}
+
+.confirm h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.confirm ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.confirm li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.show {
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
