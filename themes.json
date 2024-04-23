@@ -264,28 +264,6 @@
         ]
     },
     {
-        "name": "Vintage Vibes",
-        "description": "Indulge in the nostalgic charm of vintage aesthetics with this retro theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FF6B6B"
-            },
-            {
-                "name": "secondary",
-                "color": "#F4A261"
-            },
-            {
-                "name": "tertiary",
-                "color": "#2A9D8F"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E9C46A"
-            }
-        ]
-    },
-    {
         "name": "Industrial Chic",
         "description": "Embrace the raw beauty of industrial design with this gritty theme.",
         "values": [
@@ -436,6 +414,154 @@
             {
                 "name": "quaternary",
                 "color": "#E1AFD1"
+            }
+        ]
+    },
+    {
+        "name": "Test",
+        "description": "made by @dwhincandi",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#caa8f5"
+            },
+            {
+                "name": "secondary",
+                "color": "#9984d4"
+            },
+            {
+                "name": "tertiary",
+                "color": "#592e83"
+            },
+            {
+                "name": "quaternary",
+                "color": "#230c33"
+            }
+        ]
+    },
+    {
+        "name": "Dark Night",
+        "description": "made by @dwhincandi",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#0B132B"
+            },
+            {
+                "name": "secondary",
+                "color": "#1C2541"
+            },
+            {
+                "name": "tertiary",
+                "color": "#3A506B"
+            },
+            {
+                "name": "quaternary",
+                "color": "#140152"
+            }
+        ]
+    },
+    {
+        "name": "Wonder Cream",
+        "description": "made by @dwhincandi",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#E9AFA3",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#F9DEC9",
+                "_comment": "Body"
+            },
+            {
+                "name": "tertiary",
+                "color": "#3A405A",
+                "_comment": "font color"
+            },
+            {
+                "name": "quaternary",
+                "color": "#3A405A",
+                "_comment": "hr color"
+            }
+        ]
+    },
+    {
+        "name": "Color Craziness",
+        "description": "made by @dwhincandi",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#FF006E",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#FFBE0B",
+                "_comment": "Body"
+            },
+            {
+                "name": "tertiary",
+                "color": "#8338EC",
+                "_comment": "font color"
+            },
+            {
+                "name": "quaternary",
+                "color": "#FB5607",
+                "_comment": "hr color"
+            }
+        ]
+    },
+    {
+        "name": "Chocolate Glaze",
+        "description": "🦅 made by @prodbyeagle",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#99582A",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#432818",
+                "_comment": "Body"
+            },
+            {
+                "name": "tertiary",
+                "color": "#BB9457",
+                "_comment": "font color"
+            },
+            {
+                "name": "quaternary",
+                "color": "#6F1D1B",
+                "_comment": "hr color"
+            }
+        ]
+    },
+    {
+        "name": "Cappuccino",
+        "description": "made by @dwhincandi",
+        "values": [
+            {
+                "name": "primary",
+                "color": "#99582a",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#bb9457",
+                "_comment": "Body"
+            },
+            {
+                "name": "tertiary",
+                "color": "#432818",
+                "_comment": "font color"
+            },
+            {
+                "name": "quaternary",
+                "color": "#6f1d1b",
+                "_comment": "hr color"
             }
         ]
     }

@@ -24,7 +24,6 @@ body {
 
 .sidebar {
     user-select: none;
-
     width: 90px;
     background-color: var(--primary-color);
     border-radius: 1px 10px 10px 0px;
@@ -261,9 +260,13 @@ body {
 
 #title {
     flex-grow: 1;
+    /* Flexibles Wachstum */
     text-align: center;
-    margin-left: -65px;
+    /* Zentrierung des Textes */
+    margin-left: -10%;
+    /* Berechnung des linken Abstands */
     color: #fff;
+    /* Textfarbe */
 }
 
 #library-list {
@@ -340,7 +343,7 @@ body {
 }
 
 .library-item {
-    background-color: #374151;
+    background-color: var(--secondary-color);
     border-radius: 10px;
     padding: 20px;
     transition: transform 0.1s ease;
@@ -385,4 +388,21 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #9ca3af;
     /* Farbe des Scrollbalkens bei Hover */
+}
+
+.button,
+#sort-random-beat {
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.button:hover,
+#sort-random-beat:hover {
+    transform: scale(1.03);
 }

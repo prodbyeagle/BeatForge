@@ -138,7 +138,8 @@ body {
     filter: brightness(0.8);
 }
 
-.modal {
+.modal,
+.design_modal {
     display: none;
     position: fixed;
     top: 50%;
@@ -156,7 +157,8 @@ body {
     overflow-y: auto;
 }
 
-.modal h2 {
+.modal h2,
+.design_modal h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
@@ -179,14 +181,16 @@ body {
 }
 
 /* Griff der Scrollleiste */
-.modal::-webkit-scrollbar-thumb {
+.modal::-webkit-scrollbar-thumb,
+.design_modal::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
     /* abgerundete Ecken */
 }
 
 /* Bei Hover-Effekt auf die Scrollleiste */
-.modal::-webkit-scrollbar-thumb:hover {
+.modal::-webkit-scrollbar-thumb:hover,
+.design_modal::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
 
@@ -289,10 +293,10 @@ body {
 }
 
 #title {
-    flex-grow: 1;
-    text-align: center;
-    margin-left: -65px;
-    color: #fff;
+    flex-grow: 1; /* Flexibles Wachstum */
+    text-align: center; /* Zentrierung des Textes */
+    margin-left: -10%; /* Berechnung des linken Abstands */
+    color: #fff; /* Textfarbe */
 }
 
 .beat-folders {
@@ -423,4 +427,24 @@ body {
     /* Höhe anpassen */
     border-radius: 5px;
     /* Optional: Runde Ecken hinzufügen */
+}
+
+.fake-page-preview {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    /* Zentrieren des IFrames horizontal */
+}
+
+.fake-page-iframe {
+    height: 190%;
+    /* Anpassen der Höhe auf 60% der Bildschirmhöhe */
+    width: 800%;
+    /* Reduzieren der Breite auf 80% des verfügbaren Platzes */
+    border: none;
+    /* Entfernen der Rahmen des IFrames */
 }

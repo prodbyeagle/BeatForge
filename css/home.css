@@ -134,10 +134,6 @@ body {
     line-height: 1.5;
 }
 
-#sort-random-beat:hover {
-    filter: brightness(0.8);
-}
-
 .modal {
     display: none;
     position: fixed;
@@ -272,7 +268,52 @@ body {
 
 #title {
     flex-grow: 1;
+    /* Flexibles Wachstum */
     text-align: center;
-    margin-left: -65px;
+    /* Zentrierung des Textes */
+    margin-left: -10%;
+    /* Berechnung des linken Abstands */
     color: #fff;
+    /* Textfarbe */
+}
+
+.button,
+#sort-random-beat {
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.button:hover,
+#sort-random-beat:hover {
+    transform: scale(1.03);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    /* Breite der Scrollleiste */
+}
+
+/* Hintergrund der Scrollleiste */
+::-webkit-scrollbar-track {
+    background-color: #4b5563;
+}
+
+/* Scrollbalken */
+::-webkit-scrollbar-thumb {
+    background-color: #6b7280;
+    /* Farbe des Scrollbalkens */
+    border-radius: 5px;
+    /* Abrundung des Scrollbalkens */
+}
+
+/* Wenn Hover-Effekte für die Scrollleiste gewünscht sind */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+    /* Farbe des Scrollbalkens bei Hover */
 }

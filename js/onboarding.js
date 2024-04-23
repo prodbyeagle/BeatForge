@@ -96,6 +96,17 @@ document.addEventListener("DOMContentLoaded", function () {
     accentColorInput.addEventListener("input", function () {
         accentColorValue.textContent = this.value;
     });
+
+    const inputField = document.querySelector('input[type="text"]');
+
+    // Hänge den Event-Listener an das Eingabefeld
+    inputField.addEventListener('keydown', function (event) {
+        // Überprüfe, ob die gedrückte Taste die Enter-Taste ist
+        if (event.key === 'Enter') {
+            // Rufe die Funktion nextQuestion() auf
+            nextQuestion();
+        }
+    });
 });
 
 async function saveUserData(event) {

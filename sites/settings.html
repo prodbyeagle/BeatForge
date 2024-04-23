@@ -61,6 +61,20 @@
         </div>
     </div>
 
+<div id="theme_design_overlay" class="overlay"></div>
+<div id="theme_creator_modal" class="modal">
+    <div class="modal-content">
+        <!-- <form id="theme-creator-form">
+            <!-- Button zum Erstellen des Themes -->
+            <button type="submit" class="create-theme-btn">Create Theme</button>
+        </form>
+        <!-- Bereich für die Live-Vorschau der Fake-Seite -->
+        <div id="fake-page-preview" class="fake-page-preview">
+            <iframe id="fake-page-iframe" class="fake-page-iframe" src="theme_creator.html" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
     <div class="container">
         <div class="row">
             <!-- Erster Container -->
@@ -119,10 +133,10 @@
                         <button title="Open the Theme Library"
                             class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             id="openOverlayBtn">Open Theme Library</button>
-                        <button title="Submit an Theme on my Discord"
+                        <button title="Create an new Theme to your liking"
                             class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            onclick="window.open('https://discord.gg/zcMXXGFwvB', '_blank')" id="openOverlayBtn">
-                            Submit Theme
+                            id="openThemeCreatorOverlayBtn">
+                            Open Theme Creator
                         </button>
                     </div>
                 </div>

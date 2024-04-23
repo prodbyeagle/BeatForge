@@ -1,188 +1,249 @@
-    :root {
-      font-family: Inter, sans-serif;
-      font-feature-settings: 'liga' 1, 'calt' 1;
-      user-select: none;
-    }
+:root {
+  --primary-color: #635985;
+  --secondary-color: #443C68;
+  --tertiary-color: #FFE6E6;
+  --quaternary-color: #E1AFD1;
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  user-select: none;
+}
 
-    @supports (font-variation-settings: normal) {
-      :root {
-        font-family: InterVariable, sans-serif;
-      }
-    }
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #1f2937;
-    }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--secondary-color);
+}
 
-    .question {
-      width: 400px;
-      max-width: 90%;
-    }
+.container {
+  display: flex;
+  justify-content: center;
+  /* Horizontal zentrieren */
+  align-items: center;
+  /* Vertikal zentrieren */
+  height: 100vh;
+}
 
-    .tag-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      margin-right: 8px;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin-right: 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
 
-    .hidden {
-      display: none;
-    }
+.card {
+  max-width: 400px;
+  width: 100%;
+  padding: 40px;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
+.card h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--tertiary-color);
+}
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.card label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #d1d5db;
+  /* Update: Farbe von #f3f4f6 zu #d1d5db */
+}
 
-    .question {
-      animation: fadeIn 0.5s ease forwards;
-    }
+.card input[type="text"],
+.card input[type="file"],
+.card input[type="color"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #6b7280;
+  color: #f3f4f6;
+  font-size: 16px;
+}
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+.card button {
+  width: calc(50% - 10px);
+  padding: 12px 0;
+  display: flex;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4b5563;
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-content: center;
+}
 
-    .card {
-      max-width: 400px;
-      width: 100%;
-      padding: 40px;
-      background-color: #111827;
-      border-radius: 10px;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
-      text-align: center;
-    }
+.card button:hover {
+  background-color: #374151;
+}
 
-    .card h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #f3f4f6;
-    }
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  /* Abstand nach oben hinzufügen */
+}
 
-    .card label {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #f3f4f6;
-    }
+.button-container button {
+  width: calc(33.33% - 0.5rem);
+}
 
-    .card input[type="text"],
-    .card input[type="file"],
-    .card input[type="color"] {
-      width: 100%;
-      padding: 12px 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: none;
-      background-color: #6b7280;
-      color: #f3f4f6;
-      font-size: 16px;
-    }
+#titlebar {
+  -webkit-app-region: drag;
+  background-color: var(--secondary-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
 
-    .card button {
-      width: calc(50% - 10px);
-      padding: 12px 0;
-      display: flex;
-      margin: 5px;
-      border: none;
-      border-radius: 8px;
-      background-color: #4b5563;
-      color: #f3f4f6;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      justify-content: center;
-    }
+#titlebar-controls {
+  display: flex;
+  align-items: center;
+  order: -1;
+  -webkit-app-region: no-drag;
+  /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
+}
 
-    .card button:hover {
-      background-color: #374151;
-    }
+.control-button {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  background-color: #fff;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
 
-    .button-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 5px;
-      /* Abstand nach oben hinzufügen */
-    }
+.control-button:hover {
+  cursor: pointer;
+}
 
-    .button-container button {
-      width: calc(33.33% - 0.5rem);
-    }
+.control-button.minimize {
+  background-color: #fdfdbc;
+  /* Hellere Hover-Farbe für minimize */
+}
 
-    #titlebar {
-      -webkit-app-region: drag;
-      background-color: var(--secondary-color);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 40px;
-      padding: 0 10px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-    }
+.control-button.maximize {
+  background-color: #d3ffd3;
+  /* Hellere Hover-Farbe für maximize */
+}
 
-    #titlebar-controls {
-      display: flex;
-      align-items: center;
-      order: -1;
-      -webkit-app-region: no-drag;
-      /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
-    }
+.control-button.close {
+  background-color: #ff9494;
+  /* Hellere Hover-Farbe für close */
+}
 
-    .control-button {
-      width: 12px;
-      height: 12px;
-      margin-right: 5px;
-      background-color: #fff;
-      color: #fff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-      transition: background-color 0.3s ease;
-    }
+.control-button.minimize:hover {
+  background-color: #ffff66;
+  /* Lebendigere Hintergrundfarbe für minimize im Hover-Modus */
+}
 
-    .control-button:hover {
-      cursor: pointer;
-    }
+.control-button.maximize:hover {
+  background-color: #99ff99;
+  /* Lebendigere Hintergrundfarbe für maximize im Hover-Modus */
+}
 
-    .control-button.minimize:hover {
-      background-color: #ffff66;
-    }
-
-    .control-button.maximize:hover {
-      background-color: #99ff99;
-    }
-
-    .control-button.close:hover {
-      background-color: #ff4d4d;
-    }
+.control-button.close:hover {
+  background-color: #ff4d4d;
+  /* Lebendigere Hintergrundfarbe für close im Hover-Modus */
+}
 
 #title {
   flex-grow: 1;
+  /* Flexibles Wachstum */
   text-align: center;
-  margin-left: -65px;
+  /* Zentrierung des Textes */
+  margin-left: -10%;
+  /* Berechnung des linken Abstands */
   color: #fff;
+  /* Textfarbe */
+}
+
+.button,
+#sort-random-beat {
+  background-color: var(--secondary-color);
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.button:hover,
+#sort-random-beat:hover {
+  transform: scale(1.03);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  /* Breite der Scrollleiste */
+}
+
+/* Hintergrund der Scrollleiste */
+::-webkit-scrollbar-track {
+  background-color: #4b5563;
+}
+
+/* Scrollbalken */
+::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+  /* Farbe des Scrollbalkens */
+  border-radius: 5px;
+  /* Abrundung des Scrollbalkens */
+}
+
+/* Wenn Hover-Effekte für die Scrollleiste gewünscht sind */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+  /* Farbe des Scrollbalkens bei Hover */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question {
+  animation: fadeIn 0.5s ease forwards;
 }
