@@ -13,19 +13,15 @@
 </head>
 
 <body>
-<div id="titlebar">
-    <div id="titlebar-drag-region"></div>
-    <div id="title">BeatForge - Library</div>
-    <div id="titlebar-controls">
-        <div class="control-button close" id="close"></div>
-        <div class="control-button minimize" id="minimize"></div>
-        <div class="control-button maximize" id="maximize"></div>
-        <div class="control-button minimize" id="minimize" style="visibility: hidden;"></div>
-        <div class="control-button maximize" id="maximize" style="visibility: hidden;"></div>
-        <div class="control-button minimize" id="minimize" style="visibility: hidden;"></div>
-        <div class="control-button maximize" id="maximize" style="visibility: hidden;"></div>
+    <div id="titlebar">
+        <div id="titlebar-drag-region"></div>
+        <div id="title">BeatForge - Library</div>
+        <div id="titlebar-controls">
+            <div class="control-button close" id="close"></div>
+            <div class="control-button minimize" id="minimize"></div>
+            <div class="control-button maximize" id="maximize"></div>
+        </div>
     </div>
-</div>
 
     <div class="sidebar">
         <div class="profile-info">
@@ -164,23 +160,22 @@
         </div>
     </div>
     <script src="../js/library.js"></script>
-        <script src="../titlebar.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-            <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-            <script>
-                const lenis = new Lenis()
+    <script src="../titlebar.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis()
 
-                lenis.on('scroll', (e) => {
-                    console.log(e)
-                })
+        lenis.on('scroll', (e) => {
+        })
 
-                function raf(time) {
-                    lenis.raf(time)
-                    requestAnimationFrame(raf)
-                }
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
 
-                requestAnimationFrame(raf)
-            </script>
+        requestAnimationFrame(raf)
+    </script>
 </body>
 
 </html>

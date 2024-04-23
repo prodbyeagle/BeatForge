@@ -22,10 +22,6 @@
             <div class="control-button close" id="close"></div>
             <div class="control-button minimize" id="minimize"></div>
             <div class="control-button maximize" id="maximize"></div>
-            <div class="control-button minimize" id="minimize" style="visibility: hidden;"></div>
-            <div class="control-button maximize" id="maximize" style="visibility: hidden;"></div>
-            <div class="control-button minimize" id="minimize" style="visibility: hidden;"></div>
-            <div class="control-button maximize" id="maximize" style="visibility: hidden;"></div>
         </div>
     </div>
 
@@ -54,26 +50,38 @@
                 5</span></a>
     </div>
 
-    <div id="design_overlay" class="overlay"></div>
-    <div id="design_modal" class="modal">
+    <div id="design_overlay" class="overlay transition-opacity duration-3000"></div>
+    <div id="design_modal" class="modal transition-opacity duration-3000">
         <div class="modal-content">
-            <h2>Theme Browser</h2>
+            <h2 class="animate-bounce">Theme Browser</h2>
         </div>
     </div>
 
-<div id="theme_design_overlay" class="overlay"></div>
-<div id="theme_creator_modal" class="modal">
-    <div class="modal-content">
-        <!-- <form id="theme-creator-form">
+    <div id="theme_design_overlay" class="overlay"></div>
+    <div id="theme_creator_modal" class="modal">
+        <div class="modal-content">
+            <!-- <form id="theme-creator-form">
             <!-- Button zum Erstellen des Themes -->
             <button type="submit" class="create-theme-btn">Create Theme</button>
-        </form>
-        <!-- Bereich für die Live-Vorschau der Fake-Seite -->
-        <div id="fake-page-preview" class="fake-page-preview">
-            <iframe id="fake-page-iframe" class="fake-page-iframe" src="theme_creator.html" frameborder="0"></iframe>
+            </form>
+            <!-- Bereich für die Live-Vorschau der Fake-Seite -->
+            <div id="fake-page-preview" class="fake-page-preview">
+                <iframe id="fake-page-iframe" class="fake-page-iframe" src="theme_creator.html"
+                    frameborder="0"></iframe>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="confirm-overlay"></div>
+    <div id="confirm" class="confirm">
+        <div class="confirm-content">
+            <div class="confirm-body">
+                <h2 id="confirmation_text"></h2>
+                <button class="" id="confirm_button">Confirm</button>
+                <button id="cancel_button">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
