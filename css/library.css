@@ -31,9 +31,9 @@ body {
     margin-right: 20px;
     margin-top: 40px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) rgba(149, 255, 167, 0.493);
     transition: width 0.2s ease;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     bottom: 0;
@@ -124,7 +124,6 @@ body {
     background-color: var(--primary-color);
     border-radius: 10px;
     padding: 20px;
-    margin-left: 250px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex-grow: 1;
@@ -140,10 +139,6 @@ body {
     color: #d1d5db;
     font-size: 16px;
     line-height: 1.5;
-}
-
-#sort-random-beat:hover {
-    filter: brightness(0.8);
 }
 
 .modal {
@@ -200,7 +195,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(15px);
     z-index: 999;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'), auto;
+    cursor: crosshair;
     color: white;
 }
 
@@ -237,25 +232,45 @@ body {
     width: 12px;
     height: 12px;
     margin-right: 5px;
-    background-color: #ffffff;
+    background-color: #fff;
     color: #fff;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
 }
+
+.control-button:hover {
+    cursor: pointer;
+}
+
+.control-button.minimize {
+    background-color: #fdfdbc;
+    /* Hellere Hover-Farbe für minimize */
+}
+
+.control-button.maximize {
+    background-color: #d3ffd3;
+    /* Hellere Hover-Farbe für maximize */
+}
+
+.control-button.close {
+    background-color: #ff9494;
+    /* Hellere Hover-Farbe für close */
+}
+
 .control-button.minimize:hover {
     background-color: #ffff66;
-    cursor: pointer;
+    /* Lebendigere Hintergrundfarbe für minimize im Hover-Modus */
 }
 
 .control-button.maximize:hover {
     background-color: #99ff99;
-    cursor: pointer;
+    /* Lebendigere Hintergrundfarbe für maximize im Hover-Modus */
 }
 
 .control-button.close:hover {
     background-color: #ff4d4d;
-    cursor: pointer;
+    /* Lebendigere Hintergrundfarbe für close im Hover-Modus */
 }
 
 #title {
@@ -265,6 +280,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    margin: 10px;
     color: #fff;
     /* Textfarbe */
 }
@@ -405,4 +421,5 @@ body {
 .button:hover,
 #sort-random-beat:hover {
     transform: scale(1.03);
+    border-radius: 15px;
 }

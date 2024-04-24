@@ -58,7 +58,6 @@ app.on('ready', () => {
 
         // Markierung setzen, dass das Onboarding abgeschlossen wurde
         config.onboardingCompleted = true;
-        config.userData = userData;
 
         // Konfiguration speichern
         saveConfig(config);
@@ -83,7 +82,10 @@ app.on('ready', () => {
                 preload: path.join(__dirname, 'preload.js')
             }
         });
-        sendThemesToRenderer();
+        // Ereignis abhören, wenn das Hauptfenster bereit ist
+        mainWindow.once('ready-to-show', () => {
+            sendThemesToRenderer(); // Hier wird sendThemesToRenderer nur aufgerufen, wenn mainWindow vollständig initialisiert wurde
+        });
 
 
         // HTML-Datei im Hauptfenster laden
@@ -94,7 +96,7 @@ app.on('ready', () => {
             mainWindow = null;
         });
     } else {
-        const onboardingWindow = new BrowserWindow({
+        let mainWindow = new BrowserWindow({
             width: 1280,
             height: 900,
             maxWidth: 1920,
@@ -110,13 +112,16 @@ app.on('ready', () => {
                 preload: path.join(__dirname, 'preload.js')
             }
         });
-        sendThemesToRenderer();
+        // Ereignis abhören, wenn das Hauptfenster bereit ist
+        mainWindow.once('ready-to-show', () => {
+            sendThemesToRenderer(); // Hier wird sendThemesToRenderer nur aufgerufen, wenn mainWindow vollständig initialisiert wurde
+        });
 
         // HTML-Datei im Onboarding-Fenster laden
-        onboardingWindow.loadFile(path.join(__dirname, 'sites', 'onboarding.html'));
+        mainWindow.loadFile(path.join(__dirname, 'sites', 'intro.html'));
 
         // Ereignishandler für Steuerungsschaltflächen im Onboarding-Fenster registrieren
-        onboardingWindow.on('close', () => {
+        mainWindow.on('close', () => {
             app.quit();
         });
     }
@@ -135,13 +140,31 @@ app.on('activate', () => {
 });
 
 ipcMain.on('load-themes', (event) => {
-    const themes = loadThemes(); // Funktion, um die Themes zu laden
-    mainWindow.webContents.send('load-themes', themes); // mainWindow ist Ihre BrowserWindow-Instanz
+    try {
+        if (mainWindow) { // Sicherstellen, dass mainWindow definiert ist
+            const themes = loadThemes(); // Funktion, um die Themes zu laden
+            mainWindow.webContents.send('load-themes', themes); // mainWindow ist Ihre BrowserWindow-Instanz
+        } else {
+            throw new Error('mainWindow ist nicht definiert');
+        }
+    } catch (error) {
+        console.error('Fehler beim Laden der Themes:', error.message);
+        console.error('Fehlerdetails:', error);
+        event.sender.send('load-themes-error', 'Fehler beim Laden der Themes: ' + error.message); // Fehlermeldung zurücksenden
+    }
 });
 
 function loadThemes() {
     try {
+        // Check if the file exists
+        if (!fs.existsSync(themesFilePath)) {
+            fs.writeFileSync(themesFilePath, '[]');
+        }
+
+        // Read the file contents
         const data = fs.readFileSync(themesFilePath);
+
+        // Parse and return the JSON data
         return JSON.parse(data);
     } catch (error) {
         console.error('Fehler beim Laden der Themes:', error);
@@ -152,13 +175,21 @@ function loadThemes() {
 // console.log(loadThemes());
 
 function sendThemesToRenderer() {
+    if (!mainWindow) { // Wenn mainWindow nicht definiert ist
+        const errorMessage = 'Kein mainWindow gefunden';
+        console.error(errorMessage);
+        ipcMain.emit('mainWindow-error', errorMessage);
+        return; // Beenden der Funktion, um zu verhindern, dass der Rest des Codes ausgeführt wird
+    }
+
     console.log('Lade Themes...');
     try {
         const themes = loadThemes();
         console.log('Themes erfolgreich geladen');
         mainWindow.webContents.send('load-themes', themes);
     } catch (error) {
-        console.error('Fehler beim Laden der Themes:', error);
-        mainWindow.webContents.send('load-themes', []); // Leeres Array senden, wenn ein Fehler auftritt
+        console.error('Fehler beim Laden der Themes:', error.message);
+        console.error('Fehlerdetails:', error);
+        mainWindow.webContents.send('load-themes', []);
     }
 }

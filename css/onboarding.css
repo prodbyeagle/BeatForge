@@ -187,6 +187,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  margin: 10px;
   color: #fff;
   /* Textfarbe */
 }
@@ -205,6 +206,7 @@ body {
 .button:hover,
 #sort-random-beat:hover {
   transform: scale(1.03);
+  border-radius: 15px;
 }
 
 ::-webkit-scrollbar {

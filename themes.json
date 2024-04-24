@@ -115,78 +115,6 @@
         ]
     },
     {
-        "name": "Golden Hour",
-        "description": "Witness the magical glow of the golden hour with this warm golden theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FFBA08",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FAA307"
-            },
-            {
-                "name": "tertiary",
-                "color": "#F48C06"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E85D04"
-            }
-        ]
-    },
-    {
-        "name": "Spring Blossom",
-        "description": "Celebrate the renewal of life with this fresh spring blossom theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#8AC926",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#1982C4"
-            },
-            {
-                "name": "tertiary",
-                "color": "#6A4C93"
-            },
-            {
-                "name": "quaternary",
-                "color": "#F72585"
-            }
-        ]
-    },
-    {
-        "name": "Autumn Leaves",
-        "description": "Fall in love with the colors of autumn with this rich leaf-inspired theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#B5179E",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F35D5D"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FCBF49"
-            },
-            {
-                "name": "quaternary",
-                "color": "#5A189A"
-            }
-        ]
-    },
-    {
         "name": "Winter Frost",
         "description": "Experience the tranquility of a snowy winter landscape with this icy theme.",
         "values": [
@@ -206,30 +134,6 @@
             {
                 "name": "quaternary",
                 "color": "#2A9D8F"
-            }
-        ]
-    },
-    {
-        "name": "Summer Sunshine",
-        "description": "Bask in the warmth of summer sunshine with this cheerful yellow theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FFD166",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FF851B"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FF4136"
-            },
-            {
-                "name": "quaternary",
-                "color": "#85144B"
             }
         ]
     },
@@ -372,52 +276,6 @@
         ]
     },
     {
-        "name": "Neon Nights",
-        "description": "Get lost in the neon-lit streets of a futuristic metropolis with this electrifying theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#00A0A0",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#00FFFF"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FF00FF"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FFFF00"
-            }
-        ]
-    },
-    {
-        "name": "Pastel Rainbow",
-        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FF6B6B",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F4A261"
-            },
-            {
-                "name": "tertiary",
-                "color": "#2A9D8F"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E9C46A"
-            }
-        ]
-    },
-    {
         "name": "Eagle Theme",
         "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
         "values": [
@@ -513,33 +371,6 @@
         ]
     },
     {
-        "name": "Color Craziness",
-        "description": "made by @dwhincandi",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FF006E",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FFBE0B",
-                "_comment": "Body"
-            },
-            {
-                "name": "tertiary",
-                "color": "#8338EC",
-                "_comment": "font color"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FB5607",
-                "_comment": "hr color"
-            }
-        ]
-    },
-    {
         "name": "Chocolate Glaze",
         "description": "🦅 made by @prodbyeagle",
         "values": [
@@ -588,6 +419,177 @@
                 "name": "quaternary",
                 "color": "#6f1d1b",
                 "_comment": "hr color"
+            }
+        ]
+    },
+    {
+        "name": "Golden Hour",
+        "description": "Witness the magical glow of the golden hour with this warm golden theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#FFBA08",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#FAA307"
+            },
+            {
+                "name": "tertiary",
+                "color": "#F48C06"
+            },
+            {
+                "name": "quaternary",
+                "color": "#E85D04"
+            }
+        ]
+    },
+    {
+        "name": "Spring Blossom",
+        "description": "Celebrate the renewal of life with this fresh spring blossom theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#8AC926",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#1982C4"
+            },
+            {
+                "name": "tertiary",
+                "color": "#6A4C93"
+            },
+            {
+                "name": "quaternary",
+                "color": "#F72585"
+            }
+        ]
+    },
+    {
+        "name": "Autumn Leaves",
+        "description": "Fall in love with the colors of autumn with this rich leaf-inspired theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#B5179E",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#F35D5D"
+            },
+            {
+                "name": "tertiary",
+                "color": "#FCBF49"
+            },
+            {
+                "name": "quaternary",
+                "color": "#5A189A"
+            }
+        ]
+    },
+    {
+        "name": "Color Craziness",
+        "description": "made by @dwhincandi",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#FF006E",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#FFBE0B",
+                "_comment": "Body"
+            },
+            {
+                "name": "tertiary",
+                "color": "#8338EC",
+                "_comment": "font color"
+            },
+            {
+                "name": "quaternary",
+                "color": "#FB5607",
+                "_comment": "hr color"
+            }
+        ]
+    },
+    {
+        "name": "Summer Sunshine",
+        "description": "Bask in the warmth of summer sunshine with this cheerful yellow theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#FFD166",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#FF851B"
+            },
+            {
+                "name": "tertiary",
+                "color": "#FF4136"
+            },
+            {
+                "name": "quaternary",
+                "color": "#85144B"
+            }
+        ]
+    },
+    {
+        "name": "Neon Nights",
+        "description": "Get lost in the neon-lit streets of a futuristic metropolis with this electrifying theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#00A0A0",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#00FFFF"
+            },
+            {
+                "name": "tertiary",
+                "color": "#FF00FF"
+            },
+            {
+                "name": "quaternary",
+                "color": "#FFFF00"
+            }
+        ]
+    },
+    {
+        "name": "Pastel Rainbow",
+        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
+        "warning": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#FF6B6B",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#F4A261"
+            },
+            {
+                "name": "tertiary",
+                "color": "#2A9D8F"
+            },
+            {
+                "name": "quaternary",
+                "color": "#E9C46A"
             }
         ]
     }

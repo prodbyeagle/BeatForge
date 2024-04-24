@@ -16,31 +16,35 @@
 
 <body>
 
-<div id="titlebar">
-  <div id="titlebar-drag-region"></div>
-  <div id="title">BeatForge - Onboarding</div>
-  <div id="titlebar-controls">
-    <div class="control-button close" id="close"></div>
-    <div class="control-button minimize" id="minimize"></div>
-    <div class="control-button maximize" id="maximize"></div>
+  <div id="titlebar">
+    <div id="titlebar-drag-region"></div>
+    <div id="title">BeatForge - Onboarding</div>
+    <div id="titlebar-controls">
+      <div class="control-button close" id="close"></div>
+      <div class="control-button minimize" id="minimize"></div>
+      <div class="control-button maximize" id="maximize"></div>
+    </div>
   </div>
-</div>
 
   <div class="container">
     <div class="card">
       <h1>Welcome to Beat Sorter!</h1>
       <form id="onboarding-form" class="space-y-4" onsubmit="return saveUserData(event)">
-        <div id="question-1" class="question mx-auto animate__animated animate__fadeIn">
+        <div id="question-1" class="mx-auto question animate__animated animate__fadeIn">
           <label for="username">First things first: What's your name?</label>
           <input type="text" id="username" name="username" required />
           <div class="button-container">
+            <button type="button" onclick="window.location.href='intro.html'">
+              <i class="fas fa-home"></i>
+            </button>
+
             <button type="button" id="next-question-1"
-              class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              class="w-1/2 px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               <i class="fas fa-arrow-right"></i>
             </button>
           </div>
         </div>
-        <div id="question-2" class="question mx-auto animate__animated animate__fadeIn hidden">
+        <div id="question-2" class="hidden mx-auto question animate__animated animate__fadeIn">
           <label for="folders">Which Beat Folder would you like to start with?</label>
           <input type="file" id="folders" name="folders" webkitdirectory directory required />
           <div class="button-container">
@@ -52,7 +56,7 @@
             </button>
           </div>
         </div>
-        <div id="question-3" class="question mx-auto animate__animated animate__fadeIn hidden">
+        <div id="question-3" class="hidden mx-auto question animate__animated animate__fadeIn">
           <label for="profile-pic">Let's find you a profile picture:</label>
           <input type="file" id="profile-pic" name="profile-pic" accept="image/png, image/jpeg" required />
           <div class="button-container">
@@ -60,16 +64,16 @@
               <i class="fas fa-arrow-left"></i>
             </button>
             <button type="button" id="next-question-4"
-              class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              class="w-1/2 px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               <i class="fas fa-arrow-right"></i>
             </button>
           </div>
         </div>
-        <div class="question mx-auto animate__animated animate__fadeIn hidden" id="question-4">
+        <div class="hidden mx-auto question animate__animated animate__fadeIn" id="question-4">
           <label for="accent-color">Do you have a favorite color? Please tell me:</label>
           <div class="flex items-center mt-2">
             <input type="color" id="accent-color" name="accent-color" required
-              class="appearance-none w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 focus:outline-none">
+              class="w-10 h-10 bg-gray-800 border border-gray-700 rounded-lg appearance-none focus:outline-none">
             <span id="accent-color-value" class="ml-3 text-white">Selected Color</span>
           </div>
           <div class="button-container">
@@ -77,12 +81,12 @@
               <i class="fas fa-arrow-left"></i>
             </button>
             <button type="button" id="next-question-5"
-              class="px-4 py-2 mt-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 w-1/2">
+              class="w-1/2 px-4 py-2 mt-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               <i class="fas fa-arrow-right"></i>
             </button>
           </div>
         </div>
-        <div id="question-5" class="question mx-auto animate__animated animate__fadeIn hidden">
+        <div id="question-5" class="hidden mx-auto question animate__animated animate__fadeIn">
           <label for="tags">Now, create 3 tags or More to start with:</label>
           <div id="tags-input" class="relative">
             <input type="text" id="tags" name="tags" required placeholder="Tag1, Tag2" />

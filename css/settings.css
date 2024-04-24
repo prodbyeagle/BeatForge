@@ -302,6 +302,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    margin: 10px;
     color: #fff;
     /* Textfarbe */
 }
@@ -407,6 +408,7 @@ body {
 .add-button:hover {
     transform: scale(1.03);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 .theme-icon {
@@ -559,6 +561,21 @@ body {
 
 /* Hover-Animation */
 .confirm button:hover {
+    transform: scale(1.03);
+    border-radius: 15px;
+}
+
+#openThemeCreatorOverlayBtn,
+#openOverlayBtn,
+#button {
+    transition: all 0.1s ease;
+    margin: 5px;
+    background-color: var(--secondary-color);
+}
+
+#openThemeCreatorOverlayBtn:hover,
+#openOverlayBtn:hover,
+#button:hover {
     transform: scale(1.03);
     border-radius: 15px;
 }

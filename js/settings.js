@@ -283,10 +283,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (theme.warning) {
         const warningLabel = document.createElement("h4"); // Kleiner Schriftgröße
-        warningLabel.textContent = "EXPERIMENTAL";
+        warningLabel.textContent = "Warning";
         warningLabel.style.color = "#f03232";
+        warningLabel.classList.add("animate-bounce");
         warningLabel.style.fontWeight = "bold";
-        warningLabel.title = "This Theme is very bright and can be hurting the eyes"
+        warningLabel.title = "This Theme is not made for Using All the Time."
         themeElement.appendChild(themeName);
         themeElement.appendChild(warningLabel);
       } else {
@@ -301,8 +302,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       addButton.addEventListener('click', () => {
         if (theme.warning) {
-          // Wenn das Theme eine Warnung hat, zeige eine Bestätigung an
-          openCustomConfirm(`Do you really want to apply ${theme.name} theme?`, () => {
+          // Zeige eine Warnung an, wenn das Theme nicht für dauerhaften Gebrauch empfohlen wird
+          openCustomConfirm(`Apply ${theme.name} theme? (Temporary use recommended)`, () => {
             applyTheme(theme);
           });
         } else {
@@ -319,6 +320,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Speichern Sie das angewendete Theme im lokalen Speicher
         localStorage.setItem('appliedTheme', JSON.stringify(theme));
+
+        const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+        if (appliedTheme) {
+          // Apply the saved theme
+          appliedTheme.values.forEach(color => {
+            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+          });
+
+          // Highlight the button of the applied theme and reset others
+          const themeButtons = document.querySelectorAll('.theme-item .add-button');
+          themeButtons.forEach(button => {
+            // Reset all buttons
+            button.textContent = '+';
+            button.style.borderColor = '';
+            button.style.backgroundColor = '';
+            button.disabled = false;
+
+            // Highlight the applied theme button
+            if (button.parentNode.querySelector('h3').textContent === appliedTheme.name) {
+              button.classList.add('applied-theme');
+              button.textContent = '✓';
+              button.style.borderColor = 'green';
+              button.style.backgroundColor = 'rgba(149, 255, 167, 0.493)';
+              button.disabled = true;
+            } else {
+              button.classList.remove('applied-theme');
+            }
+          });
+        }
 
         // Zeigen Sie eine Benachrichtigung an, dass das Theme angewendet wurde
         Toastify({
@@ -371,6 +401,29 @@ document.addEventListener("DOMContentLoaded", function () {
         // Apply the saved theme
         appliedTheme.values.forEach(color => {
           document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        });
+
+        // Highlight the button of the applied theme and reset others
+        const themeButtons = document.querySelectorAll('.theme-item .add-button');
+        themeButtons.forEach(button => {
+          // Reset all buttons
+          button.textContent = ' + ';
+          button.style.borderColor = '';
+          button.style.backgroundColor = '';
+          button.disabled = false;
+
+          // Highlight the applied theme button
+          if (button.parentNode.querySelector('h3').textContent === appliedTheme.name) {
+            button.classList.add('applied-theme');
+            button.textContent = '✓';
+            button.style.borderColor = 'green';
+            button.style.backgroundColor = 'rgba(149, 255, 167, 0.493)';
+            button.disabled = true;
+            button.style.cursor = "not-allowed"
+            button.title = "You are using this Theme already"
+          } else {
+            button.classList.remove('applied-theme');
+          }
         });
       } else {
         // If no saved theme exists, show a notification
