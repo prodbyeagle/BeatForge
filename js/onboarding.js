@@ -89,21 +89,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const accentColorInput = document.getElementById("accent-color");
     const accentColorValue = document.getElementById("accent-color-value");
 
-    // Set initial color value
+
     accentColorValue.textContent = accentColorInput.value;
 
-    // Update color value when color changes
+
     accentColorInput.addEventListener("input", function () {
         accentColorValue.textContent = this.value;
     });
 
     const inputField = document.querySelector('input[type="text"]');
 
-    // Hänge den Event-Listener an das Eingabefeld
+
     inputField.addEventListener('keydown', function (event) {
-        // Überprüfe, ob die gedrückte Taste die Enter-Taste ist
+
         if (event.key === 'Enter') {
-            // Rufe die Funktion nextQuestion() auf
+
             nextQuestion();
         }
     });
@@ -136,7 +136,7 @@ async function saveUserData(event) {
         return;
     }
 
-    // Speichern der Benutzerdaten im Local Storage
+
     const userData = {
         username: username,
         folders: foldersInput ? foldersInput.files[0].path : null,
@@ -147,16 +147,16 @@ async function saveUserData(event) {
     };
     localStorage.setItem('userData', JSON.stringify(userData));
 
-    // Laden der Konfiguration
+
     const config = loadConfig();
 
-    // Setzen von onboardingCompleted auf true in der Konfiguration
+
     config.onboardingCompleted = true;
 
-    // Speichern der Konfiguration
+
     saveConfig(config);
 
-    // Senden einer IPC-Nachricht an den Hauptprozess, um das Onboarding als abgeschlossen zu markieren
+
     if (window.ipcRenderer) {
         window.ipcRenderer.send('onboarding-complete', {
             username,
@@ -168,13 +168,13 @@ async function saveUserData(event) {
         console.error("ipcRenderer not initialized.");
     }
 
-    // Weiterleitung zur Hauptseite
+
     window.location.href = "home.html";
 }
 
 document.getElementById("onboarding-form").addEventListener("submit", saveUserData);
 
-// Definition der loadConfig()-Funktion
+
 function loadConfig() {
     try {
         const data = localStorage.getItem('config');
@@ -185,24 +185,24 @@ function loadConfig() {
     }
 }
 
-// Definition der saveConfig()-Funktion
+
 function saveConfig(config) {
     localStorage.setItem('config', JSON.stringify(config));
 }
 
-// Event-Listener für das Submit-Ereignis des Onboarding-Formulars
+
 document.getElementById("onboarding-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const username = document.getElementById("username").value;
     const tags = document.getElementById("tags").value;
-    const profilePic = document.getElementById("profile-pic").files[0].path; // Direkter Zugriff auf den Dateinamen
+    const profilePic = document.getElementById("profile-pic").files[0].path;
     const accentColor = document.getElementById("accent-color").value;
 
-    // Abrufen des Ordnerpfads aus dem Local Storage
+
     const foldersPath = localStorage.getItem('foldersPath');
 
-    // Speichern der Benutzerdaten im Local Storage
+
     const userData = {
         username: username,
         folders: foldersPath,
@@ -213,16 +213,16 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     };
     localStorage.setItem('userData', JSON.stringify(userData));
 
-    // Laden der Konfiguration
+
     const config = loadConfig();
 
-    // Setzen von onboardingCompleted auf true in der Konfiguration
+
     config.onboardingCompleted = true;
 
-    // Speichern der Konfiguration
+
     saveConfig(config);
 
-    // Senden einer IPC-Nachricht an den Hauptprozess, um das Onboarding als abgeschlossen zu markieren
+
     if (window.ipcRenderer) {
         window.ipcRenderer.send('onboarding-complete', {
             username,
@@ -234,6 +234,6 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
         console.error("ipcRenderer not initialized.");
     }
 
-    // Weiterleitung zur Hauptseite
+
     window.location.href = "home.html";
 });

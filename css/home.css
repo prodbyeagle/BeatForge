@@ -218,7 +218,7 @@ body {
     align-items: center;
     order: -1;
     -webkit-app-region: no-drag;
-    /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
+
 }
 
 .control-button {
@@ -238,44 +238,44 @@ body {
 
 .control-button.minimize {
     background-color: #fdfdbc;
-    /* Hellere Hover-Farbe für minimize */
+
 }
 
 .control-button.maximize {
     background-color: #d3ffd3;
-    /* Hellere Hover-Farbe für maximize */
+
 }
 
 .control-button.close {
     background-color: #ff9494;
-    /* Hellere Hover-Farbe für close */
+
 }
 
 .control-button.minimize:hover {
     background-color: #ffff66;
-    /* Lebendigere Hintergrundfarbe für minimize im Hover-Modus */
+
 }
 
 .control-button.maximize:hover {
     background-color: #99ff99;
-    /* Lebendigere Hintergrundfarbe für maximize im Hover-Modus */
+
 }
 
 .control-button.close:hover {
     background-color: #ff4d4d;
-    /* Lebendigere Hintergrundfarbe für close im Hover-Modus */
+
 }
 
 #title {
     flex-grow: 1;
-    /* Flexibles Wachstum */
+
     text-align: center;
     top: 0;
     left: 0;
     right: 0;
     margin: 10px;
     color: #fff;
-    /* Textfarbe */
+
 }
 
 .button,
@@ -298,26 +298,26 @@ body {
 
 ::-webkit-scrollbar {
     width: 10px;
-    /* Breite der Scrollleiste */
+
 }
 
-/* Hintergrund der Scrollleiste */
+
 ::-webkit-scrollbar-track {
     background-color: #4b5563;
 }
 
-/* Scrollbalken */
+
 ::-webkit-scrollbar-thumb {
     background-color: #6b7280;
-    /* Farbe des Scrollbalkens */
+
     border-radius: 5px;
-    /* Abrundung des Scrollbalkens */
+
 }
 
-/* Wenn Hover-Effekte für die Scrollleiste gewünscht sind */
+
 ::-webkit-scrollbar-thumb:hover {
     background-color: #9ca3af;
-    /* Farbe des Scrollbalkens bei Hover */
+
 }
 
 .confirm {

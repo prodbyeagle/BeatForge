@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".modal");
     const closeModalButton = document.querySelector(".close-modal");
 
-    // Dummy-Daten für die neuesten Beats
+
     const latestBeatsElement = document.getElementById("latest-beats");
     const latestBeats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4", "Beat 5"];
     latestBeats.forEach((beat) => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         latestBeatsElement.appendChild(li);
     });
 
-    // Funktion zum Aktualisieren der Benutzeroberfläche
+
     function updateUI(userData) {
         const accentColor = userData.accentColor || "#000000";
         const sidebarIcons = document.querySelectorAll(".sidebar a i");
@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
             item.addEventListener("mouseleave", handleSidebarLeave);
         });
 
-        // Begrüßung aktualisieren
+
         updateGreeting();
         profilePicImg.src = userData.profilePic;
     }
 
-    // Ereignislistener für die Sidebar-Elemente
+
     function handleSidebarHover(event) {
         const accentColor = localStorage.getItem("userData")
             ? JSON.parse(localStorage.getItem("userData")).accentColor || "#000000"
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon.style.color = "#d1d5db";
     }
 
-    // Begrüßung aktualisieren basierend auf der Tageszeit
+
     function updateGreeting() {
         const time = new Date().getHours();
         if (time < 6) {
@@ -68,14 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Lokalen Speicher nach Benutzerdaten überprüfen
+
     const savedUserData = localStorage.getItem("userData");
     if (savedUserData) {
         const userData = JSON.parse(savedUserData);
         updateUI(userData);
     }
 
-    // Sortieren eines zufälligen Beats
+
     sortButton.addEventListener("click", function () {
         Toastify({
             text: "Searching for an beat...",
@@ -91,41 +91,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener('auxclick', function (event) {
         if (event.button === 1) {
-            event.preventDefault(); // Verhindert das Standardverhalten der mittleren Maustaste
+            event.preventDefault();
         }
     });
 
-    // Version anklickbar machen und Update-Logs anzeigen
+
     versionElement.addEventListener("click", function () {
-        // Hintergrund verschwommen und dunkler machen
+
         overlay.classList.add("show");
         modal.classList.add("show");
     });
 
-    // Schließen des modalen Popups
+
     closeModalButton.addEventListener("click", function () {
-        // Hintergrund wiederherstellen
+
         overlay.classList.remove("show");
         modal.classList.remove("show");
     });
 
-    // Klicken auf das Overlay zum Schließen des Modals
+
     overlay.addEventListener("click", function () {
         overlay.classList.remove("show");
         modal.classList.remove("show");
     });
 });
 
-// Function to load the applied theme when the page loads
+
 window.addEventListener('load', () => {
     const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
     if (appliedTheme) {
-        // Apply the saved theme
+
         appliedTheme.values.forEach(color => {
             document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
         });
     } else {
-        // If no saved theme exists, show a notification
+
         Toastify({
             text: "The applied theme no longer exists.",
             duration: 3000,

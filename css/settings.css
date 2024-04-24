@@ -156,7 +156,7 @@ body {
     border: 1px solid #cfcfcf;
     overflow-y: auto;
     transition: opacity 0.3s ease;
-    /* Hinzufügen einer Easing-Animation für die Opazität */
+
 }
 
 .modal h2,
@@ -182,15 +182,15 @@ body {
     border-radius: 10px;
 }
 
-/* Griff der Scrollleiste */
+
 .modal::-webkit-scrollbar-thumb,
 .design_modal::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
-    /* abgerundete Ecken */
+
 }
 
-/* Bei Hover-Effekt auf die Scrollleiste */
+
 .modal::-webkit-scrollbar-thumb:hover,
 .design_modal::-webkit-scrollbar-thumb:hover {
     background-color: #555;
@@ -247,7 +247,7 @@ body {
     align-items: center;
     order: -1;
     -webkit-app-region: no-drag;
-    /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
+
 }
 
 .control-button {
@@ -267,44 +267,44 @@ body {
 
 .control-button.minimize {
     background-color: #fdfdbc;
-    /* Hellere Hover-Farbe für minimize */
+
 }
 
 .control-button.maximize {
     background-color: #d3ffd3;
-    /* Hellere Hover-Farbe für maximize */
+
 }
 
 .control-button.close {
     background-color: #ff9494;
-    /* Hellere Hover-Farbe für close */
+
 }
 
 .control-button.minimize:hover {
     background-color: #ffff66;
-    /* Lebendigere Hintergrundfarbe für minimize im Hover-Modus */
+
 }
 
 .control-button.maximize:hover {
     background-color: #99ff99;
-    /* Lebendigere Hintergrundfarbe für maximize im Hover-Modus */
+
 }
 
 .control-button.close:hover {
     background-color: #ff4d4d;
-    /* Lebendigere Hintergrundfarbe für close im Hover-Modus */
+
 }
 
 #title {
     flex-grow: 1;
-    /* Flexibles Wachstum */
+
     text-align: center;
     top: 0;
     left: 0;
     right: 0;
     margin: 10px;
     color: #fff;
-    /* Textfarbe */
+
 }
 
 .beat-folders {
@@ -317,7 +317,7 @@ body {
 
 .beat-folder {
     width: 100%;
-    /* Ändere die Breite auf 100% */
+
     padding: 10px;
     border: 1px solid #4b5563;
     background-color: #1f2937;
@@ -350,36 +350,36 @@ body {
 .modal-content {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    /* Standard: Eine Spalte */
+
     gap: 20px;
     scroll-behavior: smooth;
-    /* Abstand zwischen den Elementen */
+
 }
 
-/* Media Query für Bildschirmgrößen ab 768px */
+
 @media screen and (min-width: 900px) {
     .modal-content {
         grid-template-columns: repeat(1, 1fr);
-        /* Zwei Spalten */
+
     }
 }
 
-/* Media Query für Bildschirmgrößen ab 1024px */
+
 @media screen and (min-width: 1024px) {
     .modal-content {
         grid-template-columns: repeat(2, 1fr);
-        /* Drei Spalten */
+
     }
 }
 
 .theme-item {
     display: flex;
     flex-direction: column;
-    /* Ändern Sie die Richtung auf Spalten */
+
     justify-content: space-between;
-    /* Platzieren Sie den Inhalt an den Anfang und das Ende */
+
     align-items: flex-start;
-    /* Platzieren Sie den Inhalt am Anfang der Spalte */
+
     padding: 10px;
     margin-bottom: 10px;
     border: 2px solid #cfcfcf;
@@ -396,12 +396,12 @@ body {
     cursor: pointer;
     align-self: flex-end;
     transition: all 0.1s ease;
-    /* Positionieren Sie den Button am Ende des Containers */
+
 }
 
 .theme-item:nth-child(even) {
     margin-right: 0;
-    /* Entferne den rechten Abstand für Kacheln mit geraden Index */
+
 }
 
 .theme-item:hover,
@@ -422,7 +422,7 @@ body {
     font-weight: bold;
 }
 
-/* Container für die Theme-Bibliothek */
+
 .theme-library {
     display: flex;
     flex-wrap: wrap;
@@ -431,11 +431,11 @@ body {
 
 .color-box {
     width: 150px;
-    /* Breite anpassen */
+
     height: 25px;
-    /* Höhe anpassen */
+
     border-radius: 5px;
-    /* Optional: Runde Ecken hinzufügen */
+
 }
 
 .fake-page-preview {
@@ -446,16 +446,16 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
-    /* Zentrieren des IFrames horizontal */
+
 }
 
 .fake-page-iframe {
     height: 190%;
-    /* Anpassen der Höhe auf 60% der Bildschirmhöhe */
+
     width: 800%;
-    /* Reduzieren der Breite auf 80% des verfügbaren Platzes */
+
     border: none;
-    /* Entfernen der Rahmen des IFrames */
+
 }
 
 .confirm {
@@ -465,7 +465,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #313131;
-    /* Hintergrundfarbe ohne Transparenz */
+
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -476,17 +476,17 @@ body {
     border: 1px solid #cfcfcf;
     backdrop-filter: blur(25px);
     transition: top 0.3s ease;
-    /* Animation für Einfahren */
+
 }
 
 .confirm.show {
     top: 50%;
-    /* Endposition zentriert */
+
 }
 
 .confirm.hide {
     top: 110%;
-    /* Endposition außerhalb des Bildschirms */
+
 }
 
 .confirm-overlay {
@@ -501,18 +501,18 @@ body {
     backdrop-filter: blur(10px);
     z-index: 1999;
     transition: opacity 0.3s ease;
-    /* Animation für Ausblenden */
+
 }
 
 .confirm-overlay.show {
     display: block;
     opacity: 1;
-    /* Vollständig sichtbar */
+
 }
 
 .confirm-overlay.hide {
     opacity: 0;
-    /* Vollständig unsichtbar */
+
 }
 
 .confirm h2 {
@@ -546,7 +546,7 @@ body {
 #confirmation_text {
     margin-bottom: 15px;
     color: white;
-    /* Hinzugefügte Regel */
+
 }
 
 #confirm_button {
@@ -559,7 +559,7 @@ body {
     color: white;
 }
 
-/* Hover-Animation */
+
 .confirm button:hover {
     transform: scale(1.03);
     border-radius: 15px;
