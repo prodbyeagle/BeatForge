@@ -104,8 +104,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleSidebarLeave(event) {
     const element = event.currentTarget;
     const icon = element.querySelector("i");
-    element.style.color = "#d1d5db";
-    icon.style.color = "#d1d5db";
+    element.style.color = "var(--tertiary-color)";
+    if (icon) {
+      icon.style.color = "var(--tertiary-color)";
+    }
   }
 
   function saveSettings(event) {
@@ -275,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const warningLabel = document.createElement("h4");
         warningLabel.textContent = "Warning";
         warningLabel.style.color = "#f03232";
-        warningLabel.classList.add("animate-bounce");
+        warningLabel.classList.add("vibrate-1");
         warningLabel.style.fontWeight = "bold";
         warningLabel.title = "This Theme is not made for Using All the Time."
         themeElement.appendChild(themeName);
@@ -430,12 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-
-
-
     const openThemeCreatorBtn = document.getElementById("openThemeCreatorOverlayBtn");
-
-
     const themeDesignOverlay = document.getElementById("theme_design_overlay");
     const designModal = document.getElementById("theme_creator_modal");
 

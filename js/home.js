@@ -50,10 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleSidebarLeave(event) {
         const element = event.currentTarget;
         const icon = element.querySelector("i");
-        element.style.color = "#d1d5db";
-        icon.style.color = "#d1d5db";
+        element.style.color = "var(--tertiary-color)";
+        if (icon) {
+            icon.style.color = "var(--tertiary-color)";
+        }
     }
-
 
     function updateGreeting() {
         const time = new Date().getHours();
