@@ -43,7 +43,7 @@ body {
 .sidebar a {
     display: flex;
     align-items: center;
-    color: #d1d5db;
+    color: var(--tertiary-color);
     font-size: 18px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -253,7 +253,7 @@ body {
 .control-button {
     width: 12px;
     height: 12px;
-    margin-right: 5px;
+    margin-right: 8px;
     background-color: #fff;
     color: #fff;
     border-radius: 50%;
@@ -266,18 +266,15 @@ body {
 }
 
 .control-button.minimize {
-    background-color: #fdfdbc;
-
+    background-color: #FFCC00;
 }
 
 .control-button.maximize {
-    background-color: #d3ffd3;
-
+    background-color: #4CD964;
 }
 
 .control-button.close {
-    background-color: #ff9494;
-
+    background-color: #FF3B30;
 }
 
 .control-button.minimize:hover {
@@ -291,20 +288,17 @@ body {
 }
 
 .control-button.close:hover {
-    background-color: #ff4d4d;
-
+    background-color: #ff6c6c;
 }
 
 #title {
     flex-grow: 1;
-
     text-align: center;
     top: 0;
     left: 0;
     right: 0;
     margin: 10px;
-    color: #fff;
-
+    color: var(--tertiary-color);
 }
 
 .beat-folders {
@@ -375,11 +369,8 @@ body {
 .theme-item {
     display: flex;
     flex-direction: column;
-
     justify-content: space-between;
-
     align-items: flex-start;
-
     padding: 10px;
     margin-bottom: 10px;
     border: 2px solid #cfcfcf;
@@ -431,9 +422,7 @@ body {
 
 .color-box {
     width: 150px;
-
     height: 25px;
-
     border-radius: 5px;
 
 }
@@ -451,9 +440,7 @@ body {
 
 .fake-page-iframe {
     height: 190%;
-
     width: 800%;
-
     border: none;
 
 }
@@ -465,7 +452,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #313131;
-
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -481,12 +467,10 @@ body {
 
 .confirm.show {
     top: 50%;
-
 }
 
 .confirm.hide {
     top: 110%;
-
 }
 
 .confirm-overlay {
@@ -507,12 +491,10 @@ body {
 .confirm-overlay.show {
     display: block;
     opacity: 1;
-
 }
 
 .confirm-overlay.hide {
     opacity: 0;
-
 }
 
 .confirm h2 {
@@ -576,8 +558,14 @@ body {
 #openThemeCreatorOverlayBtn:hover,
 #openOverlayBtn:hover,
 #button:hover {
-    transform: scale(1.03);
+    transform: scale(0.96);
     border-radius: 15px;
+}
+
+#openThemeCreatorOverlayBtn:active,
+#openOverlayBtn:active,
+#button:active {
+    transform: scale(1.05);
 }
 
 .show {
@@ -606,4 +594,34 @@ body {
 
 .confirm-overlay.show {
     display: block;
+}
+
+.vibrate-1 {
+    animation: vibrate-1 0.3s linear infinite both;
+}
+
+@keyframes vibrate-1 {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
 }

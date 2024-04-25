@@ -138,7 +138,7 @@ body {
 .control-button {
   width: 12px;
   height: 12px;
-  margin-right: 5px;
+  margin-right: 8px;
   background-color: #fff;
   color: #fff;
   border-radius: 50%;
@@ -151,18 +151,15 @@ body {
 }
 
 .control-button.minimize {
-  background-color: #fdfdbc;
-
+  background-color: #FFCC00;
 }
 
 .control-button.maximize {
-  background-color: #d3ffd3;
-
+  background-color: #4CD964;
 }
 
 .control-button.close {
-  background-color: #ff9494;
-
+  background-color: #FF3B30;
 }
 
 .control-button.minimize:hover {
@@ -182,14 +179,12 @@ body {
 
 #title {
   flex-grow: 1;
-
   text-align: center;
   top: 0;
   left: 0;
   right: 0;
   margin: 10px;
-  color: #fff;
-
+  color: var(--tertiary-color);
 }
 
 .button,
@@ -210,34 +205,10 @@ body {
   border-radius: 15px;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-
-}
-
-
-::-webkit-scrollbar-track {
-  background-color: #4b5563;
-}
-
-
-::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
-
-  border-radius: 5px;
-
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af;
-
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
 
   to {

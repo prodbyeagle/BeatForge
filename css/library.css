@@ -50,7 +50,7 @@ body {
 .sidebar a {
     display: flex;
     align-items: center;
-    color: #d1d5db;
+    color: var(--tertiary-color);
     font-size: 18px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -231,7 +231,7 @@ body {
 .control-button {
     width: 12px;
     height: 12px;
-    margin-right: 5px;
+    margin-right: 8px;
     background-color: #fff;
     color: #fff;
     border-radius: 50%;
@@ -244,18 +244,15 @@ body {
 }
 
 .control-button.minimize {
-    background-color: #fdfdbc;
-
+    background-color: #FFCC00;
 }
 
 .control-button.maximize {
-    background-color: #d3ffd3;
-
+    background-color: #4CD964;
 }
 
 .control-button.close {
-    background-color: #ff9494;
-
+    background-color: #FF3B30;
 }
 
 .control-button.minimize:hover {
@@ -269,20 +266,17 @@ body {
 }
 
 .control-button.close:hover {
-    background-color: #ff4d4d;
-
+    background-color: #ff6c6c;
 }
 
 #title {
     flex-grow: 1;
-
     text-align: center;
     top: 0;
     left: 0;
     right: 0;
     margin: 10px;
-    color: #fff;
-
+    color: var(--tertiary-color);
 }
 
 #library-list {
@@ -310,7 +304,6 @@ body {
     font-size: 16px;
     margin-bottom: 5px;
 }
-
 
 .filters-container {
     margin-bottom: 20px;
