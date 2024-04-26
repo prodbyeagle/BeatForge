@@ -32,7 +32,7 @@
       <form id="onboarding-form" class="space-y-4" onsubmit="return saveUserData(event)">
         <div id="question-1" class="mx-auto question animate__animated animate__fadeIn">
           <label for="username">First things first: What's your name?</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" id="username" name="username" minlength="4" required />
           <div class="button-container">
             <button type="button" onclick="window.location.href='intro.html'">
               <i class="fas fa-home"></i>

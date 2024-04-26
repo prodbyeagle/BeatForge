@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 
 <body>
@@ -28,32 +30,29 @@
 
     <div class="sidebar">
         <div class="profile-info">
-            <img title="@prodbyeagle" class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40"
-                alt="Profile Picture">
+            <img class="profile-pic" id="profilePicImg" src="https://via.placeholder.com/40" alt="Profile Picture">
         </div>
         <hr />
-        <a href="#" title="Home"><i class="fas fa-home" title="Home"></i><span class="sidebar-text">Home</span></a>
-        <a href="settings.html" title="Settings"><i class="fas fa-cog" title="Settings"></i><span
-                class="sidebar-text">Settings</span></a>
-        <a href="library.html" title="Library"><i class="fas fa-book" title="Library"></i><span
-                class="sidebar-text">Library</span></a>
+        <a href="#"><i class="fas fa-home"></i><span class="sidebar-text">Home</span></a>
+        <a href="settings.html"><i class="fas fa-cog"></i><span class="sidebar-text">Settings</span></a>
+        <a href="library.html"><i class="fas fa-book"></i><span class="sidebar-text">Library</span></a>
         <hr />
-        <a href="#" title="Field 1"><i class="fas fa-square" title="Field 1"></i><span class="sidebar-text">Field
+        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
                 1</span></a>
-        <a href="#" title="Field 2"><i class="fas fa-square" title="Field 2"></i><span class="sidebar-text">Field
+        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
                 2</span></a>
-        <a href="#" title="Field 3"><i class="fas fa-square" title="Field 3"></i><span class="sidebar-text">Field
+        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
                 3</span></a>
-        <a href="#" title="Field 4"><i class="fas fa-square" title="Field 4"></i><span class="sidebar-text">Field
+        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
                 4</span></a>
-        <a href="#" title="Field 5"><i class="fas fa-square" title="Field 5"></i><span class="sidebar-text">Field
+        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
                 5</span></a>
         <hr />
         <a href="onboarding.html"><i class="fas fa-bug"></i><span class="sidebar-text">Onboarding</span></a>
         <a href="intro.html"><i class="fas fa-bug"></i><span class="sidebar-text">Intro</span></a>
         <hr />
-        <a href="#" title="Alpha v0.1" id="version-button" class="title">
-            <i class="fa-solid fa-circle-info" title="Alpha v0.1"></i>
+        <a href="#" id="version-button" class="title">
+            <i class="fa-solid fa-circle-info"></i>
             <span class="sidebar-text">v0.1</span>
         </a>
     </div>
@@ -61,13 +60,12 @@
     <div id="overlay" class="overlay"></div>
     <div id="modal" class="modal">
         <span id="close-button" class="close-modal">❌</span>
-        <h2><i class="fas fa-rotate fa-solid"></i> What's New? | 22.04.2024</h2>
+        <h2><i class="fas fa-rotate fa-solid"></i> What's New? | 25.04.2024</h2>
         <ul id="update-logs">
-            <li>・ Added Themes and Theme Browser</li>
-            <li>・ Added tech Stuff for Themes</li>
-            <li>・ Margin from -35 to -65</li>
-            <li>・ Removed Update Log Code and Added Theme Loader</li>
-            <li>・ Added TItlebar Fix (needs fix asap!!)</li>
+            <li>・ Titlebar Fixed</li>
+            <li>・ Every Comment Gone ;)</li>
+            <li>・ Design Changes</li>
+            <li>・ Sidebar and Title in Titlebar now have the Theme intergrated</li>
         </ul>
     </div>
 
@@ -92,6 +90,29 @@
     </div>
     <script src="../js/home.js"></script>
     <script src="../titlebar.js"></script>
+    <script>
+        tippy('.sidebar-text', {
+            content: function (reference) {
+                // Überprüfen, ob das Element ein <i>-Element ist
+                if (reference.tagName.toLowerCase() === 'i') {
+                    // Wenn ja, verwende den Textinhalt des Elternelements (das <a>-Element)
+                    return reference.parentElement.querySelector('.sidebar-text').textContent;
+                } else {
+                    // Wenn nicht, verwende den Textinhalt des aktuellen Elements
+                    return reference.textContent;
+                }
+            },
+            animation: 'fade',
+            delay: 550,
+            arrow: false,
+        });
+
+        tippy('.profile-pic', {
+            content: "made by @prodbyeagle",
+            animation: 'fade',
+            arrow: false,
+        });
+    </script>
 </body>
 
 </html>
