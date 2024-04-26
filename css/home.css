@@ -133,13 +133,24 @@ body {
     line-height: 1.5;
 }
 
+@keyframes fadeInModal {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
 .modal {
     display: none;
     position: fixed;
-    top: -100%;
-    /* Startposition oben außerhalb des Bildschirms */
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background-color: #ffffff7e;
     padding: 20px;
     border-radius: 10px;
@@ -147,10 +158,13 @@ body {
     z-index: 1000;
     width: 60%;
     max-width: 600px;
-    cursor: help;
     border: 1px solid #cfcfcf;
-    transition: top 0.3s ease-in-out;
-    /* Hier wird die Transition für die top-Eigenschaft definiert */
+    animation: fadeInModal 0.2s ease-in-out forwards;
+
+}
+
+.show {
+    display: block;
 }
 
 .modal h2 {
@@ -169,11 +183,6 @@ body {
     line-height: 1.5;
 }
 
-.show {
-    display: block;
-    top: 50%;
-    /* Zielposition in der Mitte des Bildschirms */
-}
 
 .close-modal {
     position: absolute;
