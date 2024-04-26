@@ -28,7 +28,7 @@ body {
     border-radius: 1px 10px 10px 0px;
     padding: 30px 30px;
     margin-right: 20px;
-    margin-top: 40px;
+    margin-top: 30px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
@@ -37,7 +37,7 @@ body {
 
 .sidebar:hover {
     width: 180px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .sidebar a {
@@ -136,9 +136,10 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top: 50%;
+    top: -100%;
+    /* Startposition oben außerhalb des Bildschirms */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     background-color: #ffffff7e;
     padding: 20px;
     border-radius: 10px;
@@ -148,6 +149,8 @@ body {
     max-width: 600px;
     cursor: help;
     border: 1px solid #cfcfcf;
+    transition: top 0.3s ease-in-out;
+    /* Hier wird die Transition für die top-Eigenschaft definiert */
 }
 
 .modal h2 {
@@ -168,6 +171,8 @@ body {
 
 .show {
     display: block;
+    top: 50%;
+    /* Zielposition in der Mitte des Bildschirms */
 }
 
 .close-modal {
@@ -203,7 +208,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    height: 30px;
     padding: 0 10px;
     position: fixed;
     top: 0;
