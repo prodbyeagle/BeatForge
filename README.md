@@ -35,3 +35,12 @@ BeatForge Pro is currently under development and the license information will be
 ---
 
 *Note: Some features marked as "coming soon" may not be implemented yet when you use this app.*
+
+
+---
+
+<img src="screenshots/colorcraziness.png" alt="Color Craziness Theme" width="600">
+<img src="screenshots/eagletheme.png" alt="Eagle Theme" width="550">
+<img src="screenshots/homescreen.png" alt="Homescreen" width="600">
+<img src="screenshots/mountaingray.png" alt="Mountain Gray Theme" width="600">
+<img src="screenshots/themes.png" alt="Themes" width="600">
