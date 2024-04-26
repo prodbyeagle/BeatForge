@@ -20,11 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateUI(userData) {
         const accentColor = userData.accentColor || "#000000";
-        const sidebarIcons = document.querySelectorAll(".sidebar a i");
         const sidebarText = document.querySelectorAll(".sidebar a");
         usernameElement.textContent = userData.username;
         usernameElement.style.color = accentColor;
-        sortButton.style.backgroundColor = accentColor;
 
         sidebarText.forEach((item) => {
             item.addEventListener("mouseenter", handleSidebarHover);
@@ -35,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateGreeting();
         profilePicImg.src = userData.profilePic;
     }
-
 
     function handleSidebarHover(event) {
         const accentColor = localStorage.getItem("userData")
@@ -79,12 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sortButton.addEventListener("click", function () {
         Toastify({
-            text: "Searching for an beat...",
+            text: "Searching for a beat...",
             duration: 1500,
             gravity: "bottom",
             position: "right",
             style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                background: "var(--primary-color)"
             },
             stopOnFocus: true
         }).showToast();
@@ -133,7 +130,7 @@ window.addEventListener('load', () => {
             gravity: "bottom",
             position: "right",
             style: {
-                background: "linear-gradient(to right, #FF5733, #FFB833)",
+                background: "var(--primary-color)"
             },
             stopOnFocus: true,
         }).showToast();

@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
             gravity: "bottom",
             position: "right",
             style: {
-                background: "linear-gradient(to right, #FF5733, #FFB833)",
+                background: "var(--primary-color)"
             },
             stopOnFocus: true,
         }).showToast();

@@ -147,12 +147,12 @@ document.addEventListener("DOMContentLoaded", function () {
     updateUI(userData);
 
     Toastify({
-      text: "Einstellungen erfolgreich gespeichert!",
+      text: "✅ Settings Successfully Saved!",
       duration: 3000,
       gravity: "bottom",
       position: "right",
       style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)",
+        background: "var(--secondary-color)"
       },
       stopOnFocus: true,
     }).showToast();
@@ -215,9 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
   openOverlayBtn.addEventListener("click", function () {
     openDesignModal();
   });
-
-
-
 
   ipcRenderer.on('load-themes', (themes) => {
     console.log("Themes geladen:", themes);
@@ -349,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
           gravity: "bottom",
           position: "right",
           style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "var(--primary-color)"
           },
           stopOnFocus: true,
         }).showToast();
@@ -425,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
           gravity: "bottom",
           position: "right",
           style: {
-            background: "linear-gradient(to right, #FF5733, #FFB833)",
+            background: "var(--secondary-color)"
           },
           stopOnFocus: true,
         }).showToast();
