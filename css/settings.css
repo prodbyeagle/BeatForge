@@ -28,7 +28,7 @@ body {
     border-radius: 1px 10px 10px 0px;
     padding: 30px 30px;
     margin-right: 20px;
-    margin-top: 40px;
+    margin-top: 30px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
@@ -37,7 +37,7 @@ body {
 
 .sidebar:hover {
     width: 180px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .sidebar a {
