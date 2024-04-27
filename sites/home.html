@@ -19,7 +19,7 @@
 <body>
     <div id="titlebar">
         <div id="titlebar-drag-region"></div>
-        <div id="title">BeatForge - Home  (bf270424)</div>
+        <div id="title">BeatForge - Home (bf270424)</div>
         <div id="titlebar-controls">
             <div class="control-button close" id="close"></div>
             <div class="control-button minimize" id="minimize"></div>
@@ -67,6 +67,24 @@
             <li>・ Design Changes</li>
             <li>・ Added Tooltips in Home</li>
         </ul>
+    </div>
+
+    <div id="debug_modal" class="debug_modal">
+        <div id="debug_modal_content" class="debug_modal_content">
+            <h2>Debug Menu</h2>
+            <div id="device-info">
+                <h3>Device Infomation</h3>
+                <p id="device-os">OS: </p>
+            </div>
+            <div id="app-memory">
+                <p id="app-memory-usage"></p>
+            </div>
+            <div id="performance-monitor">
+                <p id="cpu-usage"></p> <!-- Hier wird die CPU-Auslastung eingefügt -->
+                <p id="gpu-name"></p> <!-- Hier wird der GPU-Name eingefügt -->
+            </div>
+            <button class="close-modal" onclick="toggleDebugMenu()">Close</button>
+        </div>
     </div>
 
     <div class="container">

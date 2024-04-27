@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.addEventListener("click", function () {
         overlay.classList.remove("show");
         modal.classList.remove("show");
+        debug_modal.style.display = "none"
     });
 });
 
@@ -134,5 +135,95 @@ window.addEventListener('load', () => {
             },
             stopOnFocus: true,
         }).showToast();
+    }
+});
+
+function updateMemoryUsage() {
+    var appMemoryUsage = performance.memory.usedJSHeapSize / 1024 / 1024;
+    document.getElementById("app-memory-usage").innerText = "Memory Usage: " + appMemoryUsage.toFixed(2) + " MB";
+}
+setInterval(updateMemoryUsage, 250);
+
+
+function updateDeviceInfo() {
+    document.getElementById("device-os").innerText = "OS: " + navigator.userAgentData.platform;
+}
+
+
+function updateCpuInfo() {
+
+    var start = performance.now();
+    var iterations = 1000000;
+
+
+    for (var i = 0; i < iterations; i++) {
+        Math.sqrt(i);
+    }
+
+    var end = performance.now();
+    var duration = end - start;
+
+    var cpuUsage = (duration / iterations) * 100;
+
+
+    document.getElementById("cpu-usage").innerText = "CPU Usage: " + cpuUsage.toFixed(2) + "%";
+}
+
+
+function updateGpuInfo() {
+    var canvas = document.createElement("canvas");
+    var gl = canvas.getContext("webgl");
+
+    if (!gl) {
+        document.getElementById("gpu-name").innerText = "GPU Name: WebGL not supported by the browser";
+        return;
+    }
+
+    var rendererInfo = gl.getExtension("WEBGL_debug_renderer_info");
+    var renderer = gl.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL);
+
+
+    var gpuName = renderer;
+
+
+    if (renderer.includes("NVIDIA")) {
+        gpuName = renderer.substring(renderer.indexOf("NVIDIA")).trim();
+    } else if (renderer.includes("AMD")) {
+        gpuName = renderer.substring(renderer.indexOf("AMD")).trim();
+    } else if (renderer.includes("Intel")) {
+        gpuName = renderer.substring(renderer.indexOf("Intel")).trim();
+    } else if (renderer.includes("Qualcomm")) {
+        gpuName = renderer.substring(renderer.indexOf("Qualcomm")).trim();
+    }
+
+
+    var bracketIndex = gpuName.indexOf("(");
+    if (bracketIndex !== -1) {
+        gpuName = gpuName.substring(0, bracketIndex).trim();
+    }
+
+
+    document.getElementById("gpu-name").innerText = "GPU Name: " + gpuName;
+}
+
+function toggleDebugMenu() {
+    var debug_modal = document.getElementById("debug_modal");
+    var overlay = document.getElementById("overlay");
+    if (debug_modal.style.display === "none") {
+        debug_modal.style.display = "block";
+        overlay.classList.add("show");
+        updateMemoryUsage();
+        updateDeviceInfo();
+        updateCpuInfo();
+        updateGpuInfo();
+    } else {
+        debug_modal.style.display = "none";
+        overlay.classList.remove("show");
+    }
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.shiftKey && event.key === "D") {
+        toggleDebugMenu();
     }
 });

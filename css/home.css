@@ -105,6 +105,12 @@ body {
     margin: 20px 0;
 }
 
+.debug_modal hr {
+    border: none;
+    border-top: 2px solid #aaaaaa7e;
+    margin: 10px 0;
+}
+
 .container {
     flex: 1;
     padding: 20px;
@@ -207,6 +213,54 @@ body {
 
 .overlay.show {
     display: block;
+}
+
+.debug_modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff7e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 60%;
+    max-width: 600px;
+    border: 1px solid #cfcfcf;
+    animation: fadeInModal 0.2s ease-in-out forwards;
+}
+
+.debug_modal_content {
+    display: block;
+}
+
+.debug_modal h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.debug_modal h3 {
+    font-size: 20px;
+}
+
+.debug_modal ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.debug_modal li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 
 #titlebar {
