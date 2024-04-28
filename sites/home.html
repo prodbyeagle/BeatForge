@@ -14,6 +14,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
 </head>
 
 <body>
@@ -89,6 +90,13 @@
         </div>
     </div>
 
+    <div id="loader" class="hidden loader">
+        <div class="loader-container">
+            <l-infinity size="55" stroke="4" stroke-length="0.15" bg-opacity="0.1" speed="1.3"
+                color="black"></l-infinity>
+        </div>
+    </div>
+
     <div class="container">
         <div class="card">
             <h1>
@@ -99,7 +107,14 @@
         </div>
         <div class="card">
             <h1>🎹 Latest Beats</h1>
+            <div id="latest-beats-loader" class="loader accent-color">
+                <div class="loader-icon">
+                    <l-zoomies size="100" stroke="6" bg-opacity="0.1" speed="1.4" color="#C886FE"></l-zoomies>
+                </div>
+            </div>
             <ul id="latest-beats">
+                <!-- Placeholder für latest beats -->
+            </ul>
         </div>
         <div class="card">
             <h1>🆕 Sort a Random Beat</h1>
@@ -113,12 +128,9 @@
     <script>
         tippy('.sidebar-text', {
             content: function (reference) {
-                // Überprüfen, ob das Element ein <i>-Element ist
                 if (reference.tagName.toLowerCase() === 'i') {
-                    // Wenn ja, verwende den Textinhalt des Elternelements (das <a>-Element)
                     return reference.parentElement.querySelector('.sidebar-text').textContent;
                 } else {
-                    // Wenn nicht, verwende den Textinhalt des aktuellen Elements
                     return reference.textContent;
                 }
             },
