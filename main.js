@@ -76,7 +76,7 @@ app.on('ready', () => {
             autoHideMenuBar: true,
             fullscreenable: false,
             frame: false,
-            icon: path.join(__dirname, 'assets', 'testicon.png'),
+            icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
@@ -86,7 +86,6 @@ app.on('ready', () => {
         mainWindow.once('ready-to-show', () => {
             sendThemesToRenderer(); // Hier wird sendThemesToRenderer nur aufgerufen, wenn mainWindow vollständig initialisiert wurde
         });
-
 
         // HTML-Datei im Hauptfenster laden
         mainWindow.loadFile(path.join(__dirname, 'sites', 'home.html'));
@@ -106,7 +105,7 @@ app.on('ready', () => {
             autoHideMenuBar: true,
             fullscreenable: false,
             frame: false,
-            icon: path.join(__dirname, 'assets', 'testicon.png'),
+            icon: path.join(__dirname, 'assets', 'icon.png'),
             webPreferences: {
                 nodeIntegration: true,
                 preload: path.join(__dirname, 'preload.js')
