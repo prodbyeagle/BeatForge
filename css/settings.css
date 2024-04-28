@@ -19,7 +19,13 @@ body {
     height: 100vh;
     background-color: var(--secondary-color);
     overflow-x: hidden;
-    font-weight: 600;
+    font-weight: 500;
+    transition: filter 0.5s ease;
+}
+
+body.grayscale {
+    filter: grayscale(90%);
+    filter: brightness(60%);
 }
 
 .sidebar {

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const latestBeatsElement = document.getElementById("latest-beats");
-    const latestBeats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4", "Beat 5"];
+    const latestBeats = []; //TODO: ECHTE DATEN EINBAUEN
     latestBeats.forEach((beat) => {
         const li = document.createElement("li");
         li.textContent = beat;
@@ -21,8 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateUI(userData) {
         const accentColor = userData.accentColor || "#000000";
         const sidebarText = document.querySelectorAll(".sidebar a");
+        const loaderIcon = document.querySelector(".loader-icon l-zoomies");
         usernameElement.textContent = userData.username;
         usernameElement.style.color = accentColor;
+
+        loaderIcon.setAttribute("color", accentColor);
 
         sidebarText.forEach((item) => {
             item.addEventListener("mouseenter", handleSidebarHover);
@@ -226,4 +229,12 @@ document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && event.shiftKey && event.key === "D") {
         toggleDebugMenu();
     }
+});
+
+window.addEventListener('focus', () => {
+    document.body.classList.remove('grayscale');
+});
+
+window.addEventListener('blur', () => {
+    document.body.classList.add('grayscale');
 });

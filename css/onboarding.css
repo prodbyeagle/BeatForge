@@ -20,14 +20,19 @@ body {
   align-items: center;
   height: 100vh;
   background-color: var(--secondary-color);
+  font-weight: 500;
+  transition: filter 0.5s ease;
+}
+
+body.grayscale {
+  filter: grayscale(90%);
+  filter: brightness(60%);
 }
 
 .container {
   display: flex;
   justify-content: center;
-
   align-items: center;
-
   height: 100vh;
 }
 

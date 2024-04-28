@@ -13,6 +13,10 @@
     <title>Introduction</title>
     <style>
         :root {
+            --primary-color: #635985;
+            --secondary-color: #443C68;
+            --tertiary-color: #FFE6E6;
+            --quaternary-color: #E1AFD1;
             font-family: Inter, sans-serif;
             font-feature-settings: 'liga' 1, 'calt' 1;
             user-select: none;
@@ -31,23 +35,29 @@
             height: 100vh;
             margin: 0;
             padding: 0;
-            background-color: #1f2937;
+            background-color: var(--secondary-color);
             overflow: hidden;
             position: relative;
+            transition: filter 0.5s ease;
+        }
+
+        body.grayscale {
+            filter: grayscale(90%);
+            filter: brightness(60%);
         }
 
         .ball {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 250px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(31, 75, 163, 0.8);
+            background-color: var(--quaternary-color);
             filter: blur(80px);
             z-index: 666;
         }
@@ -55,9 +65,10 @@
         .container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
             z-index: 9998;
-            position: absolute;
+            /* position: absolute; */
         }
 
         .title {
@@ -192,37 +203,48 @@
         function createBalls() {
             const numberOfBalls = 3;
 
-            const container = document.querySelector('.container');
             for (let i = 0; i < numberOfBalls; i++) {
-                const centerX = document.documentElement.clientWidth / 2;
-                const centerY = document.documentElement.clientHeight / 2;
-
-                const randomX = centerX + (Math.random() - 0.5) * centerX * 0.1;
-                const randomY = centerY + (Math.random() - 0.5) * centerY * 0.1;
-
                 const ball = document.createElement('div');
                 ball.classList.add('ball');
-                ball.style.left = randomX + 'px';
-                ball.style.top = randomY + 'px';
                 document.body.appendChild(ball);
 
                 animateBall(ball);
             }
+
+            window.addEventListener('resize', () => {
+                updateBallPositions();
+            });
+
+            updateBallPositions();
+        }
+
+        function updateBallPositions() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            const balls = document.querySelectorAll('.ball');
+            balls.forEach(ball => {
+                const randomX = centerX + (Math.random() - 0.5) * centerX * 0.1;
+                const randomY = centerY + (Math.random() - 0.5) * centerY * 0.1;
+
+                ball.style.left = randomX + 'px';
+                ball.style.top = randomY + 'px';
+            });
         }
 
         function animateBall(ball) {
-            const speed = 0.5; // Increase speed
-            const radius = 1; // Radius of the ball
+            const speed = 0.5;
+            const radius = 1;
 
-            let vx = Math.random() * 4 - 2; // Random initial velocity
+            let vx = Math.random() * 4 - 2;
             let vy = Math.random() * 4 - 2;
 
             setInterval(() => {
                 let newX = parseFloat(ball.style.left) + vx * speed;
                 let newY = parseFloat(ball.style.top) + vy * speed;
 
-                const centerX = document.documentElement.clientWidth / 2;
-                const centerY = document.documentElement.clientHeight / 2;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
 
                 const maxDistX = centerX * 0.3;
                 const maxDistY = centerY * 0.1;
@@ -240,6 +262,14 @@
         }
 
         window.onload = createBalls;
+
+        window.addEventListener('focus', () => {
+            document.body.classList.remove('grayscale');
+        });
+
+        window.addEventListener('blur', () => {
+            document.body.classList.add('grayscale');
+        });
     </script>
     <script src="../titlebar.js"></script>
 </body>

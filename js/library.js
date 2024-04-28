@@ -70,3 +70,11 @@ window.addEventListener('load', () => {
         }).showToast();
     }
 });
+
+window.addEventListener('focus', () => {
+    document.body.classList.remove('grayscale');
+});
+
+window.addEventListener('blur', () => {
+    document.body.classList.add('grayscale');
+});

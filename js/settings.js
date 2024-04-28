@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function updateUI(userData) {
-    const accentColor = userData.accentColor || "#000000";
-    const sidebarIcons = document.querySelectorAll(".sidebar a i");
     const sidebarText = document.querySelectorAll(".sidebar a");
 
     sidebarText.forEach((item) => {
@@ -59,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } else {
       const noFoldersMessage = document.createElement("p");
-      noFoldersMessage.textContent = "Keine Beat-Ordner vorhanden.";
+      noFoldersMessage.textContent = "Currently no Beat Folders.";
       beatFoldersContainer.appendChild(noFoldersMessage);
     }
   }
@@ -505,4 +503,13 @@ document.addEventListener("DOMContentLoaded", function () {
       confirm.style.display = 'none';
     }
   }
+
+  window.addEventListener('focus', () => {
+    document.body.classList.remove('grayscale');
+  });
+
+  window.addEventListener('blur', () => {
+    document.body.classList.add('grayscale');
+  });
+
 });
