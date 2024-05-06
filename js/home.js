@@ -7,10 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.querySelector(".overlay");
     const modal = document.querySelector(".modal");
     const closeModalButton = document.querySelector(".close-modal");
-
-
     const latestBeatsElement = document.getElementById("latest-beats");
-    const latestBeats = []; //TODO: ECHTE DATEN EINBAUEN
+    const latestBeats = [];
     latestBeats.forEach((beat) => {
         const li = document.createElement("li");
         li.textContent = beat;
@@ -76,10 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
         updateUI(userData);
     }
 
+    var isCooldown = false;
 
     sortButton.addEventListener("click", function () {
+
+        if (isCooldown) {
+            return;
+        }
+
         Toastify({
-            text: "Searching for a beat...",
+            text: "Searching for files...",
             duration: 1500,
             gravity: "bottom",
             position: "right",
@@ -88,6 +92,26 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             stopOnFocus: true
         }).showToast();
+
+        isCooldown = true;
+
+        setTimeout(function () {
+            var filesFound = false;
+
+            if (!filesFound) {
+                Toastify({
+                    text: "No files found. Try again!",
+                    duration: 2000,
+                    gravity: "bottom",
+                    position: "right",
+                    style: {
+                        background: "#ff6347"
+                    },
+                    stopOnFocus: true
+                }).showToast();
+            }
+            isCooldown = false;
+        }, 5000);
     });
 
     document.addEventListener('auxclick', function (event) {
@@ -225,16 +249,37 @@ function toggleDebugMenu() {
     }
 }
 
+function openCustomConfirm(message, onConfirm) {
+    const confirm = document.getElementById('confirm');
+    const confirmationText = document.getElementById('confirmation_text');
+
+    confirmationText.textContent = message;
+    confirm.style.display = 'block';
+    confirm.style.zIndex = '9999'
+
+    const confirmButton = document.getElementById('confirm_button');
+    const cancelButton = document.getElementById('cancel_button');
+
+    confirmButton.onclick = function () {
+        confirm.style.display = 'none';
+        onConfirm();
+    }
+
+    cancelButton.onclick = function () {
+        confirm.style.display = 'none';
+    }
+}
+
+document.getElementById('debug-button').addEventListener('click', () => {
+    openCustomConfirm(`Are you sure to clear the UserData?`, () => {
+        localStorage.clear();
+        ipcRenderer.send('perform-debug-actions');
+    });
+});
+
 document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && event.shiftKey && event.key === "D") {
         toggleDebugMenu();
     }
 });
 
-window.addEventListener('focus', () => {
-    document.body.classList.remove('grayscale');
-});
-
-window.addEventListener('blur', () => {
-    document.body.classList.add('grayscale');
-});

@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #635985;
-    --secondary-color: #443C68;
-    --tertiary-color: #FFE6E6;
-    --quaternary-color: #E1AFD1;
+    --primary-color: #0B132B;
+    --secondary-color: #1C2541;
+    --tertiary-color: #3A506B;
+    --quaternary-color: #140152;
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
     user-select: none;
@@ -23,21 +23,16 @@ body {
     transition: filter 0.5s ease;
 }
 
-body.grayscale {
-    filter: grayscale(90%);
-    filter: brightness(60%);
-}
-
 .sidebar {
     user-select: none;
     width: 90px;
     background-color: var(--primary-color);
-    border-radius: 1px 10px 10px 0px;
+    border-radius: 1px 10px 10px 0;
     padding: 30px 30px;
     margin-right: 20px;
     margin-top: 30px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) rgba(149, 255, 167, 0.493);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
     position: relative;
     top: 0;
@@ -231,7 +226,6 @@ body.grayscale {
     align-items: center;
     order: -1;
     -webkit-app-region: no-drag;
-
 }
 
 .control-button {
@@ -263,12 +257,10 @@ body.grayscale {
 
 .control-button.minimize:hover {
     background-color: #ffff66;
-
 }
 
 .control-button.maximize:hover {
     background-color: #99ff99;
-
 }
 
 .control-button.close:hover {

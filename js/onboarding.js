@@ -96,17 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
     accentColorInput.addEventListener("input", function () {
         accentColorValue.textContent = this.value;
     });
-
-    const inputField = document.querySelector('input[type="text"]');
-
-
-    inputField.addEventListener('keydown', function (event) {
-
-        if (event.key === 'Enter') {
-
-            nextQuestion();
-        }
-    });
 });
 
 async function saveUserData(event) {
@@ -199,9 +188,7 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     const profilePic = document.getElementById("profile-pic").files[0].path;
     const accentColor = document.getElementById("accent-color").value;
 
-
     const foldersPath = localStorage.getItem('foldersPath');
-
 
     const userData = {
         username: username,
@@ -213,27 +200,33 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     };
     localStorage.setItem('userData', JSON.stringify(userData));
 
-
     const config = loadConfig();
-
 
     config.onboardingCompleted = true;
 
-
     saveConfig(config);
-
 
     if (window.ipcRenderer) {
         window.ipcRenderer.send('onboarding-complete', {
             username,
             tags,
             profilePic,
-            accentColor
+            accentColor,
+            relaunchApp: true // Signalisiere dem Hauptprozess, die App neu zu starten
         });
     } else {
         console.error("ipcRenderer not initialized.");
     }
 
+    window.location.href = "home.html"; // Leite zur home.html weiter (wird nur bei Bedarf erreicht, da die App neugestartet wird)
+});
 
-    window.location.href = "home.html";
+window.addEventListener('focus', () => {
+    document.documentElement.style.transition = 'filter 0.5s';
+    document.documentElement.style.filter = 'grayscale(0%) brightness(100%)';
+});
+
+window.addEventListener('blur', () => {
+    document.documentElement.style.transition = 'filter 0.5s';
+    document.documentElement.style.filter = 'grayscale(60%) brightness(60%)';
 });

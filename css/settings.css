@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #635985;
-    --secondary-color: #443C68;
-    --tertiary-color: #FFE6E6;
-    --quaternary-color: #E1AFD1;
+    --primary-color: #0B132B;
+    --secondary-color: #1C2541;
+    --tertiary-color: #3A506B;
+    --quaternary-color: #140152;
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
     user-select: none;
@@ -14,6 +14,16 @@
     }
 }
 
+@font-face {
+    font-family: 'Noto Color Emoji';
+    src: url('../assets/NotoColorEmoji-flagsonly.ttf') format('truetype');
+    /* Passe den Pfad zur Schriftartdatei entsprechend deiner Projektstruktur an */
+}
+
+.emoji {
+    font-family: 'Noto Color Emoji', sans-serif;
+}
+
 body {
     display: flex;
     height: 100vh;
@@ -23,15 +33,10 @@ body {
     transition: filter 0.5s ease;
 }
 
-body.grayscale {
-    filter: grayscale(90%);
-    filter: brightness(60%);
-}
-
 .sidebar {
     width: 90px;
     background-color: var(--primary-color);
-    border-radius: 1px 10px 10px 0px;
+    border-radius: 1px 10px 10px 0;
     padding: 30px 30px;
     margin-right: 20px;
     margin-top: 30px;
@@ -144,8 +149,26 @@ body.grayscale {
     filter: brightness(0.8);
 }
 
-.modal,
 .design_modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #9e9e9e7e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 6478;
+    width: 60%;
+    max-width: 600px;
+    max-height: 600px;
+    border: 1px solid #cfcfcf;
+    overflow-y: auto;
+    animation: fadeInModal 0.2s ease-in-out forwards;
+}
+
+.modal {
     display: none;
     position: fixed;
     top: 50%;
@@ -161,8 +184,7 @@ body.grayscale {
     max-height: 600px;
     border: 1px solid #cfcfcf;
     overflow-y: auto;
-    transition: opacity 0.3s ease;
-
+    animation: fadeInModal 0.2s ease-in-out forwards;
 }
 
 .modal h2,
@@ -467,8 +489,7 @@ body.grayscale {
     cursor: help;
     border: 1px solid #cfcfcf;
     backdrop-filter: blur(25px);
-    transition: top 0.3s ease;
-
+    animation: fadeInModal 0.2s ease-in-out forwards;
 }
 
 .confirm.show {
@@ -489,7 +510,7 @@ body.grayscale {
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-    z-index: 1999;
+    z-index: 6479;
     transition: opacity 0.3s ease;
 
 }
@@ -555,7 +576,8 @@ body.grayscale {
 
 #openThemeCreatorOverlayBtn,
 #openOverlayBtn,
-#button {
+#button,
+#languageDropdownBtn {
     transition: all 0.1s ease;
     margin: 5px;
     background-color: var(--secondary-color);
@@ -563,14 +585,16 @@ body.grayscale {
 
 #openThemeCreatorOverlayBtn:hover,
 #openOverlayBtn:hover,
-#button:hover {
+#button:hover,
+#languageDropdownBtn:hover {
     transform: scale(0.96);
     border-radius: 15px;
 }
 
 #openThemeCreatorOverlayBtn:active,
 #openOverlayBtn:active,
-#button:active {
+#button:active,
+#languageDropdownBtn:active {
     transform: scale(1.05);
 }
 
@@ -629,5 +653,17 @@ body.grayscale {
 
     100% {
         transform: translate(0);
+    }
+}
+
+@keyframes fadeInModal {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
     }
 }

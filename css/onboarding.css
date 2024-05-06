@@ -1,8 +1,8 @@
 :root {
-  --primary-color: #635985;
-  --secondary-color: #443C68;
-  --tertiary-color: #FFE6E6;
-  --quaternary-color: #E1AFD1;
+  --primary-color: #0B132B;
+  --secondary-color: #1C2541;
+  --tertiary-color: #3A506B;
+  --quaternary-color: #140152;
   font-family: Inter, sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1;
   user-select: none;
@@ -22,11 +22,6 @@ body {
   background-color: var(--secondary-color);
   font-weight: 500;
   transition: filter 0.5s ease;
-}
-
-body.grayscale {
-  filter: grayscale(90%);
-  filter: brightness(60%);
 }
 
 .container {
@@ -52,7 +47,7 @@ body.grayscale {
   padding: 40px;
   background-color: var(--primary-color);
   border-radius: 10px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
   text-align: center;
 }
 
@@ -137,7 +132,6 @@ body.grayscale {
   align-items: center;
   order: -1;
   -webkit-app-region: no-drag;
-
 }
 
 .control-button {
@@ -169,17 +163,14 @@ body.grayscale {
 
 .control-button.minimize:hover {
   background-color: #ffff66;
-
 }
 
 .control-button.maximize:hover {
   background-color: #99ff99;
-
 }
 
 .control-button.close:hover {
-  background-color: #ff4d4d;
-
+  background-color: #ff6c6c;
 }
 
 #title {
@@ -192,8 +183,7 @@ body.grayscale {
   color: var(--tertiary-color);
 }
 
-.button,
-#sort-random-beat {
+.button {
   background-color: var(--secondary-color);
   color: #fff;
   font-weight: bold;
@@ -204,8 +194,7 @@ body.grayscale {
   transition: all 0.1s ease;
 }
 
-.button:hover,
-#sort-random-beat:hover {
+.button:hover {
   transform: scale(1.03);
   border-radius: 15px;
 }

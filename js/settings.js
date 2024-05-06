@@ -1,7 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("settings-form");
-
 
   function updateUI(userData) {
     const sidebarText = document.querySelectorAll(".sidebar a");
@@ -88,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateUI(userData);
   }
 
-
   function handleSidebarHover(event) {
     const accentColor = localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData")).accentColor || "#000000"
@@ -120,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
       userData.username = username;
     }
     if (profilePicInput.files.length > 0) {
-
       const profilePic = profilePicInput.files[0].path;
       if (profilePic !== userData.profilePic) {
         userData.profilePic = profilePic;
@@ -132,9 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (foldersInput.files.length > 0) {
       const folders = foldersInput.files;
+      const folderPath = folders[i].path.split("\\")[1];
       for (let i = 0; i < folders.length; i++) {
-        console.log("Selected folder:", folders[i].path);
-        addFolderAndUpdateUI(folders[i].path);
+        console.log("Selected folder:", folderPath);
+        addFolderAndUpdateUI(folderPath);
       }
     } else {
       console.error("Es wurden keine Ordner ausgewählt.");
@@ -150,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       gravity: "bottom",
       position: "right",
       style: {
-        background: "var(--secondary-color)"
+        background: "var(--secondary-color)",
       },
       stopOnFocus: true,
     }).showToast();
@@ -164,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-
   const savedUserData = localStorage.getItem("userData");
   if (savedUserData) {
     const userData = JSON.parse(savedUserData);
@@ -175,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const designModal = document.getElementById("design_modal");
   const closeButton = document.querySelector(".close-btn");
 
-
   const foldersInput = document.getElementById("folders");
   foldersInput.addEventListener("change", function (event) {
     const folders = event.target.files;
@@ -185,23 +180,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-
   designOverlay.addEventListener("click", function () {
     closeDesignModal();
   });
-
 
   function openDesignModal() {
     designOverlay.style.display = "block";
     designModal.style.display = "block";
   }
 
-
   function closeDesignModal() {
     designOverlay.style.display = "none";
     designModal.style.display = "none";
   }
-
 
   function isDesignModalOpen() {
     return designModal.style.display === "block";
@@ -209,18 +200,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const openOverlayBtn = document.getElementById("openOverlayBtn");
 
-
   openOverlayBtn.addEventListener("click", function () {
     openDesignModal();
   });
 
-  ipcRenderer.on('load-themes', (themes) => {
-    console.log("Themes geladen:", themes);
+  ipcRenderer.on("load-themes", (themes) => {
     addThemesToModal(themes);
   });
 
-
-  ipcRenderer.send('load-themes');
+  ipcRenderer.send("load-themes");
 
   function createThemeOverlay(theme) {
     const overlay = document.createElement("div");
@@ -238,8 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeColors = document.createElement("div");
     themeColors.classList.add("theme-colors");
 
-
-    const gradientString = theme.values.map(color => color.color).join(", ");
+    const gradientString = theme.values.map((color) => color.color).join(", ");
     themeColors.style.background = `linear-gradient(to right, ${gradientString})`;
 
     modalContent.appendChild(themeName);
@@ -247,21 +234,17 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.appendChild(modalContent);
     overlay.appendChild(modal);
 
-
     document.body.appendChild(overlay);
 
     return overlay;
   }
 
-
   function addThemesToModal(themes) {
     const modalContent = document.querySelector("#design_modal .modal-content");
 
-
     modalContent.innerHTML = "";
 
-
-    themes.forEach(theme => {
+    themes.forEach((theme) => {
       const themeElement = document.createElement("div");
       themeElement.classList.add("theme-item");
 
@@ -274,69 +257,73 @@ document.addEventListener("DOMContentLoaded", function () {
         warningLabel.style.color = "#f03232";
         warningLabel.classList.add("vibrate-1");
         warningLabel.style.fontWeight = "bold";
-        warningLabel.title = "This Theme is not made for Using All the Time."
+        warningLabel.title = "This Theme is not made for Using All the Time.";
         themeElement.appendChild(themeName);
         themeElement.appendChild(warningLabel);
       } else {
         themeElement.appendChild(themeName);
       }
 
-
       const addButton = document.createElement("button");
       addButton.classList.add("add-button");
       addButton.textContent = "+ Add";
       addButton.title = "Click to add this theme";
 
-      addButton.addEventListener('click', () => {
+      addButton.addEventListener("click", () => {
         if (theme.warning) {
-
-          openCustomConfirm(`Apply ${theme.name} theme? (Temporary use recommended)`, () => {
-            applyTheme(theme);
-          });
+          openCustomConfirm(
+            `Apply ${theme.name} theme? (Temporary use recommended)`,
+            () => {
+              applyTheme(theme);
+            }
+          );
         } else {
           applyTheme(theme);
         }
       });
 
-
       function applyTheme(theme) {
-
-        theme.values.forEach(color => {
-          document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        theme.values.forEach((color) => {
+          document.documentElement.style.setProperty(
+            `--${color.name}-color`,
+            color.color
+          );
         });
 
+        localStorage.setItem("appliedTheme", JSON.stringify(theme));
 
-        localStorage.setItem('appliedTheme', JSON.stringify(theme));
-
-        const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+        const appliedTheme = JSON.parse(localStorage.getItem("appliedTheme"));
         if (appliedTheme) {
-
-          appliedTheme.values.forEach(color => {
-            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+          appliedTheme.values.forEach((color) => {
+            document.documentElement.style.setProperty(
+              `--${color.name}-color`,
+              color.color
+            );
           });
 
-
-          const themeButtons = document.querySelectorAll('.theme-item .add-button');
-          themeButtons.forEach(button => {
-
-            button.textContent = '+';
-            button.style.borderColor = '';
-            button.style.backgroundColor = '';
+          const themeButtons = document.querySelectorAll(
+            ".theme-item .add-button"
+          );
+          themeButtons.forEach((button) => {
+            button.textContent = "+";
+            button.style.borderColor = "";
+            button.style.backgroundColor = "";
             button.disabled = false;
 
-
-            if (button.parentNode.querySelector('h3').textContent === appliedTheme.name) {
-              button.classList.add('applied-theme');
-              button.textContent = '✓';
-              button.style.borderColor = 'green';
-              button.style.backgroundColor = 'rgba(149, 255, 167, 0.493)';
+            if (
+              button.parentNode.querySelector("h3").textContent ===
+              appliedTheme.name
+            ) {
+              button.classList.add("applied-theme");
+              button.textContent = "✓";
+              button.style.borderColor = "green";
+              button.style.backgroundColor = "rgba(149, 255, 167, 0.493)";
               button.disabled = true;
             } else {
-              button.classList.remove('applied-theme');
+              button.classList.remove("applied-theme");
             }
           });
         }
-
 
         Toastify({
           text: `Theme ${theme.name} applied`,
@@ -344,11 +331,10 @@ document.addEventListener("DOMContentLoaded", function () {
           gravity: "bottom",
           position: "right",
           style: {
-            background: "var(--primary-color)"
+            background: "var(--primary-color)",
           },
           stopOnFocus: true,
         }).showToast();
-
 
         const designModal = document.querySelector("#design_modal");
         const designOverlay = document.querySelector("#design_overlay");
@@ -360,100 +346,93 @@ document.addEventListener("DOMContentLoaded", function () {
       themeElement.appendChild(addButton);
       modalContent.appendChild(themeElement);
 
-
       const colorsContainer = document.createElement("div");
       colorsContainer.classList.add("color-box");
-      const gradientColors = theme.values.map(c => c.color).join(", ");
+      const gradientColors = theme.values.map((c) => c.color).join(", ");
       colorsContainer.style.background = `linear-gradient(to right, ${gradientColors})`;
       colorsContainer.style.cursor = "help";
       themeElement.title = theme.description;
       colorsContainer.title = "Just to visualize the Theme colors.";
 
-
       themeElement.appendChild(themeName);
       themeElement.appendChild(addButton);
       themeElement.appendChild(colorsContainer);
 
-
       modalContent.appendChild(themeElement);
-
-
-
     });
 
-
-    window.addEventListener('load', () => {
-      const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
+    window.addEventListener("load", () => {
+      const appliedTheme = JSON.parse(localStorage.getItem("appliedTheme"));
       if (appliedTheme) {
-
-        appliedTheme.values.forEach(color => {
-          document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+        appliedTheme.values.forEach((color) => {
+          document.documentElement.style.setProperty(
+            `--${color.name}-color`,
+            color.color
+          );
         });
 
-
-        const themeButtons = document.querySelectorAll('.theme-item .add-button');
-        themeButtons.forEach(button => {
-
-          button.textContent = ' + ';
-          button.style.borderColor = '';
-          button.style.backgroundColor = '';
+        const themeButtons = document.querySelectorAll(
+          ".theme-item .add-button"
+        );
+        themeButtons.forEach((button) => {
+          button.textContent = " + ";
+          button.style.borderColor = "";
+          button.style.backgroundColor = "";
           button.disabled = false;
 
-
-          if (button.parentNode.querySelector('h3').textContent === appliedTheme.name) {
-            button.classList.add('applied-theme');
-            button.textContent = '✓';
-            button.style.borderColor = 'green';
-            button.style.backgroundColor = 'rgba(149, 255, 167, 0.493)';
+          if (
+            button.parentNode.querySelector("h3").textContent ===
+            appliedTheme.name
+          ) {
+            button.classList.add("applied-theme");
+            button.textContent = "✓";
+            button.style.borderColor = "green";
+            button.style.backgroundColor = "rgba(149, 255, 167, 0.493)";
             button.disabled = true;
-            button.style.cursor = "not-allowed"
-            button.title = "You are using this Theme already"
+            button.style.cursor = "not-allowed";
+            button.title = "You are using this Theme already";
           } else {
-            button.classList.remove('applied-theme');
+            button.classList.remove("applied-theme");
           }
         });
       } else {
-
         Toastify({
           text: "The applied theme no longer exists.",
           duration: 3000,
           gravity: "bottom",
           position: "right",
           style: {
-            background: "var(--secondary-color)"
+            background: "var(--secondary-color)",
           },
           stopOnFocus: true,
         }).showToast();
       }
     });
 
-    const openThemeCreatorBtn = document.getElementById("openThemeCreatorOverlayBtn");
+    const openThemeCreatorBtn = document.getElementById(
+      "openThemeCreatorOverlayBtn"
+    );
     const themeDesignOverlay = document.getElementById("theme_design_overlay");
     const designModal = document.getElementById("theme_creator_modal");
-
 
     openThemeCreatorBtn.addEventListener("click", function () {
       openThemeDesignModal();
       updatePageColors();
     });
 
-
     themeDesignOverlay.addEventListener("click", function () {
       closeThemeDesignModal();
     });
-
 
     function openThemeDesignModal() {
       themeDesignOverlay.style.display = "block";
       designModal.style.display = "block";
     }
 
-
     function closeThemeDesignModal() {
       themeDesignOverlay.style.display = "none";
       designModal.style.display = "none";
     }
-
 
     function updatePageColors() {
       const primaryColor = document.getElementById("primary-color").value;
@@ -461,55 +440,120 @@ document.addEventListener("DOMContentLoaded", function () {
       const tertiaryColor = document.getElementById("tertiary-color").value;
       const quaternaryColor = document.getElementById("quaternary-color").value;
 
-
       const cards = document.querySelectorAll(".card");
-      cards.forEach(card => {
+      cards.forEach((card) => {
         card.style.backgroundColor = primaryColor;
       });
 
-
       document.body.style.backgroundColor = secondaryColor;
 
-
       const textElements = document.querySelectorAll(".text");
-      textElements.forEach(textElement => {
+      textElements.forEach((textElement) => {
         textElement.style.color = tertiaryColor;
       });
 
-
       const hrElements = document.querySelectorAll("hr");
-      hrElements.forEach(hrElement => {
+      hrElements.forEach((hrElement) => {
         hrElement.style.backgroundColor = quaternaryColor;
       });
     }
   }
 
   function openCustomConfirm(message, onConfirm) {
-    const confirm = document.getElementById('confirm');
-    const confirmationText = document.getElementById('confirmation_text');
+    const confirm = document.getElementById("confirm");
+    const confirmationText = document.getElementById("confirmation_text");
 
     confirmationText.textContent = message;
-    confirm.style.display = 'block';
+    confirm.style.display = "block";
 
-    const confirmButton = document.getElementById('confirm_button');
-    const cancelButton = document.getElementById('cancel_button');
+    const confirmButton = document.getElementById("confirm_button");
+    const cancelButton = document.getElementById("cancel_button");
 
     confirmButton.onclick = function () {
-      confirm.style.display = 'none';
+      confirm.style.display = "none";
       onConfirm();
-    }
+    };
 
     cancelButton.onclick = function () {
-      confirm.style.display = 'none';
-    }
+      confirm.style.display = "none";
+    };
   }
 
-  window.addEventListener('focus', () => {
-    document.body.classList.remove('grayscale');
+  window.addEventListener("focus", () => {
+    document.documentElement.style.transition = "filter 0.5s";
+    document.documentElement.style.filter = "grayscale(0%) brightness(100%)";
   });
 
-  window.addEventListener('blur', () => {
-    document.body.classList.add('grayscale');
+  window.addEventListener("blur", () => {
+    document.documentElement.style.transition = "filter 0.5s";
+    document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
   });
 
+  // Language System
+  let langData = {}; // Initialisierung der Sprachdaten als leeres Objekt
+
+  // Funktion zum Initialisieren des Sprachsystems
+  function initLanguageSystem() {
+    const storedLanguage = localStorage.getItem("selectedLanguage") || "en"; // Standardmäßig 'en' verwenden, wenn keine Sprache gespeichert ist
+    console.log(`Selected Language: ${storedLanguage}`);
+    loadLanguageFile(storedLanguage); // Lade die Sprachdatei entsprechend der gespeicherten Sprache
+  }
+
+  // Funktion zum Laden der Sprachdatei
+  function loadLanguageFile(language) {
+    ipcRenderer.send("load-language", language); // Sende eine Anfrage an den Hauptprozess, um die Sprachdatei zu laden
+  }
+
+  // Event Listener für das Ändern der Sprachauswahl
+  languageSelect.addEventListener("change", handleLanguageChange);
+
+  function handleLanguageChange() {
+    const selectedLanguage = languageSelect.value;
+    localStorage.setItem("selectedLanguage", selectedLanguage);
+    loadLanguageFile(selectedLanguage); // Lade die Sprachdatei und aktualisiere die UI-Texte
+  }
+
+  function updateUIText(langData) {
+    // Durchlaufe die Elemente und aktualisiere den Text
+    const elementsToUpdate = document.querySelectorAll("[data-i18n]");
+    elementsToUpdate.forEach((element) => {
+      const key = element.getAttribute("data-i18n");
+      if (langData && langData[key]) {
+        // Überprüfe, ob langData definiert und der Schlüssel vorhanden ist, um Fehler zu vermeiden
+        element.textContent = langData[key];
+      }
+    });
+  }
+
+  // Beispiel für die Verwendung in deinem Code
+  console.log(
+    langData.settings ? langData.settings.title : "settings.title is none"
+  ); // Ausgabe: Einstellungen (falls vorhanden)
+  console.log(
+    langData.settings && langData.settings.labels
+      ? langData.settings.labels.changeUsername
+      : "settings.labels.changeUsername is none"
+  ); // Ausgabe: Benutzernamen ändern (falls vorhanden)
+
+  // Event Listener für das Laden der Sprachdaten vom Hauptprozess
+  ipcRenderer.on("language-data", (_, data) => {
+    if (data && Object.keys(data).length > 0) {
+      langData = data; // Aktualisiere die Sprachdaten, wenn sie empfangen werden
+      console.log("Sprachdaten empfangen:", langData);
+      updateUIText(langData); // Aktualisiere die UI-Texte mit den empfangenen Sprachdaten
+    } else {
+      console.error("Fehler: Leere Sprachdaten empfangen.");
+    }
+  });
+
+  // Event Listener für das Ereignis 'language-loaded' (optional)
+  ipcRenderer.on("language-loaded", (_, langData) => {
+    if (langData && Object.keys(langData).length > 0) {
+      console.log(langData.settings ? langData.settings.title : ""); // Ausgabe: Einstellungen (falls vorhanden)
+      console.log("Geladene Sprachdaten:", langData);
+      updateUIText(langData); // Aufruf der Funktion zum Aktualisieren des HTML-Textes
+    } else {
+      console.error("Fehler: Leere Sprachdaten empfangen.");
+    }
+  });
 });

@@ -13,10 +13,10 @@
     <title>Introduction</title>
     <style>
         :root {
-            --primary-color: #635985;
-            --secondary-color: #443C68;
-            --tertiary-color: #FFE6E6;
-            --quaternary-color: #E1AFD1;
+            --primary-color: #0B132B;
+            --secondary-color: #1C2541;
+            --tertiary-color: #3A506B;
+            --quaternary-color: #140152;
             font-family: Inter, sans-serif;
             font-feature-settings: 'liga' 1, 'calt' 1;
             user-select: none;
@@ -41,11 +41,6 @@
             transition: filter 0.5s ease;
         }
 
-        body.grayscale {
-            filter: grayscale(90%);
-            filter: brightness(60%);
-        }
-
         .ball {
             display: flex;
             justify-content: center;
@@ -57,7 +52,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: var(--quaternary-color);
+            background-color: var(--tertiary-color);
             filter: blur(80px);
             z-index: 666;
         }
@@ -106,7 +101,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 40px;
+            height: 30px;
             padding: 0 10px;
             position: fixed;
             top: 0;
@@ -182,11 +177,9 @@
 <body>
     <div id="titlebar">
         <div id="titlebar-drag-region"></div>
-        <div id="title">BeatForge</div>
+        <div id="title">BeatForge - Welcome</div>
         <div id="titlebar-controls">
             <div class="control-button close" id="close"></div>
-            <div class="control-button minimize" id="minimize"></div>
-            <div class="control-button maximize" id="maximize"></div>
         </div>
     </div>
 
@@ -194,14 +187,14 @@
         <div class="title">
             BeatForge
         </div>
-        <div class="slogan">
+        <!-- <div class="slogan">
             Empower Your Beats, Ignite Your Creativity
-        </div>
+        </div> -->
         <a href="onboarding.html" class="button" id="getStartedButton">Get Started</a>
     </div>
     <script>
         function createBalls() {
-            const numberOfBalls = 3;
+            const numberOfBalls = 6;
 
             for (let i = 0; i < numberOfBalls; i++) {
                 const ball = document.createElement('div');
@@ -233,7 +226,7 @@
         }
 
         function animateBall(ball) {
-            const speed = 0.5;
+            const speed = 0.4;
             const radius = 1;
 
             let vx = Math.random() * 4 - 2;
@@ -246,8 +239,8 @@
                 const centerX = window.innerWidth / 2;
                 const centerY = window.innerHeight / 2;
 
-                const maxDistX = centerX * 0.3;
-                const maxDistY = centerY * 0.1;
+                const maxDistX = centerX * 0.4;
+                const maxDistY = centerY * 0.2;
 
                 if (Math.abs(newX - centerX) > maxDistX) {
                     vx *= -1;
@@ -264,14 +257,15 @@
         window.onload = createBalls;
 
         window.addEventListener('focus', () => {
-            document.body.classList.remove('grayscale');
+            document.documentElement.style.transition = 'filter 0.5s';
+            document.documentElement.style.filter = 'grayscale(0%) brightness(100%)';
         });
 
         window.addEventListener('blur', () => {
-            document.body.classList.add('grayscale');
+            document.documentElement.style.transition = 'filter 0.5s';
+            document.documentElement.style.filter = 'grayscale(60%) brightness(60%)';
         });
     </script>
     <script src="../titlebar.js"></script>
 </body>
-
 </html>
