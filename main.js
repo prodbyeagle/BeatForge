@@ -110,14 +110,17 @@ app.on("ready", () => {
       },
     });
 
-    const defaultLangData = loadLanguageFile("en")
+    loadLanguageFile(langDir)
       .then((langData) => {
         // Serialisieren der Sprachdaten, bevor sie gesendet werden
         const serializedLangData = JSON.stringify(langData);
         mainWindow.webContents.send("language-loaded", serializedLangData);
       })
       .catch((error) => {
-        console.error("Fehler beim Laden der Standardsprache:", error.message);
+        console.error(
+          "defaultLangData: Fehler beim Laden der Standardsprache:",
+          error.message
+        );
       });
 
     mainWindow.once("ready-to-show", () => {
@@ -128,7 +131,7 @@ app.on("ready", () => {
         })
         .catch((error) => {
           console.error(
-            "Fehler beim Laden der Standardsprache:",
+            "Home:  Fehler beim Laden der Standardsprache:",
             error.message
           );
         });
@@ -172,7 +175,7 @@ app.on("ready", () => {
         })
         .catch((error) => {
           console.error(
-            "Fehler beim Laden der Standardsprache:",
+            "Intro: Fehler beim Laden der Standardsprache:",
             error.message
           );
         });
@@ -277,27 +280,25 @@ ipcMain.on("load-language", async (event, language) => {
   try {
     const langFilePath = path.join(langDir, `${language}.json`);
     console.log("Sprachdatei laden:", langFilePath);
-
-    // Überprüfen des Pfads zur Sprachdatei
-    if (!fs.existsSync(langFilePath)) {
-      throw new Error("Die Sprachdatei existiert nicht.");
-    }
-
-    // Laden der Sprachdatei
     const langData = await loadLanguageFile(langFilePath);
-
-    // Serialisieren der Sprachdaten
-    const serializedLangData = JSON.stringify(langData);
-
-    // Senden der serialisierten Sprachdaten an den Renderer-Prozess
-    event.sender.send("language-data", serializedLangData);
+    if (Object.keys(langData).length === 0) {
+      throw new Error("Leere Sprachdaten empfangen.");
+    }
+    console.log(
+      langData.settings ? langData.settings.title : "settings.title is none"
+    );
+    console.log(
+      langData.settings && langData.settings.labels
+        ? langData.settings.labels.changeUsername
+        : "settings.labels.changeUsername is none"
+    );
+    event.sender.send("language-data", langData);
   } catch (error) {
     console.error("Fehler beim Laden der Sprachdatei:", error.message);
     event.sender.send("language-data", {});
   }
 });
 
-// Funktion zum Laden der Sprachdatei
 async function loadLanguageFile(langFilePath) {
   return new Promise((resolve, reject) => {
     fs.readFile(langFilePath, "utf8", (err, data) => {
@@ -312,7 +313,8 @@ async function loadLanguageFile(langFilePath) {
 
 ipcMain.on("change-language", async (event, language) => {
   try {
-    const langData = await loadLanguageFile(language);
+    const langFilePath = path.join(langDir, `${language}.json`);
+    const langData = await loadLanguageFile(langFilePath);
     event.sender.send("language-loaded", langData);
   } catch (error) {
     console.error("Fehler beim Laden der Sprachdatei:", error.message);

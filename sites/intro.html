@@ -1,271 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/aee75c1c72.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <title>Introduction</title>
     <style>
+      :root {
+        --primary-color: #0b132b;
+        --secondary-color: #1c2541;
+        --tertiary-color: #3a506b;
+        --quaternary-color: #140152;
+        font-family: Inter, sans-serif;
+        font-feature-settings: "liga" 1, "calt" 1;
+        user-select: none;
+      }
+
+      @supports (font-variation-settings: normal) {
         :root {
-            --primary-color: #0B132B;
-            --secondary-color: #1C2541;
-            --tertiary-color: #3A506B;
-            --quaternary-color: #140152;
-            font-family: Inter, sans-serif;
-            font-feature-settings: 'liga' 1, 'calt' 1;
-            user-select: none;
+          font-family: InterVariable, sans-serif;
         }
+      }
 
-        @supports (font-variation-settings: normal) {
-            :root {
-                font-family: InterVariable, sans-serif;
-            }
-        }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: var(--secondary-color);
+        overflow: hidden;
+        position: relative;
+        transition: filter 0.5s ease;
+      }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            background-color: var(--secondary-color);
-            overflow: hidden;
-            position: relative;
-            transition: filter 0.5s ease;
-        }
+      .ball {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--tertiary-color);
+        filter: blur(80px);
+        z-index: 666;
+      }
 
-        .ball {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--tertiary-color);
-            filter: blur(80px);
-            z-index: 666;
-        }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9998;
+        /* position: absolute; */
+      }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9998;
-            /* position: absolute; */
-        }
+      .title {
+        color: #ffffff;
+        font-size: 64px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
 
-        .title {
-            color: #ffffff;
-            font-size: 64px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+      .slogan {
+        color: #ffffff;
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
 
-        .slogan {
-            color: #ffffff;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+      .button {
+        color: #ffffff;
+        background-color: #6c5ce7;
+        padding: 10px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 20px;
+        transition: all 0.1s ease;
+      }
 
-        .button {
-            color: #ffffff;
-            background-color: #6c5ce7;
-            padding: 10px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 20px;
-            transition: all 0.1s ease;
-        }
+      .button:hover {
+        background-color: #4d43a2;
+        border-radius: 15px;
+      }
 
-        .button:hover {
-            background-color: #4d43a2;
-            border-radius: 15px;
-        }
+      #titlebar {
+        -webkit-app-region: drag;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;
+        padding: 0 10px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+      }
 
-        #titlebar {
-            -webkit-app-region: drag;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 30px;
-            padding: 0 10px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-        }
+      #titlebar-controls {
+        display: flex;
+        align-items: center;
+        order: -1;
+        -webkit-app-region: no-drag;
+        /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
+      }
 
-        #titlebar-controls {
-            display: flex;
-            align-items: center;
-            order: -1;
-            -webkit-app-region: no-drag;
-            /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
-        }
+      .control-button {
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        background-color: #fff;
+        color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s ease;
+      }
 
-        .control-button {
-            width: 12px;
-            height: 12px;
-            margin-right: 8px;
-            background-color: #fff;
-            color: #fff;
-            border-radius: 50%;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
-        }
+      .control-button:hover {
+        cursor: pointer;
+      }
 
-        .control-button:hover {
-            cursor: pointer;
-        }
+      .control-button.minimize {
+        background-color: #ffcc00;
+      }
 
-        .control-button.minimize {
-            background-color: #FFCC00;
-        }
+      .control-button.maximize {
+        background-color: #4cd964;
+      }
 
-        .control-button.maximize {
-            background-color: #4CD964;
-        }
+      .control-button.close {
+        background-color: #ff3b30;
+      }
 
-        .control-button.close {
-            background-color: #FF3B30;
-        }
+      .control-button.minimize:hover {
+        background-color: #ffff66;
+      }
 
-        .control-button.minimize:hover {
-            background-color: #ffff66;
+      .control-button.maximize:hover {
+        background-color: #99ff99;
+      }
 
-        }
+      .control-button.close:hover {
+        background-color: #ff6c6c;
+      }
 
-        .control-button.maximize:hover {
-            background-color: #99ff99;
+      #title {
+        flex-grow: 1;
+        /* Flexibles Wachstum */
+        text-align: center;
+        /* Zentrierung des Textes */
+        /* margin-left: -3%; */
+        /* Berechnung des linken Abstands */
+        color: #fff;
+        left: 0;
+        right: 0;
+        /* Textfarbe */
+      }
 
-        }
+      .button-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+      }
 
-        .control-button.close:hover {
-            background-color: #ff6c6c;
-        }
+      .button-text {
+        transition: transform 0.5s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
 
-        #title {
-            flex-grow: 1;
-            /* Flexibles Wachstum */
-            text-align: center;
-            /* Zentrierung des Textes */
-            /* margin-left: -3%; */
-            /* Berechnung des linken Abstands */
-            color: #fff;
-            left: 0;
-            right: 0;
-            /* Textfarbe */
-        }
+      .animate {
+        transform: translateY(-100%);
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="titlebar">
-        <div id="titlebar-drag-region"></div>
-        <div id="title">BeatForge - Welcome</div>
-        <div id="titlebar-controls">
-            <div class="control-button close" id="close"></div>
-        </div>
+      <div id="titlebar-drag-region"></div>
+      <div id="title">BeatForge - Welcome</div>
+      <div id="titlebar-controls">
+        <div class="control-button close" id="close"></div>
+      </div>
     </div>
 
     <div class="container">
-        <div class="title">
-            BeatForge
-        </div>
-        <!-- <div class="slogan">
+      <div class="title">BeatForge</div>
+      <!-- <div class="slogan">
             Empower Your Beats, Ignite Your Creativity
         </div> -->
-        <a href="onboarding.html" class="button" id="getStartedButton">Get Started</a>
+      <a href="onboarding.html" class="button" id="getStartedButton">
+        <span id="buttonText">Get Started</span>
+      </a>
     </div>
     <script>
-        function createBalls() {
-            const numberOfBalls = 6;
+      function createBalls() {
+        const numberOfBalls = 6;
 
-            for (let i = 0; i < numberOfBalls; i++) {
-                const ball = document.createElement('div');
-                ball.classList.add('ball');
-                document.body.appendChild(ball);
+        for (let i = 0; i < numberOfBalls; i++) {
+          const ball = document.createElement("div");
+          ball.classList.add("ball");
+          document.body.appendChild(ball);
 
-                animateBall(ball);
-            }
-
-            window.addEventListener('resize', () => {
-                updateBallPositions();
-            });
-
-            updateBallPositions();
+          animateBall(ball);
         }
 
-        function updateBallPositions() {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-
-            const balls = document.querySelectorAll('.ball');
-            balls.forEach(ball => {
-                const randomX = centerX + (Math.random() - 0.5) * centerX * 0.1;
-                const randomY = centerY + (Math.random() - 0.5) * centerY * 0.1;
-
-                ball.style.left = randomX + 'px';
-                ball.style.top = randomY + 'px';
-            });
-        }
-
-        function animateBall(ball) {
-            const speed = 0.4;
-            const radius = 1;
-
-            let vx = Math.random() * 4 - 2;
-            let vy = Math.random() * 4 - 2;
-
-            setInterval(() => {
-                let newX = parseFloat(ball.style.left) + vx * speed;
-                let newY = parseFloat(ball.style.top) + vy * speed;
-
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-
-                const maxDistX = centerX * 0.4;
-                const maxDistY = centerY * 0.2;
-
-                if (Math.abs(newX - centerX) > maxDistX) {
-                    vx *= -1;
-                }
-                if (Math.abs(newY - centerY) > maxDistY) {
-                    vy *= -1;
-                }
-
-                ball.style.left = newX + 'px';
-                ball.style.top = newY + 'px';
-            }, 1000 / 60);
-        }
-
-        window.onload = createBalls;
-
-        window.addEventListener('focus', () => {
-            document.documentElement.style.transition = 'filter 0.5s';
-            document.documentElement.style.filter = 'grayscale(0%) brightness(100%)';
+        window.addEventListener("resize", () => {
+          updateBallPositions();
         });
 
-        window.addEventListener('blur', () => {
-            document.documentElement.style.transition = 'filter 0.5s';
-            document.documentElement.style.filter = 'grayscale(60%) brightness(60%)';
+        updateBallPositions();
+      }
+
+      function updateBallPositions() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        const balls = document.querySelectorAll(".ball");
+        balls.forEach((ball) => {
+          const randomX = centerX + (Math.random() - 0.5) * centerX * 0.1;
+          const randomY = centerY + (Math.random() - 0.5) * centerY * 0.1;
+
+          ball.style.left = randomX + "px";
+          ball.style.top = randomY + "px";
         });
+      }
+
+      function animateBall(ball) {
+        const speed = 0.4;
+        const radius = 1;
+
+        let vx = Math.random() * 4 - 2;
+        let vy = Math.random() * 4 - 2;
+
+        setInterval(() => {
+          let newX = parseFloat(ball.style.left) + vx * speed;
+          let newY = parseFloat(ball.style.top) + vy * speed;
+
+          const centerX = window.innerWidth / 2;
+          const centerY = window.innerHeight / 2;
+
+          const maxDistX = centerX * 0.4;
+          const maxDistY = centerY * 0.2;
+
+          if (Math.abs(newX - centerX) > maxDistX) {
+            vx *= -1;
+          }
+          if (Math.abs(newY - centerY) > maxDistY) {
+            vy *= -1;
+          }
+
+          ball.style.left = newX + "px";
+          ball.style.top = newY + "px";
+        }, 1000 / 60);
+      }
+
+      window.onload = createBalls;
+
+      window.addEventListener("focus", () => {
+        document.documentElement.style.transition = "filter 0.5s";
+        document.documentElement.style.filter =
+          "grayscale(0%) brightness(100%)";
+      });
+
+      window.addEventListener("blur", () => {
+        document.documentElement.style.transition = "filter 0.5s";
+        document.documentElement.style.filter =
+          "grayscale(60%) brightness(60%)";
+      });
+
+      setTimeout(animateButton, 3500);
+
+      function animateButton() {
+        const buttonText = document.getElementById("buttonText");
+        const languages = [
+          "Get Started", // Englisch
+          "Commencer", // Französisch
+          "Iniciar", // Spanisch
+          "Iniziare", // Italienisch
+          "Starten", // Deutsch
+          "بدء", // Arabisch
+          "Начать", // Russisch
+          "शुरू", // Hindi
+          "Começar", // Portugiesisch
+          "เริ่มต้น", // Thai
+          // Füge weitere Sprachen hinzu...
+        ];
+        const randomLanguageIndex = Math.floor(
+          Math.random() * languages.length
+        );
+        buttonText.textContent = languages[randomLanguageIndex];
+        animateText(buttonText);
+      }
+
+      // Funktion zur Animation des Textes
+      function animateText(element) {
+        element.style.transition = "transform 0.5s ease";
+        element.style.transform = "translateY(-100%)";
+        setTimeout(() => {
+          element.style.transition = "none";
+          element.style.transform = "translateY(0)";
+          setTimeout(animateButton, 3500); // Hier wird die Funktion erneut aufgerufen
+        }, 3500); // Ändere die Zeitdauer je nach Bedarf
+      }
     </script>
     <script src="../titlebar.js"></script>
-</body>
+  </body>
 </html>

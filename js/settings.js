@@ -489,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
   });
 
-  // Language System
+  //! Language System (fix needed!)
   let langData = {}; // Initialisierung der Sprachdaten als leeres Objekt
 
   // Funktion zum Initialisieren des Sprachsystems

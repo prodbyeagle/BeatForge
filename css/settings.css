@@ -120,7 +120,8 @@ body {
     flex: 1;
     padding: 20px;
     display: flex;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     flex-direction: column;
 }
 
