@@ -422,7 +422,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    animation: fadeIn 0.3s ease forwards;
+    animation: fadeIn 0.3s cubic-bezier(0, 0.82, 0.64, 1.21) forwards;
 }
 
 @keyframes fadeIn {
@@ -457,4 +457,142 @@ body {
 .context-menu hr {
     border: none;
     border-top: 1px solid var(--quaternary-color);
+    margin: 0px 20px 0;
+}
+
+.confirm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #313131;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    width: 60%;
+    max-width: 600px;
+    cursor: help;
+    border: 1px solid #cfcfcf;
+    backdrop-filter: blur(25px);
+    animation: fadeInModal 0.1s ease-in-out forwards;
+}
+
+.confirm.show {
+    top: 50%;
+}
+
+.confirm.hide {
+    top: 110%;
+}
+
+.confirm-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 6479;
+    transition: opacity 0.3s ease;
+
+}
+
+.confirm-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.confirm-overlay.hide {
+    opacity: 0;
+}
+
+.confirm h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.confirm ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.confirm li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: white;
+}
+
+.confirm button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: all 0.1s ease;
+}
+
+#confirmation_text {
+    margin-bottom: 15px;
+    color: white;
+
+}
+
+#confirm_button {
+    border: 2px #4CAF50 solid;
+    color: white;
+}
+
+#cancel_button {
+    border: 2px #f44336 solid;
+    color: white;
+}
+
+
+.confirm button:hover {
+    transform: scale(1.03);
+    border-radius: 15px;
+}
+
+.confirm-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 1569;
+    transition: opacity 0.3s ease;
+
+}
+
+.confirm-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.confirm-overlay.hide {
+    opacity: 0;
+}
+
+@keyframes fadeInModal {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
