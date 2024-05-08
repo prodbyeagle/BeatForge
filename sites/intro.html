@@ -127,7 +127,6 @@
         align-items: center;
         order: -1;
         -webkit-app-region: no-drag;
-        /* Ändert die Reihenfolge der Steuerungselemente, um sie auf die linke Seite zu verschieben */
       }
 
       .control-button {
@@ -171,15 +170,10 @@
 
       #title {
         flex-grow: 1;
-        /* Flexibles Wachstum */
         text-align: center;
-        /* Zentrierung des Textes */
-        /* margin-left: -3%; */
-        /* Berechnung des linken Abstands */
         color: #fff;
         left: 0;
         right: 0;
-        /* Textfarbe */
       }
 
       .button-wrapper {
@@ -212,9 +206,6 @@
 
     <div class="container">
       <div class="title">BeatForge</div>
-      <!-- <div class="slogan">
-            Empower Your Beats, Ignite Your Creativity
-        </div> -->
       <a href="onboarding.html" class="button" id="getStartedButton">
         <span id="buttonText">Get Started</span>
       </a>
@@ -300,17 +291,16 @@
       function animateButton() {
         const buttonText = document.getElementById("buttonText");
         const languages = [
-          "Get Started", // Englisch
-          "Commencer", // Französisch
-          "Iniciar", // Spanisch
-          "Iniziare", // Italienisch
-          "Starten", // Deutsch
-          "بدء", // Arabisch
-          "Начать", // Russisch
-          "शुरू", // Hindi
-          "Começar", // Portugiesisch
-          "เริ่มต้น", // Thai
-          // Füge weitere Sprachen hinzu...
+          "Get Started",
+          "Commencer",
+          "Iniciar",
+          "Iniziare",
+          "Starten",
+          "بدء",
+          "Начать",
+          "शुरू",
+          "Começar",
+          "เริ่มต้น",
         ];
         const randomLanguageIndex = Math.floor(
           Math.random() * languages.length
@@ -319,15 +309,14 @@
         animateText(buttonText);
       }
 
-      // Funktion zur Animation des Textes
       function animateText(element) {
         element.style.transition = "transform 0.5s ease";
         element.style.transform = "translateY(-100%)";
         setTimeout(() => {
           element.style.transition = "none";
           element.style.transform = "translateY(0)";
-          setTimeout(animateButton, 3500); // Hier wird die Funktion erneut aufgerufen
-        }, 3500); // Ändere die Zeitdauer je nach Bedarf
+          setTimeout(animateButton, 3500);
+        }, 3500);
       }
     </script>
     <script src="../titlebar.js"></script>

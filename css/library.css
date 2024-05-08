@@ -34,11 +34,10 @@ body {
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
-    position: relative;
+    position: sticky;
     top: 0;
     left: 0;
     bottom: 0;
-
     z-index: 999;
 
 }
@@ -413,4 +412,49 @@ body {
 #sort-random-beat:hover {
     transform: scale(1.03);
     border-radius: 15px;
+}
+
+.context-menu {
+    position: absolute;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--quaternary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.context-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.context-menu li {
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.context-menu li:hover {
+    background-color: var(--tertiary-color);
+    transition: all 0.1s ease;
+    border-radius: 10px;
+}
+
+.context-menu hr {
+    border: none;
+    border-top: 1px solid var(--quaternary-color);
 }
