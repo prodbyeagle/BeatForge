@@ -6,22 +6,13 @@
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
     user-select: none;
+    -webkit-user-drag: none;
 }
 
 @supports (font-variation-settings: normal) {
     :root {
         font-family: InterVariable, sans-serif;
     }
-}
-
-@font-face {
-    font-family: 'Noto Color Emoji';
-    src: url('../assets/NotoColorEmoji-flagsonly.ttf') format('truetype');
-    /* Passe den Pfad zur Schriftartdatei entsprechend deiner Projektstruktur an */
-}
-
-.emoji {
-    font-family: 'Noto Color Emoji', sans-serif;
 }
 
 body {
@@ -44,6 +35,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
     position: relative;
+    -webkit-user-drag: none;
 }
 
 .sidebar:hover {

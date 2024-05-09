@@ -435,7 +435,6 @@ dirsInput.addEventListener("change", (event) => {
 
     // Extrahiere den Ordnerpfad der ausgewählten Datei
     const folderPath = event.target.files[0].webkitRelativePath.split("/")[0];
-    console.log("Selected folder path:", folderPath);
 
     // Speichern des Ordnerpfads im localStorage
     localStorage.setItem("folders", folderPath);
@@ -492,6 +491,7 @@ function createFolderElement(folderPath) {
     removeButton.textContent = "❌";
     removeButton.title = "Delete this Folder Path!";
     removeButton.style.opacity = "0%";
+    removeButton.style.backgroundColor = "0%";
     removeButton.classList.add("remove-button");
     removeButton.addEventListener("click", () => {
         // Entfernen des Ordners aus der Benutzeroberfläche
@@ -519,5 +519,18 @@ function createFolderElement(folderPath) {
 
     return newFolderElement;
 }
+
+// Smooth Scroll
+
+const lenis = new Lenis()
+
+lenis.on('scroll', (e) => {
+})
+
+function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+}
+requestAnimationFrame(raf)
 
 });
