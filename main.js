@@ -1,4 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+//main.js
+
+const { app, dialog, ipcMain, BrowserWindow } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -95,11 +97,11 @@ app.on("ready", () => {
   if (config.onboardingCompleted) {
     mainWindow = new BrowserWindow({
       width: 1280,
-      height: 900,
+      height: 1000,
       maxWidth: 1920,
       maxHeight: 1080,
       minWidth: 800,
-      minHeight: 900,
+      minHeight: 1000,
       autoHideMenuBar: true,
       fullscreenable: false,
       frame: false,
@@ -110,31 +112,8 @@ app.on("ready", () => {
       },
     });
 
-    loadLanguageFile(langDir)
-      .then((langData) => {
-        // Serialisieren der Sprachdaten, bevor sie gesendet werden
-        const serializedLangData = JSON.stringify(langData);
-        mainWindow.webContents.send("language-loaded", serializedLangData);
-      })
-      .catch((error) => {
-        console.error(
-          "defaultLangData: Fehler beim Laden der Standardsprache:",
-          error.message
-        );
-      });
-
     mainWindow.once("ready-to-show", () => {
       sendThemesToRenderer();
-      loadLanguageFile("en")
-        .then((langData) => {
-          mainWindow.webContents.send("language-loaded", langData);
-        })
-        .catch((error) => {
-          console.error(
-            "Home:  Fehler beim Laden der Standardsprache:",
-            error.message
-          );
-        });
     });
 
     mainWindow.loadFile(path.join(__dirname, "sites", "home.html"));
@@ -145,11 +124,11 @@ app.on("ready", () => {
   } else {
     let mainWindow = new BrowserWindow({
       width: 1280,
-      height: 900,
+      height: 1000,
       maxWidth: 1920,
       maxHeight: 1080,
       minWidth: 800,
-      minHeight: 900,
+      minHeight: 1000,
       autoHideMenuBar: true,
       fullscreenable: false,
       frame: false,
@@ -163,22 +142,8 @@ app.on("ready", () => {
     const defaultLangData = loadLanguageFile("en");
     mainWindow.loadFile("index.html");
 
-    mainWindow.webContents.on("did-finish-load", () => {
-      mainWindow.webContents.send("language-loaded", defaultLangData);
-    });
-
     mainWindow.once("ready-to-show", () => {
       sendThemesToRenderer();
-      loadLanguageFile("en")
-        .then((langData) => {
-          mainWindow.webContents.send("language-loaded", langData);
-        })
-        .catch((error) => {
-          console.error(
-            "Intro: Fehler beim Laden der Standardsprache:",
-            error.message
-          );
-        });
     });
 
     mainWindow.loadFile(path.join(__dirname, "sites", "intro.html"));
@@ -275,49 +240,3 @@ function performDebugActions() {
   deleteConfigFile();
   restartApp();
 }
-
-ipcMain.on("load-language", async (event, language) => {
-  try {
-    const langFilePath = path.join(langDir, `${language}.json`);
-    console.log("Sprachdatei laden:", langFilePath);
-    const langData = await loadLanguageFile(langFilePath);
-    if (Object.keys(langData).length === 0) {
-      throw new Error("Leere Sprachdaten empfangen.");
-    }
-    console.log(
-      langData.settings ? langData.settings.title : "settings.title is none"
-    );
-    console.log(
-      langData.settings && langData.settings.labels
-        ? langData.settings.labels.changeUsername
-        : "settings.labels.changeUsername is none"
-    );
-    event.sender.send("language-data", langData);
-  } catch (error) {
-    console.error("Fehler beim Laden der Sprachdatei:", error.message);
-    event.sender.send("language-data", {});
-  }
-});
-
-async function loadLanguageFile(langFilePath) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(langFilePath, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(JSON.parse(data));
-      }
-    });
-  });
-}
-
-ipcMain.on("change-language", async (event, language) => {
-  try {
-    const langFilePath = path.join(langDir, `${language}.json`);
-    const langData = await loadLanguageFile(langFilePath);
-    event.sender.send("language-loaded", langData);
-  } catch (error) {
-    console.error("Fehler beim Laden der Sprachdatei:", error.message);
-    event.sender.send("language-loaded", {});
-  }
-});

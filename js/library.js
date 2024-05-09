@@ -98,7 +98,9 @@ function showContextMenu(event) {
         const libraryItem = event.target.closest('.library-item');
         if (libraryItem) {
             const songName = libraryItem.querySelector('h2').textContent;
-            const contextMenuHTML = createContextMenuHTML(songName);
+            const artistParagraph = libraryItem.querySelector('p');
+            const artist = artistParagraph ? artistParagraph.textContent.replace('Artist: ', '').trim() : ''; // Extrahiere den Künstlernamen
+            const contextMenuHTML = createContextMenuHTML(songName, artist);
             document.body.insertAdjacentHTML("beforeend", contextMenuHTML);
             activeContextMenu = document.querySelector(".context-menu");
             positionContextMenu(event);
@@ -108,11 +110,14 @@ function showContextMenu(event) {
     }
 }
 
-function createContextMenuHTML(songName) {
+function createContextMenuHTML(songName, artist) {
     return `
         <div class="context-menu">
             <ul>
-                <li title="The Song Name" class="context-menu-item-noninteractive">${songName}</li>
+                <li title="${songName}" class="context-menu-item-noninteractive">"${songName}" by @${artist}</li>
+                <hr>
+                <li title="Play" class="context-menu-item-noninteractive">Play</li>
+                <li title="Add to Queue" class="context-menu-item">Add to Queue</li>
                 <hr>
                 <li title="Delete the Track" class="context-menu-item">Delete Track</li>
                 <li title="Edit The Metadata" class="context-menu-item">Edit Track</li>
@@ -161,6 +166,8 @@ function handleContextMenuItemClick(event, data) {
                 editTrack(songTitle, artist);
             } else if (action === "Edit Tags") {
                 editTags(songTitle);
+            } else if (action === "Add to Queue") {
+                addToQueue(songTitle);
             }
         } else {
             showError("Song title not found in dataset");
@@ -281,7 +288,17 @@ function createLibraryItem(data) {
 // Library Data Initialization
 const libraryData = [
     { title: "WHAT??", location: "London", genre: "Rock", artist: "dwhincandi" },
-    // Add more data objects as needed
+    { title: "INDEED!", location: "Berlin", genre: "Pop", artist: "prodbyeagle" },
+    { title: "Song Title 1", location: "New York", genre: "Hip Hop", artist: "artist1" },
+    { title: "Song Title 2", location: "Los Angeles", genre: "R&B", artist: "artist2" },
+    { title: "Song Title 3", location: "Chicago", genre: "Jazz", artist: "artist3" },
+    { title: "Song Title 4", location: "Miami", genre: "Reggae", artist: "artist4" },
+    { title: "Song Title 5", location: "Paris", genre: "Classical", artist: "artist5" },
+    { title: "Song Title 6", location: "Tokyo", genre: "Electronic", artist: "artist6" },
+    { title: "Song Title 7", location: "Sydney", genre: "Indie", artist: "artist7" },
+    { title: "Song Title 8", location: "Toronto", genre: "Funk", artist: "artist8" },
+    { title: "Song Title 9", location: "Rio de Janeiro", genre: "Samba", artist: "artist9" },
+    { title: "Song Title 10", location: "Berlin", genre: "Techno", artist: "artist10" },
 ];
 
 // Populate Songs List
@@ -326,6 +343,19 @@ function editTrack(songTitle, artist) {
 function editTags(songTitle) {
     Toastify({
         text: `"${songTitle}" Tags edited successfully!`,
+        duration: 1500,
+        gravity: "bottom",
+        position: "right",
+        style: {
+            background: "#00A36C",
+        },
+        stopOnFocus: true,
+    }).showToast();
+}
+
+function addToQueue(songTitle) {
+    Toastify({
+        text: `"${songTitle}" added successfully to Queue!`,
         duration: 1500,
         gravity: "bottom",
         position: "right",

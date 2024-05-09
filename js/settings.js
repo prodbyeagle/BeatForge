@@ -1,3 +1,5 @@
+//settings.js
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("settings-form");
 
@@ -13,77 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.username.value = userData.username;
     form["accent-color"].value = userData.accentColor;
-
-    showBeatFolders(userData);
-  }
-
-  function showBeatFolders(userData) {
-    const beatFoldersContainer = document.querySelector(".beat-folders");
-    beatFoldersContainer.innerHTML = "";
-
-    if (userData.folders) {
-      const folders = userData.folders.split(", ");
-
-      folders.forEach((folder) => {
-        console.log("Adding folder:", folder);
-        const beatFolder = document.createElement("div");
-        beatFolder.classList.add("beat-folder");
-
-        const folderInfo = document.createElement("div");
-        folderInfo.classList.add("folder-info");
-
-        const folderPath = document.createElement("p");
-        folderPath.textContent = folder;
-
-        folderInfo.appendChild(folderPath);
-
-        const folderActions = document.createElement("div");
-        folderActions.classList.add("folder-actions");
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "X";
-        deleteButton.addEventListener("click", function () {
-          removeFolderAndUpdateUI(folder);
-        });
-
-        folderActions.appendChild(deleteButton);
-
-        beatFolder.appendChild(folderInfo);
-        beatFolder.appendChild(folderActions);
-
-        beatFoldersContainer.appendChild(beatFolder);
-      });
-    } else {
-      const noFoldersMessage = document.createElement("p");
-      noFoldersMessage.textContent = "Currently no Beat Folders.";
-      beatFoldersContainer.appendChild(noFoldersMessage);
-    }
-  }
-
-  function addFolderAndUpdateUI(folderPath) {
-    console.log("Adding folder to userData:", folderPath);
-    const userData = JSON.parse(localStorage.getItem("userData")) || {};
-    userData.folders = userData.folders || "";
-
-    if (!userData.folders.includes(folderPath)) {
-      userData.folders +=
-        (userData.folders.length > 0 ? ", " : "") + folderPath;
-      localStorage.setItem("userData", JSON.stringify(userData));
-      updateUI(userData);
-    }
-  }
-
-  function removeFolderAndUpdateUI(folderPath) {
-    console.log("Removing folder from userData:", folderPath);
-    const userData = JSON.parse(localStorage.getItem("userData")) || {};
-    userData.folders = userData.folders || "";
-
-    userData.folders = userData.folders
-      .split(", ")
-      .filter((folder) => folder !== folderPath)
-      .join(", ");
-    localStorage.setItem("userData", JSON.stringify(userData));
-    updateUI(userData);
   }
 
   function handleSidebarHover(event) {
@@ -126,17 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
       userData.accentColor = accentColor;
     }
 
-    if (foldersInput.files.length > 0) {
-      const folders = foldersInput.files;
-      const folderPath = folders[i].path.split("\\")[1];
-      for (let i = 0; i < folders.length; i++) {
-        console.log("Selected folder:", folderPath);
-        addFolderAndUpdateUI(folderPath);
-      }
-    } else {
-      console.error("Es wurden keine Ordner ausgewählt.");
-    }
-
     localStorage.setItem("userData", JSON.stringify(userData));
 
     updateUI(userData);
@@ -170,15 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const designOverlay = document.getElementById("design_overlay");
   const designModal = document.getElementById("design_modal");
   const closeButton = document.querySelector(".close-btn");
-
-  const foldersInput = document.getElementById("folders");
-  foldersInput.addEventListener("change", function (event) {
-    const folders = event.target.files;
-    for (let i = 0; i < folders.length; i++) {
-      console.log("Selected folder:", folders[i].path);
-      addFolderAndUpdateUI(folders[i].path);
-    }
-  });
 
   designOverlay.addEventListener("click", function () {
     closeDesignModal();
@@ -489,71 +400,100 @@ document.addEventListener("DOMContentLoaded", function () {
     document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
   });
 
-  //! Language System (fix needed!)
-  let langData = {}; // Initialisierung der Sprachdaten als leeres Objekt
+  //* Add Folder Code
+  //* Add Folder Code
+  //* Add Folder Code
 
-  // Funktion zum Initialisieren des Sprachsystems
-  function initLanguageSystem() {
-    const storedLanguage = localStorage.getItem("selectedLanguage") || "en"; // Standardmäßig 'en' verwenden, wenn keine Sprache gespeichert ist
-    console.log(`Selected Language: ${storedLanguage}`);
-    loadLanguageFile(storedLanguage); // Lade die Sprachdatei entsprechend der gespeicherten Sprache
-  }
+function extractParentFolderPath(paths) {
+    // Extrahiere den gemeinsamen Pfad aus den Dateipfaden
+    const parentFolderSet = new Set();
 
-  // Funktion zum Laden der Sprachdatei
-  function loadLanguageFile(language) {
-    ipcRenderer.send("load-language", language); // Sende eine Anfrage an den Hauptprozess, um die Sprachdatei zu laden
-  }
-
-  // Event Listener für das Ändern der Sprachauswahl
-  languageSelect.addEventListener("change", handleLanguageChange);
-
-  function handleLanguageChange() {
-    const selectedLanguage = languageSelect.value;
-    localStorage.setItem("selectedLanguage", selectedLanguage);
-    loadLanguageFile(selectedLanguage); // Lade die Sprachdatei und aktualisiere die UI-Texte
-  }
-
-  function updateUIText(langData) {
-    // Durchlaufe die Elemente und aktualisiere den Text
-    const elementsToUpdate = document.querySelectorAll("[data-i18n]");
-    elementsToUpdate.forEach((element) => {
-      const key = element.getAttribute("data-i18n");
-      if (langData && langData[key]) {
-        // Überprüfe, ob langData definiert und der Schlüssel vorhanden ist, um Fehler zu vermeiden
-        element.textContent = langData[key];
-      }
+    paths.forEach(path => {
+        const parentFolder = path.split(/[\\/]/).slice(0, -1).join('\\');
+        parentFolderSet.add(parentFolder);
     });
-  }
 
-  // Beispiel für die Verwendung in deinem Code
-  console.log(
-    langData.settings ? langData.settings.title : "settings.title is none"
-  ); // Ausgabe: Einstellungen (falls vorhanden)
-  console.log(
-    langData.settings && langData.settings.labels
-      ? langData.settings.labels.changeUsername
-      : "settings.labels.changeUsername is none"
-  ); // Ausgabe: Benutzernamen ändern (falls vorhanden)
-
-  // Event Listener für das Laden der Sprachdaten vom Hauptprozess
-  ipcRenderer.on("language-data", (_, data) => {
-    if (data && Object.keys(data).length > 0) {
-      langData = data; // Aktualisiere die Sprachdaten, wenn sie empfangen werden
-      console.log("Sprachdaten empfangen:", langData);
-      updateUIText(langData); // Aktualisiere die UI-Texte mit den empfangenen Sprachdaten
+    if (parentFolderSet.size === 1) {
+        return parentFolderSet.values().next().value;
     } else {
-      console.error("Fehler: Leere Sprachdaten empfangen.");
+        console.error("Mehrere übergeordnete Ordner gefunden");
+        return null;
     }
-  });
+}
 
-  // Event Listener für das Ereignis 'language-loaded' (optional)
-  ipcRenderer.on("language-loaded", (_, langData) => {
-    if (langData && Object.keys(langData).length > 0) {
-      console.log(langData.settings ? langData.settings.title : ""); // Ausgabe: Einstellungen (falls vorhanden)
-      console.log("Geladene Sprachdaten:", langData);
-      updateUIText(langData); // Aufruf der Funktion zum Aktualisieren des HTML-Textes
+// Überprüfen, ob es gespeicherte Ordner in den Benutzerdaten gibt
+const storedUserData = JSON.parse(localStorage.getItem("userData")) || {};
+let storedFolders = storedUserData.folders || [];
+
+// Hinzufügen der gespeicherten Ordner zur Benutzeroberfläche
+const beatFoldersContainer = document.querySelector(".beat-folders");
+storedFolders.forEach(folderPath => {
+    beatFoldersContainer.appendChild(createFolderElement(folderPath));
+});
+
+// Hinzufügen eines Event Listeners für die Auswahl neuer Ordner
+const dirsInput = document.getElementById("dirs");
+dirsInput.addEventListener("change", (event) => {
+    // Extrahiere den Ordnerpfad der ausgewählten Datei
+    const folderPath = event.target.files[0].webkitRelativePath.split("/")[0];
+    console.log("Selected folder path:", folderPath);
+
+    // Speichern des Ordnerpfads im localStorage
+    localStorage.setItem("folders", folderPath);
+
+    // Überprüfen, ob der Ordnerpfad bereits in der Liste vorhanden ist
+    if (!storedFolders.includes(folderPath)) {
+        // Hinzufügen des Ordnerpfads zur Liste im localStorage
+        storedFolders.push(folderPath);
+        localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
+
+        // Hinzufügen des Ordners zur Benutzeroberfläche
+        beatFoldersContainer.appendChild(createFolderElement(folderPath));
     } else {
-      console.error("Fehler: Leere Sprachdaten empfangen.");
+        console.log("Folder already exists in the list.");
     }
-  });
+});
+
+function createFolderElement(folderPath) {
+    const newFolderElement = document.createElement("div");
+    newFolderElement.classList.add("beat-folder");
+
+    // Erstellen des Textinhalts mit dem Ordnerpfad
+    const folderText = document.createElement("span");
+    folderText.textContent = folderPath;
+    newFolderElement.appendChild(folderText);
+
+    // Hinzufügen der Möglichkeit zum Entfernen des Ordners
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "❌";
+    removeButton.title = "Delete this Folder Path!";
+    removeButton.style.opacity = "0%";
+    removeButton.classList.add("remove-button");
+    removeButton.addEventListener("click", () => {
+        // Entfernen des Ordners aus der Benutzeroberfläche
+        beatFoldersContainer.removeChild(newFolderElement);
+        // Entfernen des Ordners aus den Benutzerdaten im localStorage
+        storedFolders = storedFolders.filter(path => path !== folderPath);
+        localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
+    });
+
+    // Anhängen des Entfernen-Buttons zum Ordner-Element
+    newFolderElement.appendChild(removeButton);
+
+    newFolderElement.style.display = "flex";
+    newFolderElement.style.justifyContent = "space-between";
+
+    // Hinzufügen eines Event Listeners für das Hovern über das Feld
+    newFolderElement.addEventListener("mouseover", () => {
+        removeButton.style.opacity = "100%";
+    });
+
+    // Hinzufügen eines Event Listeners für das Verlassen des Felds
+    newFolderElement.addEventListener("mouseout", () => {
+        removeButton.style.opacity = "0%";
+    });
+
+    return newFolderElement;
+}
+
 });
