@@ -434,7 +434,8 @@ dirsInput.addEventListener("change", (event) => {
     }
 
     // Extrahiere den Ordnerpfad der ausgewählten Datei
-    const folderPath = event.target.files[0].webkitRelativePath.split("/")[0];
+    const filePath = event.target.files[0].path;
+    const folderPath = filePath.substring(0, filePath.lastIndexOf("\\"));
 
     // Speichern des Ordnerpfads im localStorage
     localStorage.setItem("folders", folderPath);
