@@ -46,6 +46,7 @@ ipcMain.on("load-themes", (event) => {
 });
 
 ipcMain.on("perform-debug-actions", () => {
+  console.log("Debug-Aktionen werden ausgeführt...");
   performDebugActions();
 });
 
@@ -86,6 +87,7 @@ app.on("ready", () => {
     saveConfig(config);
 
     if (userData.relaunchApp) {
+      console.log("App wird neu gestartet...");
       app.relaunch();
       app.quit();
     }
@@ -178,7 +180,7 @@ function loadThemes() {
 }
 
 function sendThemesToRenderer() {
-  if (!mainWindow)
+  if (!mainWindow) {
     return;
   }
 
@@ -187,17 +189,18 @@ function sendThemesToRenderer() {
   }
 
   const currentURL = mainWindow.webContents.getURL();
+
   if (currentURL.endsWith("intro.html")) {
     return;
   }
+
   try {
     const themes = loadThemes();
     mainWindow.webContents.send("load-themes", themes);
   } catch (error) {
-    console.error("Fehler beim Laden der Themes:", error.message);
-    console.error("Fehlerdetails:", error);
     mainWindow.webContents.send("load-themes", []);
   }
+}
 
 function deleteConfigFile() {
   try {
