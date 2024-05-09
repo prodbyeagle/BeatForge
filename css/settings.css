@@ -6,7 +6,6 @@
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1;
     user-select: none;
-    -webkit-user-drag: none;
 }
 
 @supports (font-variation-settings: normal) {
@@ -35,7 +34,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
     position: relative;
-    -webkit-user-drag: none;
 }
 
 .sidebar:hover {
