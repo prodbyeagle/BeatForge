@@ -116,7 +116,6 @@ function createContextMenuHTML(songName, artist) {
             <ul>
                 <li title="${songName}" class="context-menu-item-noninteractive">"${songName}" by @${artist}</li>
                 <hr>
-                <li title="Play" class="context-menu-item-noninteractive">Play</li>
                 <li title="Add to Queue" class="context-menu-item">Add to Queue</li>
                 <hr>
                 <li title="Delete the Track" class="context-menu-item">Delete Track</li>
@@ -291,26 +290,21 @@ function createLibraryItem(data, filePath) {
     return li;
 }
 
-// Funktion zum Abrufen der Ordnerpfade über IPC vom Hauptprozess
 async function getFoldersFromMainProcess() {
     try {
-    // Hier können Sie den Pfad aus dem lokalen Speicher oder einer anderen Quelle abrufen
     const userData = JSON.parse(localStorage.getItem('userData'));
     const folders = userData.folders || [];
     return folders;
     } catch (error) {
         console.error('Fehler beim Abrufen der Ordnerpfade vom Hauptprozess:', error);
-        return []; // Bei einem Fehler eine leere Liste zurückgeben
+        return [];
     }
 }
 
 async function importFilesFromFolders() {
     try {
-        // Ordnerpfade vom Hauptprozess abrufen
         const folders = await getFoldersFromMainProcess();
-        console.log(folders);
-        await importFilesFromFoldersHelper(folders); // Helper-Funktion aufrufen
-        // Hier können Sie die Pfade verarbeiten, z.B. Dateien aus den Ordnern laden
+        await importFilesFromFoldersHelper(folders);
     } catch (error) {
         console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
     }
@@ -337,7 +331,7 @@ async function importFilesFromFoldersHelper(folderPaths) {
                             filePath: filePath
                         };
 
-                        const libraryItem = createLibraryItem(fileInfo);
+                        const libraryItem = createLibraryItem(fileInfo, filePath);
                         const songsList = document.getElementById("songs-list");
                         songsList.appendChild(libraryItem);
                     }
@@ -356,10 +350,88 @@ async function playAudioFile(filePath) {
         const audioPlayer = document.getElementById('audio-player');
         audioPlayer.src = filePath;
         await audioPlayer.play();
-        console.log('Audiodatei wird abgespielt:', filePath);
+        updateTotalTime(getFormattedTime(audioPlayer.duration));
+        const progressRange = document.getElementById('progressRange');
+        progressRange.value = 0;
     } catch (error) {
         console.error('Fehler beim Abspielen der Audiodatei:', error);
     }
+}
+
+function getFormattedTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+}
+
+function updateCurrentTime(newTime) {
+    const currentTimeElement = document.getElementById('current-time');
+    currentTimeElement.textContent = newTime;
+}
+
+function updateTotalTime(newTime) {
+    const totalTimeElement = document.getElementById('total-time');
+    totalTimeElement.textContent = newTime;
+}
+
+// Funktion zum Aktualisieren der aktuellen Zeit
+function updateCurrentTime() {
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Die aktuelle Zeit des Audiospielers erhalten und formatieren
+    const currentTime = audioPlayer.currentTime;
+    const currentMinutes = Math.floor(currentTime / 60);
+    const currentSeconds = Math.floor(currentTime % 60);
+    const formattedCurrentTime = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+
+    // Die aktualisierte Zeit auf dem Bildschirm anzeigen
+    document.getElementById('current-time').textContent = formattedCurrentTime;
+}
+
+// Eventlistener hinzufügen, um die aktuelle Zeit sekündlich zu aktualisieren
+setInterval(updateCurrentTime, 500);
+
+function resetPlayer() {
+    const playPauseButton = document.getElementById('play-pause-button');
+    playPauseButton.textContent = 'Play';
+    const progressRange = document.getElementById('progressRange');
+    progressRange.value = 0;
+    const currentTime = document.getElementById('current-time');
+    currentTime.textContent = '0:00';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialisierung der Ereignishandler für die Steuerelemente
+    const playPauseButton = document.getElementById('play-pause-button');
+    playPauseButton.addEventListener('click', togglePlayPause);
+
+    const volumeRange = document.getElementById('volumeRange');
+    volumeRange.addEventListener('input', adjustVolume);
+
+    const progressRange = document.getElementById('progressRange');
+    progressRange.addEventListener('input', adjustProgress);
+});
+
+async function togglePlayPause() {
+    const audioPlayer = document.getElementById('audio-player');
+    if (audioPlayer.paused || audioPlayer.ended) {
+        await audioPlayer.play();
+        this.textContent = 'Pause';
+    } else {
+        audioPlayer.pause();
+        this.textContent = 'Play';
+    }
+}
+
+function adjustVolume() {
+    const audioPlayer = document.getElementById('audio-player');
+    audioPlayer.volume = this.value / 100;
+}
+
+function adjustProgress() {
+    const audioPlayer = document.getElementById('audio-player');
+    const seekTime = (this.value / 100) * audioPlayer.duration;
+    audioPlayer.currentTime = seekTime;
 }
 
 document.addEventListener('click', async (event) => {

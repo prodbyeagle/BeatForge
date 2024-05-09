@@ -346,8 +346,15 @@ body {
     transition: transform 0.1s ease;
 }
 
+@media (min-width: 900px) {
+    .library-list {
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+        /* Mindestens 1, maximal 2 Elemente pro Reihe ab 600px Breite */
+    }
+}
+
 .library-item:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .library-item h2 {
@@ -574,4 +581,44 @@ body {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
+}
+
+#player-controls {
+    position: fixed;
+    bottom: 10px;
+    left: 20%;
+    right: 20%;
+    background-color: var(--tertiary-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    z-index: 4444;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease;
+}
+
+#player-controls:hover {
+    border-radius: 15px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+#player-controls #current-time,
+#player-controls #total-time {
+    color: #fff;
+}
+
+#player-controls input[type="range"] {
+    width: 100%;
+}
+
+#player-controls #play-pause-button {
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+#player-controls #play-pause-button:hover {
+    color: #ccc;
 }

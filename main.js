@@ -106,7 +106,7 @@ app.on("ready", () => {
       autoHideMenuBar: true,
       fullscreenable: false,
       frame: false,
-      icon: path.join(__dirname, "assets", "icon.png"),
+      icon: path.join(__dirname, "assets", "testicon.png"),
       webPreferences: {
         nodeIntegration: true,
         preload: path.join(__dirname, "preload.js"),
@@ -133,7 +133,7 @@ app.on("ready", () => {
       autoHideMenuBar: true,
       fullscreenable: false,
       frame: false,
-      icon: path.join(__dirname, "assets", "icon.png"),
+      icon: path.join(__dirname, "assets", "testicon.png"),
       webPreferences: {
         nodeIntegration: true,
         preload: path.join(__dirname, "preload.js"),
