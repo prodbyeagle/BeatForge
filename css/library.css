@@ -39,7 +39,6 @@ body {
     left: 0;
     bottom: 0;
     z-index: 999;
-
 }
 
 .sidebar:hover {
@@ -155,7 +154,7 @@ body {
     width: 60%;
     max-width: 600px;
     cursor: help;
-    border: 1px solid #cfcfcf;
+    border: 2px solid #cfcfcf;
 }
 
 .modal h2 {
@@ -319,17 +318,6 @@ body {
     outline: none;
 }
 
-.search-bar {
-    width: 300px;
-    padding: 8px;
-    border-radius: 5px;
-    background-color: #4b5563;
-    color: #d1d5db;
-    border: none;
-    outline: none;
-}
-
-
 .section {
     margin-bottom: 40px;
 }
@@ -353,7 +341,6 @@ body {
     border-radius: 10px;
     padding: 20px;
     transition: transform 0.1s ease;
-
 }
 
 .library-item:hover {
@@ -374,26 +361,19 @@ body {
 
 ::-webkit-scrollbar {
     width: 10px;
-
 }
-
 
 ::-webkit-scrollbar-track {
     background-color: #4b5563;
 }
 
-
 ::-webkit-scrollbar-thumb {
     background-color: #6b7280;
-
     border-radius: 5px;
-
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #9ca3af;
-
 }
 
 .button,
@@ -418,7 +398,7 @@ body {
     position: absolute;
     color: #fff;
     background-color: var(--secondary-color);
-    border: 1px solid var(--quaternary-color);
+    border: 2px solid var(--quaternary-color);
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -456,7 +436,7 @@ body {
 
 .context-menu hr {
     border: none;
-    border-top: 1px solid var(--quaternary-color);
+    border-top: 2px solid var(--quaternary-color);
     margin: 0px 20px 0;
 }
 
@@ -499,7 +479,6 @@ body {
     backdrop-filter: blur(10px);
     z-index: 6479;
     transition: opacity 0.3s ease;
-
 }
 
 .confirm-overlay.show {
@@ -542,7 +521,6 @@ body {
 #confirmation_text {
     margin-bottom: 15px;
     color: white;
-
 }
 
 #confirm_button {
@@ -554,7 +532,6 @@ body {
     border: 2px #f44336 solid;
     color: white;
 }
-
 
 .confirm button:hover {
     transform: scale(1.03);
@@ -573,7 +550,6 @@ body {
     backdrop-filter: blur(10px);
     z-index: 1569;
     transition: opacity 0.3s ease;
-
 }
 
 .confirm-overlay.show {
