@@ -1,6 +1,6 @@
-# BeatForge Pro
+# BeatForge
 
-BeatForge Pro is an advanced app designed for producers who want to better organize their beats, rather than relying on the standard music player or navigating through individual folders.
+BeatForge is an advanced app designed for producers who want to better organize their beats, rather than relying on the standard music player or navigating through individual folders.
 
 ## Features
 
@@ -18,11 +18,11 @@ BeatForge Pro is an advanced app designed for producers who want to better organ
 
 ## Installation
 
-To install BeatForge Pro, simply download the installer executable file from the [release page](link-to-release-page) and follow the on-screen instructions.
+To install BeatForge, simply download the installer executable file from the [release page](link-to-release-page) and follow the on-screen instructions.
 
 ## Feedback
 
-We are actively developing BeatForge Pro and welcome any feedback or suggestions. Please create an issue on the [GitHub repository](https://github.com/prodbyeagle/BeatForge-Pro/issues) if you encounter any bugs or have ideas for improvement.
+We are actively developing BeatForge and welcome any feedback or suggestions. Please create an issue on the [GitHub repository](https://github.com/prodbyeagle/BeatForge/issues) if you encounter any bugs or have ideas for improvement.
 
 ## Contributors
 
@@ -30,7 +30,7 @@ We are actively developing BeatForge Pro and welcome any feedback or suggestions
 
 ## License
 
-BeatForge Pro is currently under development and the license information will be provided once the project reaches a stable release.
+BeatForge is currently under development and the license information will be provided once the project reaches a stable release.
 
 ---
 
