@@ -258,8 +258,8 @@ function applyBlurFilter() {
     document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
 }
 
-// Library Item Creation
-function createLibraryItem(data) {
+
+function createLibraryItem(data, filePath) {
     const li = document.createElement("li");
     li.classList.add("library-item");
 
@@ -270,42 +270,103 @@ function createLibraryItem(data) {
     p1.textContent = "Artist: " + data.artist;
 
     const p2 = document.createElement("p");
-    p2.textContent = "Genre: " + data.genre;
+    p2.textContent = "Album: " + data.album;
+
+    const p3 = document.createElement("p");
+    p3.textContent = "Length: " + data.length;
 
     li.dataset.songTitle = data.title;
     li.dataset.artist = data.artist;
-    li.dataset.genre = data.genre;
+    li.dataset.album = data.album;
+    li.dataset.length = data.length;
+    li.dataset.filePath = filePath; // Add filePath to dataset
 
     li.appendChild(h2);
     li.appendChild(p1);
     li.appendChild(p2);
+    li.appendChild(p3);
 
     li.addEventListener('contextmenu', showContextMenu);
 
     return li;
 }
 
-// Library Data Initialization
-const libraryData = [
-    { title: "WHAT??", location: "London", genre: "Rock", artist: "dwhincandi" },
-    { title: "INDEED!", location: "Berlin", genre: "Pop", artist: "prodbyeagle" },
-    { title: "Song Title 1", location: "New York", genre: "Hip Hop", artist: "artist1" },
-    { title: "Song Title 2", location: "Los Angeles", genre: "R&B", artist: "artist2" },
-    { title: "Song Title 3", location: "Chicago", genre: "Jazz", artist: "artist3" },
-    { title: "Song Title 4", location: "Miami", genre: "Reggae", artist: "artist4" },
-    { title: "Song Title 5", location: "Paris", genre: "Classical", artist: "artist5" },
-    { title: "Song Title 6", location: "Tokyo", genre: "Electronic", artist: "artist6" },
-    { title: "Song Title 7", location: "Sydney", genre: "Indie", artist: "artist7" },
-    { title: "Song Title 8", location: "Toronto", genre: "Funk", artist: "artist8" },
-    { title: "Song Title 9", location: "Rio de Janeiro", genre: "Samba", artist: "artist9" },
-    { title: "Song Title 10", location: "Berlin", genre: "Techno", artist: "artist10" },
-];
+// Funktion zum Abrufen der Ordnerpfade über IPC vom Hauptprozess
+async function getFoldersFromMainProcess() {
+    try {
+    // Hier können Sie den Pfad aus dem lokalen Speicher oder einer anderen Quelle abrufen
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const folders = userData.folders || [];
+    return folders;
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Ordnerpfade vom Hauptprozess:', error);
+        return []; // Bei einem Fehler eine leere Liste zurückgeben
+    }
+}
 
-// Populate Songs List
-const songsList = document.getElementById("songs-list");
-libraryData.forEach(data => {
-    const libraryItem = createLibraryItem(data);
-    songsList.appendChild(libraryItem);
+async function importFilesFromFolders() {
+    try {
+        // Ordnerpfade vom Hauptprozess abrufen
+        const folders = await getFoldersFromMainProcess();
+        console.log(folders);
+        await importFilesFromFoldersHelper(folders); // Helper-Funktion aufrufen
+        // Hier können Sie die Pfade verarbeiten, z.B. Dateien aus den Ordnern laden
+    } catch (error) {
+        console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
+    }
+}
+
+async function importFilesFromFoldersHelper(folderPaths) {
+    try {
+        if (Array.isArray(folderPaths)) {
+            for (const folderPath of folderPaths) {
+                const files = await window.fileSystem.readDirectory(folderPath);
+                for (const file of files) {
+                    if (file.endsWith('.mp3') || file.endsWith('.wav')) {
+                        const filePath = folderPath + '/' + file;
+                        const artist = await window.audioMetadata.extractArtist(filePath);
+                        const album = await window.audioMetadata.extractAlbum(filePath);
+                        const length = await window.audioMetadata.extractDuration(filePath);
+
+                        const fileInfo = {
+                            title: file.replace(/\.[^/.]+$/, ''),
+                            location: folderPath,
+                            album: album,
+                            artist: artist,
+                            length: length,
+                            filePath: filePath
+                        };
+
+                        const libraryItem = createLibraryItem(fileInfo);
+                        const songsList = document.getElementById("songs-list");
+                        songsList.appendChild(libraryItem);
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
+    }
+}
+
+importFilesFromFolders();
+
+async function playAudioFile(filePath) {
+    try {
+        const audioPlayer = document.getElementById('audio-player');
+        audioPlayer.src = filePath;
+        await audioPlayer.play();
+        console.log('Audiodatei wird abgespielt:', filePath);
+    } catch (error) {
+        console.error('Fehler beim Abspielen der Audiodatei:', error);
+    }
+}
+
+document.addEventListener('click', async (event) => {
+    if (event.target && event.target.classList.contains('library-item')) {
+        const filePath = event.target.dataset.filePath;
+        await playAudioFile(filePath);
+    }
 });
 
 // Action Functions

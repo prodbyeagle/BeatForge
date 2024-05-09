@@ -50,6 +50,7 @@ ipcMain.on("perform-debug-actions", () => {
   performDebugActions();
 });
 
+
 function loadConfig() {
   try {
     const data = fs.readFileSync(configFilePath);
