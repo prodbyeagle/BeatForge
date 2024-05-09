@@ -404,23 +404,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //* Add Folder Code
   //* Add Folder Code
 
-function extractParentFolderPath(paths) {
-    // Extrahiere den gemeinsamen Pfad aus den Dateipfaden
-    const parentFolderSet = new Set();
-
-    paths.forEach(path => {
-        const parentFolder = path.split(/[\\/]/).slice(0, -1).join('\\');
-        parentFolderSet.add(parentFolder);
-    });
-
-    if (parentFolderSet.size === 1) {
-        return parentFolderSet.values().next().value;
-    } else {
-        console.error("Mehrere übergeordnete Ordner gefunden");
-        return null;
-    }
-}
-
 // Überprüfen, ob es gespeicherte Ordner in den Benutzerdaten gibt
 const storedUserData = JSON.parse(localStorage.getItem("userData")) || {};
 let storedFolders = storedUserData.folders || [];
@@ -434,12 +417,44 @@ storedFolders.forEach(folderPath => {
 // Hinzufügen eines Event Listeners für die Auswahl neuer Ordner
 const dirsInput = document.getElementById("dirs");
 dirsInput.addEventListener("change", (event) => {
+    // Überprüfen, ob Dateien ausgewählt wurden
+    if (event.target.files.length === 0) {
+        // Anzeigen einer Benachrichtigung, dass keine Dateien ausgewählt wurden
+        Toastify({
+          text: "This Folder has no Files. Add one File to add this Folder",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          style: {
+            background: "#FF3B30",
+          },
+          stopOnFocus: true,
+        }).showToast();
+        return; // Beenden der Funktion, da keine Dateien ausgewählt wurden
+    }
+
     // Extrahiere den Ordnerpfad der ausgewählten Datei
     const folderPath = event.target.files[0].webkitRelativePath.split("/")[0];
     console.log("Selected folder path:", folderPath);
 
     // Speichern des Ordnerpfads im localStorage
     localStorage.setItem("folders", folderPath);
+
+    // Überprüfen, ob der Ordner Dateien enthält
+    if (event.target.files.length === 1 && event.target.files[0].type === "") {
+        // Anzeigen einer Benachrichtigung, dass im ausgewählten Ordner keine Dateien gefunden wurden
+        Toastify({
+          text: "No Files Found!",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          style: {
+            background: "#FF3B30",
+          },
+          stopOnFocus: true,
+        }).showToast();
+        return; // Beenden der Funktion, da keine Dateien im Ordner gefunden wurden
+    }
 
     // Überprüfen, ob der Ordnerpfad bereits in der Liste vorhanden ist
     if (!storedFolders.includes(folderPath)) {
@@ -450,7 +465,16 @@ dirsInput.addEventListener("change", (event) => {
         // Hinzufügen des Ordners zur Benutzeroberfläche
         beatFoldersContainer.appendChild(createFolderElement(folderPath));
     } else {
-        console.log("Folder already exists in the list.");
+          Toastify({
+          text: "This Folder already exists!",
+          duration: 3000,
+          gravity: "bottom",
+          position: "right",
+          style: {
+            background: "#FF3B30",
+          },
+          stopOnFocus: true,
+        }).showToast();
     }
 });
 
