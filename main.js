@@ -46,7 +46,6 @@ ipcMain.on("load-themes", (event) => {
 });
 
 ipcMain.on("perform-debug-actions", () => {
-  console.log("Debug-Aktionen werden ausgeführt...");
   performDebugActions();
 });
 
@@ -87,7 +86,6 @@ app.on("ready", () => {
     saveConfig(config);
 
     if (userData.relaunchApp) {
-      console.log("App wird neu gestartet...");
       app.relaunch();
       app.quit();
     }
@@ -180,52 +178,30 @@ function loadThemes() {
 }
 
 function sendThemesToRenderer() {
-  console.log("Beginne mit dem Senden von Themes an den Renderer...");
-  if (!mainWindow) {
-    const errorMessage = "Kein mainWindow gefunden";
-    console.error(errorMessage);
-
+  if (!mainWindow)
     return;
   }
-  console.log("mainWindow gefunden.");
 
   if (mainWindow.isDestroyed()) {
-    console.log(
-      "mainWindow wurde zerstört. Die Funktion sendThemesToRenderer() wird nicht ausgeführt."
-    );
     return;
   }
-  console.log("mainWindow ist intakt.");
 
   const currentURL = mainWindow.webContents.getURL();
-  console.log("Aktuell geladene HTML-Datei:", currentURL);
-
   if (currentURL.endsWith("intro.html")) {
-    console.log(
-      "Intro-Datei geladen. Die Funktion sendThemesToRenderer() wird nicht ausgeführt."
-    );
     return;
   }
-  console.log("Keine Intro-Datei geladen.");
-
-  console.log("Lade Themes...");
   try {
     const themes = loadThemes();
     mainWindow.webContents.send("load-themes", themes);
-    console.log("Themes an Renderer gesendet.");
   } catch (error) {
     console.error("Fehler beim Laden der Themes:", error.message);
     console.error("Fehlerdetails:", error);
     mainWindow.webContents.send("load-themes", []);
-    console.log("Leere Themes an Renderer gesendet.");
   }
-  console.log("Ende des Sendens von Themes an den Renderer.");
-}
 
 function deleteConfigFile() {
   try {
     fs.unlinkSync(configFilePath);
-    console.log("config.json deleted successfully.");
   } catch (error) {
     console.error("Error deleting config.json:", error);
   }
