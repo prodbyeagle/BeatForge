@@ -257,6 +257,7 @@ function applyBlurFilter() {
     document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
 }
 
+// SONGS
 
 function createLibraryItem(data, filePath) {
     const li = document.createElement("li");
@@ -274,6 +275,26 @@ function createLibraryItem(data, filePath) {
     const p3 = document.createElement("p");
     p3.textContent = "Length: " + data.length;
 
+    const playButton = document.createElement("button");
+    playButton.textContent = "⏯️";
+    playButton.classList.add("play-button");
+    playButton.addEventListener('click', function(event) {
+        const audioPlayer = document.getElementById('audio-player');
+
+        if (audioPlayer.paused || audioPlayer.ended) {
+            playAudioFile(filePath);
+            playButton.textContent = "⏸️";
+        } else {
+            audioPlayer.pause();
+            playButton.textContent = "⏯️";
+        }
+
+        const libraryItem = playButton.closest('.library-item');
+        if (libraryItem) {
+            updateNowPlaying(libraryItem.dataset.songTitle, libraryItem.dataset.artist);
+        }
+    });
+
     li.dataset.songTitle = data.title;
     li.dataset.artist = data.artist;
     li.dataset.album = data.album;
@@ -284,6 +305,7 @@ function createLibraryItem(data, filePath) {
     li.appendChild(p1);
     li.appendChild(p2);
     li.appendChild(p3);
+    li.appendChild(playButton);
 
     li.addEventListener('contextmenu', showContextMenu);
 
@@ -345,28 +367,78 @@ async function importFilesFromFoldersHelper(folderPaths) {
 
 importFilesFromFolders();
 
-async function playAudioFile(filePath) {
+async function togglePlayPause(event, filePath) {
+    const audioPlayer = document.getElementById('audio-player');
+    const playButton = event.target;
+
+    if (!playButton) return;
+
     try {
-        const audioPlayer = document.getElementById('audio-player');
-        audioPlayer.src = filePath;
-        await audioPlayer.play();
-        updateTotalTime(getFormattedTime(audioPlayer.duration));
-        const progressRange = document.getElementById('progressRange');
-        progressRange.value = 0;
+        if (audioPlayer.paused || audioPlayer.ended) {
+            await playAudioFile(filePath); // Hier wird der Song nur gespielt, wenn er pausiert oder beendet ist
+            playButton.textContent = '⏯️';
+        } else {
+            audioPlayer.pause();
+            playButton.textContent = '⏸️';
+        }
+
+        const libraryItem = playButton.closest('.library-item');
+        if (libraryItem) {
+            updateNowPlaying(libraryItem.dataset.songTitle, libraryItem.dataset.artist);
+        }
     } catch (error) {
-        console.error('Fehler beim Abspielen der Audiodatei:', error);
+        console.error('Error toggling playback:', error);
     }
 }
 
-function getFormattedTime(seconds) {
+async function playAudioFile(filePath) {
+    try {
+        const audioPlayer = document.getElementById('audio-player');
+        const playButton = document.querySelector('.play-button');
+        
+        if (audioPlayer.src !== filePath) {
+            audioPlayer.src = filePath;
+            await audioPlayer.load(); // Neues Laden des Audio-Elements, um sicherzustellen, dass die Metadaten aktualisiert werden
+            playButton.textContent = "⏯️"; // Setze den Button-Text zurück, wenn eine neue Datei geladen wird
+        }
+        
+        if (audioPlayer.paused || audioPlayer.ended) {
+            await audioPlayer.play();
+            playButton.textContent = "⏸️";
+            togglePlayerControls(true);
+            updateTotalTime(formatTime(audioPlayer.duration));
+        } else {
+            audioPlayer.pause();
+            playButton.textContent = "⏯️";
+        }
+    } catch (error) {
+        console.error('Error playing audio file:', error);
+    }
+}
+
+function updateNowPlaying(songTitle, artist) {
+    const nowPlayingElement = document.getElementById('now-playing');
+    if (nowPlayingElement) {
+        nowPlayingElement.textContent = `Now Playing: ${songTitle} - ${artist}`;
+    } else {
+        console.error("Element with ID 'now-playing' not found.");
+    }
+}
+
+function updateMusicUI() {
+    updateCurrentTime();
+}
+
+function updateCurrentTime() {
+    const audioPlayer = document.getElementById('audio-player');
+    const currentTimeElement = document.getElementById('current-time');
+    currentTimeElement.textContent = formatTime(audioPlayer.currentTime);
+}
+
+function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
-}
-
-function updateCurrentTime(newTime) {
-    const currentTimeElement = document.getElementById('current-time');
-    currentTimeElement.textContent = newTime;
 }
 
 function updateTotalTime(newTime) {
@@ -374,72 +446,27 @@ function updateTotalTime(newTime) {
     totalTimeElement.textContent = newTime;
 }
 
-// Funktion zum Aktualisieren der aktuellen Zeit
-function updateCurrentTime() {
-    const audioPlayer = document.getElementById('audio-player');
-
-    // Die aktuelle Zeit des Audiospielers erhalten und formatieren
-    const currentTime = audioPlayer.currentTime;
-    const currentMinutes = Math.floor(currentTime / 60);
-    const currentSeconds = Math.floor(currentTime % 60);
-    const formattedCurrentTime = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
-
-    // Die aktualisierte Zeit auf dem Bildschirm anzeigen
-    document.getElementById('current-time').textContent = formattedCurrentTime;
-}
-
-// Eventlistener hinzufügen, um die aktuelle Zeit sekündlich zu aktualisieren
-setInterval(updateCurrentTime, 500);
-
-function resetPlayer() {
-    const playPauseButton = document.getElementById('play-pause-button');
-    playPauseButton.textContent = 'Play';
-    const progressRange = document.getElementById('progressRange');
-    progressRange.value = 0;
-    const currentTime = document.getElementById('current-time');
-    currentTime.textContent = '0:00';
+function togglePlayerControls(visible) {
+    const playerControls = document.getElementById('player-controls');
+    playerControls.style.transform = visible ? 'translateY(0%)' : 'translateY(350%)';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialisierung der Ereignishandler für die Steuerelemente
-    const playPauseButton = document.getElementById('play-pause-button');
-    playPauseButton.addEventListener('click', togglePlayPause);
-
     const volumeRange = document.getElementById('volumeRange');
-    volumeRange.addEventListener('input', adjustVolume);
+    volumeRange.addEventListener('input', () => {
+        const audioPlayer = document.getElementById('audio-player');
+        audioPlayer.volume = volumeRange.value / 100;
+    });
 
     const progressRange = document.getElementById('progressRange');
-    progressRange.addEventListener('input', adjustProgress);
+    progressRange.addEventListener('input', () => {
+        const audioPlayer = document.getElementById('audio-player');
+        const seekTime = (progressRange.value / 100) * audioPlayer.duration;
+        audioPlayer.currentTime = seekTime;
+    });
 });
 
-async function togglePlayPause() {
-    const audioPlayer = document.getElementById('audio-player');
-    if (audioPlayer.paused || audioPlayer.ended) {
-        await audioPlayer.play();
-        this.textContent = 'Pause';
-    } else {
-        audioPlayer.pause();
-        this.textContent = 'Play';
-    }
-}
-
-function adjustVolume() {
-    const audioPlayer = document.getElementById('audio-player');
-    audioPlayer.volume = this.value / 100;
-}
-
-function adjustProgress() {
-    const audioPlayer = document.getElementById('audio-player');
-    const seekTime = (this.value / 100) * audioPlayer.duration;
-    audioPlayer.currentTime = seekTime;
-}
-
-document.addEventListener('click', async (event) => {
-    if (event.target && event.target.classList.contains('library-item')) {
-        const filePath = event.target.dataset.filePath;
-        await playAudioFile(filePath);
-    }
-});
+setInterval(updateMusicUI, 500);
 
 // Action Functions
 function deleteTrack(songTitle, artist) {

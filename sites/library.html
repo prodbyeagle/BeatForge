@@ -68,7 +68,6 @@
         <div class="card">
             <h1>Library</h1>
             <div class="section">
-                <h2 class="section-title">Songs</h2>
                 <ul id="songs-list" class="library-list">
                 </ul>
             </div>
@@ -77,13 +76,13 @@
     </div>
 
     <div id="player-controls">
-        <div id="play-pause-button">Play</div>
         <div id="volume-slider">
             <input type="range" min="0" max="100" value="100" class="slider" id="volumeRange">
         </div>
         <div id="track-progress">
             <input type="range" min="0" max="100" value="0" class="slider" id="progressRange">
         </div>
+        <div id="now-playing">Now Playing: </div>
         <div id="current-time">0:00</div>
         <div id="total-time">0:00</div>
     </div>
@@ -92,20 +91,6 @@
     <script src="../js/library.js"></script>
     <script src="../titlebar.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script>
-        const lenis = new Lenis()
-
-        lenis.on('scroll', (e) => {
-        })
-
-        function raf(time) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-
-        requestAnimationFrame(raf)
-    </script>
 </body>
 
 </html>

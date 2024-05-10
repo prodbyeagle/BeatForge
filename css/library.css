@@ -439,7 +439,7 @@ body {
 }
 
 .context-menu li:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--primary-color);
     transition: all 0.1s ease;
     border-radius: 10px;
 }
@@ -588,7 +588,7 @@ body {
     bottom: 10px;
     left: 20%;
     right: 20%;
-    background-color: var(--tertiary-color);
+    background-color: var(--secondary-color);
     padding: 10px;
     display: flex;
     align-items: center;
@@ -596,7 +596,7 @@ body {
     border-radius: 5px;
     z-index: 4444;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.1s ease;
+    transition: box-shadow 0.1s ease, border-radius 0.1s ease, transform 0.5s ease;
 }
 
 #player-controls:hover {
@@ -613,12 +613,34 @@ body {
     width: 100%;
 }
 
-#player-controls #play-pause-button {
+#play-pause-button {
     color: #fff;
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
-#player-controls #play-pause-button:hover {
+#play-pause-button:hover {
     color: #ccc;
+}
+
+#play-pause-button i {
+    font-size: 24px;
+    transition: opacity 0.2s ease;
+}
+
+#play-pause-button i:hover {
+    opacity: 0.7;
+}
+
+#pause-icon {
+    display: none;
+}
+
+#play-pause-button.playing #play-icon {
+    display: none;
+}
+
+#play-pause-button.playing #pause-icon {
+    display: inline-block;
+    color: #fff;
 }
