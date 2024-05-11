@@ -75,17 +75,20 @@
         </div>
     </div>
 
-    <div id="player-controls">
-        <div id="volume-slider">
-            <input type="range" min="0" max="100" value="100" class="slider" id="volumeRange">
-        </div>
-        <div id="track-progress">
-            <input type="range" min="0" max="100" value="0" class="slider" id="progressRange">
-        </div>
-        <div id="now-playing">Now Playing: </div>
-        <div id="current-time">0:00</div>
-        <div id="total-time">0:00</div>
+<div id="player-controls">
+    <div id="current-time">0:00</div>
+    <div id="track-progress">
+        <div id="progress-bar"></div>
+        <div id="progress-ball"></div>
     </div>
+    <div title="Click to Switch Mode" id="total-time">0:00</div>
+    <div title="View the Queue" id="queue-button"><i class="fas fa-list"></i></div>
+    <div title="Mute / Unmute" id="volume-button"><i class="fas fa-volume-up"></i></div>
+    <div title="Switch Mode" id="volume-slider">
+        <div id="volume-range"></div>
+        <div id="volume-ball"></div>
+    </div>
+</div>
 
 
     <script src="../js/library.js"></script>

@@ -349,7 +349,7 @@ body {
 @media (min-width: 900px) {
     .library-list {
         grid-template-columns: repeat(2, minmax(300px, 1fr));
-        /* Mindestens 1, maximal 2 Elemente pro Reihe ab 600px Breite */
+
     }
 }
 
@@ -588,59 +588,120 @@ body {
     bottom: 10px;
     left: 20%;
     right: 20%;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 5px;
     z-index: 4444;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.1s ease, border-radius 0.1s ease, transform 0.5s ease;
+    transition: box-shadow 0.2s ease, border-radius 0.2s ease, transform 0.5s ease;
 }
 
 #player-controls:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
 }
 
-#player-controls #current-time,
+#player-controls #current-time {
+    color: var(--tertiary-color);
+    margin-right: 5px;
+    min-width: 50px;
+    text-align: right;
+}
+
 #player-controls #total-time {
-    color: #fff;
-}
-
-#player-controls input[type="range"] {
-    width: 100%;
-}
-
-#play-pause-button {
-    color: #fff;
+    color: var(--tertiary-color);
+    margin-right: 15px;
+    min-width: 20px;
+    text-align: right;
     cursor: pointer;
-    transition: color 0.2s ease;
 }
 
-#play-pause-button:hover {
-    color: #ccc;
+#track-progress {
+    flex: 1;
+    margin: 0 16px;
+    margin-left: 15px;
+    position: relative;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
 }
 
-#play-pause-button i {
-    font-size: 24px;
-    transition: opacity 0.2s ease;
+#progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
 }
 
-#play-pause-button i:hover {
-    opacity: 0.7;
+#progress-ball,
+#volume-ball {
+    position: absolute;
+    top: -2px;
+    width: 11px;
+    height: 11px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 1;
 }
 
-#pause-icon {
-    display: none;
+#progress-ball:hover,
+#volume-ball:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    border: 2px solid var(--tertiary-color);
 }
 
-#play-pause-button.playing #play-icon {
-    display: none;
+#volume-slider {
+    flex: 0.2;
+    margin: 0 16px;
+    margin-left: 15px;
+    position: relative;
+    height: 6px;
+    /* Ändern Sie die Höhe der Lautstärkeleiste */
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
 }
 
-#play-pause-button.playing #pause-icon {
-    display: inline-block;
-    color: #fff;
+#volume-slider input[type="range"] {
+    width: 100%;
+    background: transparent;
+}
+
+#volume-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: var(--tertiary-color);
+    /* Ändern Sie die Hintergrundfarbe des Reglers */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume-slider input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: var(--tertiary-color);
+    /* Ändern Sie die Hintergrundfarbe des Reglers */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume-button {
+    cursor: pointer;
+    color: var(--tertiary-color);
+}
+
+#queue-button {
+    cursor: pointer;
+    color: var(--tertiary-color);
+    margin-right: 10px;
 }

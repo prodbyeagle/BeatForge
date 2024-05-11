@@ -190,74 +190,9 @@ function hideContextMenu() {
     }
 }
 
-// Toastify Error
-function showError(message) {
-    Toastify({
-        text: message,
-        duration: 5000,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "#ff0000",
-        },
-        stopOnFocus: true,
-    }).showToast();
-}
-
-// Theme Handling
-function applyTheme(theme) {
-    theme.values.forEach(color => {
-        document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
-    });
-    applyContextMenuTheme(theme);
-}
-
-function applyContextMenuTheme(theme) {
-    const contextMenu = document.querySelector(".context-menu");
-    if (contextMenu) {
-        const secondaryColor = getColorByName(theme, "secondary");
-        const tertiaryColor = getColorByName(theme, "tertiary");
-        const quaternaryColor = getColorByName(theme, "quaternary");
-
-        contextMenu.style.backgroundColor = secondaryColor;
-        const menuItems = contextMenu.querySelectorAll(".context-menu-item");
-        menuItems.forEach(item => {
-            item.style.color = tertiaryColor;
-        });
-        const hr = contextMenu.querySelector("hr");
-        if (hr) hr.style.borderColor = quaternaryColor;
-    }
-}
-
-function getColorByName(theme, name) {
-    return theme.values.find(color => color.name === name).color;
-}
-
-function showThemeNotFoundError() {
-    Toastify({
-        text: "The applied theme no longer exists.",
-        duration: 3000,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "var(--primary-color)",
-        },
-        stopOnFocus: true,
-    }).showToast();
-}
-
-// Filter Handling
-function resetFilter() {
-    document.documentElement.style.transition = "filter 0.3s";
-    document.documentElement.style.filter = "grayscale(0%) brightness(100%)";
-}
-
-function applyBlurFilter() {
-    document.documentElement.style.transition = "filter 0.3s";
-    document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
-}
-
-// SONGS
+//* Beat Code
+//* Beat Code
+//* Beat Code
 
 function createLibraryItem(data, filePath) {
     const li = document.createElement("li");
@@ -287,11 +222,6 @@ function createLibraryItem(data, filePath) {
         } else {
             audioPlayer.pause();
             playButton.textContent = "⏯️";
-        }
-
-        const libraryItem = playButton.closest('.library-item');
-        if (libraryItem) {
-            updateNowPlaying(libraryItem.dataset.songTitle, libraryItem.dataset.artist);
         }
     });
 
@@ -381,11 +311,6 @@ async function togglePlayPause(event, filePath) {
             audioPlayer.pause();
             playButton.textContent = '⏸️';
         }
-
-        const libraryItem = playButton.closest('.library-item');
-        if (libraryItem) {
-            updateNowPlaying(libraryItem.dataset.songTitle, libraryItem.dataset.artist);
-        }
     } catch (error) {
         console.error('Error toggling playback:', error);
     }
@@ -395,13 +320,13 @@ async function playAudioFile(filePath) {
     try {
         const audioPlayer = document.getElementById('audio-player');
         const playButton = document.querySelector('.play-button');
-        
+
         if (audioPlayer.src !== filePath) {
             audioPlayer.src = filePath;
             await audioPlayer.load(); // Neues Laden des Audio-Elements, um sicherzustellen, dass die Metadaten aktualisiert werden
             playButton.textContent = "⏯️"; // Setze den Button-Text zurück, wenn eine neue Datei geladen wird
         }
-        
+
         if (audioPlayer.paused || audioPlayer.ended) {
             await audioPlayer.play();
             playButton.textContent = "⏸️";
@@ -416,17 +341,9 @@ async function playAudioFile(filePath) {
     }
 }
 
-function updateNowPlaying(songTitle, artist) {
-    const nowPlayingElement = document.getElementById('now-playing');
-    if (nowPlayingElement) {
-        nowPlayingElement.textContent = `Now Playing: ${songTitle} - ${artist}`;
-    } else {
-        console.error("Element with ID 'now-playing' not found.");
-    }
-}
-
 function updateMusicUI() {
     updateCurrentTime();
+    updateProgress();
 }
 
 function updateCurrentTime() {
@@ -451,30 +368,262 @@ function togglePlayerControls(visible) {
     playerControls.style.transform = visible ? 'translateY(0%)' : 'translateY(350%)';
 }
 
+function updateProgress() {
+    const audioPlayer = document.getElementById('audio-player');
+    const progressBar = document.getElementById('progress-bar');
+    const currentTime = audioPlayer.currentTime;
+    const totalTime = audioPlayer.duration;
+
+    if (!isNaN(totalTime)) {
+        progressBar.style.width = `${(currentTime / totalTime) * 100}%`;
+        updateProgressBallPosition(); // Aktualisiere die Position der Kugel entsprechend dem Fortschritt
+    } else {
+        progressBar.style.width = '0';
+    }
+}
+
+function updateProgressBallPosition() {
+    const audioPlayer = document.getElementById('audio-player');
+    const progressBall = document.getElementById('progress-ball');
+    const trackProgress = document.getElementById('track-progress');
+
+    const progressWidth = trackProgress.clientWidth;
+    const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    const ballPosition = (percentage * progressWidth) / 100;
+
+    progressBall.style.right = `${progressWidth - ballPosition}px`;
+}
+
+function updateVolumeBallPosition() {
+    const audioPlayer = document.getElementById('audio-player');
+    const volumeBall = document.getElementById('volume-ball');
+    const volumeRange = document.getElementById('volume-range');
+
+    const volumeWidth = volumeRange.clientWidth;
+    const volumePercentage = audioPlayer.volume * 100;
+    const ballPosition = Math.min(Math.max(0, (volumePercentage * volumeWidth) / 100), volumeWidth);
+
+    volumeBall.style.left = `${ballPosition}px`;
+}
+
+function updateVolume(mouseX) {
+    const audioPlayer = document.getElementById('audio-player');
+    const volumeRange = document.getElementById('volume-range');
+    const rect = volumeRange.getBoundingClientRect();
+    const volumeWidth = rect.width;
+    let volumePercentage = ((mouseX - rect.left) / volumeWidth) * 100;
+    volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
+    volumeRange.style.width = volumePercentage + '%';
+
+    // Update audio player volume
+    const volume = volumePercentage / 100;
+    audioPlayer.volume = volume;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const volumeRange = document.getElementById('volumeRange');
-    volumeRange.addEventListener('input', () => {
-        const audioPlayer = document.getElementById('audio-player');
-        audioPlayer.volume = volumeRange.value / 100;
+    const progressRange = document.getElementById('track-progress');
+    const progressBall = document.getElementById('progress-ball');
+    const trackProgress = document.getElementById('track-progress');
+    const audioPlayer = document.getElementById('audio-player');
+    const volumeBall = document.getElementById('volume-ball');
+    const volumeBar = document.getElementById('volume-range');
+    let isDragging = false;
+    let isVolumeDragging = false;
+
+    volumeBall.addEventListener('mousedown', startVolumeDragging);
+    document.addEventListener('mousemove', handleVolumeDrag);
+    document.addEventListener('mouseup', stopVolumeDragging);
+
+    function startVolumeDragging(event) {
+        event.preventDefault(); // Verhindert Standardverhalten (z. B. Textauswahl)
+        isVolumeDragging = true;
+        handleVolumeDrag(event);
+    }
+
+    function handleVolumeDrag(event) {
+        if (isVolumeDragging) {
+            const rect = volumeBar.getBoundingClientRect();
+            const volumeWidth = rect.width;
+            const offsetX = event.clientX - rect.left;
+            let volumePercentage = (offsetX / volumeWidth) * 100;
+            volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
+            setVolume(volumePercentage);
+        }
+    }
+
+    function stopVolumeDragging() {
+        isVolumeDragging = false;
+    }
+
+        progressRange.addEventListener('click', (event) => {
+        const rect = progressRange.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const progressWidth = rect.width;
+        const percentage = (offsetX / progressWidth);
+        audioPlayer.currentTime = audioPlayer.duration * percentage;
     });
 
-    const progressRange = document.getElementById('progressRange');
-    progressRange.addEventListener('input', () => {
+    function setVolume(volumePercentage) {
         const audioPlayer = document.getElementById('audio-player');
-        const seekTime = (progressRange.value / 100) * audioPlayer.duration;
-        audioPlayer.currentTime = seekTime;
+        audioPlayer.volume = volumePercentage / 100;
+        updateVolumeBallPosition(volumePercentage);
+        saveVolumeSetting(volumePercentage);
+    }
+
+    function updateVolumeBallPosition(volumePercentage) {
+        const volumeWidth = volumeBar.clientWidth;
+        const ballPosition = (volumePercentage * volumeWidth) / 100;
+        volumeBall.style.left = `${ballPosition}px`;
+    }
+
+    function saveVolumeSetting(volumePercentage) {
+        localStorage.setItem('volumePercentage', volumePercentage);
+    }
+
+    function loadVolumeSetting() {
+        const savedVolumePercentage = localStorage.getItem('volumePercentage');
+        if (savedVolumePercentage !== null) {
+            setVolume(savedVolumePercentage);
+        }
+    }
+
+    loadVolumeSetting();
+
+    //* Progress Bar
+
+    progressRange.addEventListener('click', (event) => {
+        const rect = progressRange.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const progressWidth = rect.width;
+        const percentage = (offsetX / progressWidth);
+        audioPlayer.currentTime = audioPlayer.duration * percentage;
     });
+
+    progressBall.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        pauseAudio();
+        handleTimeChange(event);
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    });
+
+    function mouseMoveHandler(event) {
+        if (isDragging) {
+            handleTimeChange(event);
+        }
+    }
+
+    function mouseUpHandler() {
+        if (isDragging) {
+            isDragging = false;
+            resumeAudio();
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        }
+    }
+
+    function handleTimeChange(event) {
+        const rect = trackProgress.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const progressWidth = rect.width;
+        const percentage = Math.min(Math.max((offsetX / progressWidth), 0), 1);
+        audioPlayer.currentTime = audioPlayer.duration * percentage;
+    }
+
+    function pauseAudio() {
+        audioPlayer.pause();
+    }
+
+    function resumeAudio() {
+        if (!audioPlayer.paused) return;
+        audioPlayer.play();
+    }
+
+    const totalTimeElement = document.getElementById('total-time');
+    let timerId;
+    let totalTimeDisplayMode = localStorage.getItem('totalTimeDisplayMode') || 'normal';
+
+    updateTotalTimeDisplay();
+    totalTimeElement.addEventListener('click', toggleTotalTimeDisplay);
+
+    function toggleTotalTimeDisplay() {
+        if (totalTimeDisplayMode === 'normal') {
+            totalTimeDisplayMode = 'remaining';
+        } else {
+            totalTimeDisplayMode = 'normal';
+        }
+        updateTotalTimeDisplay();
+        localStorage.setItem('totalTimeDisplayMode', totalTimeDisplayMode);
+    }
+
+    function updateTotalTimeDisplay() {
+        const audioPlayer = document.getElementById('audio-player');
+        const currentTotalTime = audioPlayer.duration;
+        const currentTime = audioPlayer.currentTime;
+
+        if (totalTimeDisplayMode === 'normal') {
+            clearInterval(timerId);
+            totalTimeElement.textContent = formatTime(currentTotalTime);
+        } else {
+            const remainingTime = currentTotalTime - currentTime;
+            if (!isNaN(remainingTime) && remainingTime >= 0) {
+                totalTimeElement.textContent = '-' + formatTime(remainingTime);
+                timerId = setInterval(updateRemainingTime, 1);
+            } else {
+                totalTimeElement.textContent = '- ' + '00:00';
+            }
+        }
+    }
+
+    function updateRemainingTime() {
+        const audioPlayer = document.getElementById('audio-player');
+        const currentTime = audioPlayer.currentTime;
+        const currentTotalTime = audioPlayer.duration;
+        const remainingTime = currentTotalTime - currentTime;
+        totalTimeElement.textContent = '-' + formatTime(remainingTime);
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    //* MUTE/UNMUTE
+
+    const volumeButton = document.getElementById('volume-button');
+    volumeButton.addEventListener('click', toggleMute);
+
+    function toggleMute() {
+        if (audioPlayer.muted) {
+            audioPlayer.muted = false;
+            volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            audioPlayer.muted = true;
+            volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+    }
 });
 
-setInterval(updateMusicUI, 500);
+document.getElementById('queue-button').addEventListener('click', () => {
+        Toastify({
+        text: `Queue Button Pressed`,
+        duration: 1500,
+        gravity: "bottom",
+        position: "right",
+        style: {
+            background: "#00A36C",
+        },
+        stopOnFocus: true,
+    }).showToast();
+});
 
-// Action Functions
 function deleteTrack(songTitle, artist) {
     openCustomConfirm(
         `Are you sure you want to delete: "${songTitle}" by ${artist}?`,
         () => {
             Toastify({
-                text: `${songTitle} Deleted!`,
+                text: `${songTitle} Deleted!  NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
                 duration: 1500,
                 gravity: "bottom",
                 position: "right",
@@ -488,8 +637,10 @@ function deleteTrack(songTitle, artist) {
 }
 
 function editTrack(songTitle, artist) {
+    //! OVERLAY
+
     Toastify({
-        text: `Track "${songTitle}" by ${artist} edited successfully!`,
+        text: `Track "${songTitle}" by ${artist} edited successfully! NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
         duration: 1500,
         gravity: "bottom",
         position: "right",
@@ -501,8 +652,10 @@ function editTrack(songTitle, artist) {
 }
 
 function editTags(songTitle) {
+    //! OVERLAY
+
     Toastify({
-        text: `"${songTitle}" Tags edited successfully!`,
+        text: `"${songTitle}" Tags edited successfully! NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
         duration: 1500,
         gravity: "bottom",
         position: "right",
@@ -514,8 +667,10 @@ function editTags(songTitle) {
 }
 
 function addToQueue(songTitle) {
+    //? This Code needs to be Adding the Song to an Queue so it can play those Song after the Others (maybe Playlists?)
+
     Toastify({
-        text: `"${songTitle}" added successfully to Queue!`,
+        text: `"${songTitle}" added successfully to Queue! NOT REAL NOT REAL NOT REAL NOT REAL`,
         duration: 1500,
         gravity: "bottom",
         position: "right",
@@ -525,6 +680,14 @@ function addToQueue(songTitle) {
         stopOnFocus: true,
     }).showToast();
 }
+
+
+
+//* Custom Confirm Code
+//* Custom Confirm Code
+//* Custom Confirm Code
+
+
 
 function openCustomConfirm(message, onConfirm) {
     const overlay = document.querySelector(".confirm-overlay");
@@ -550,3 +713,64 @@ function openCustomConfirm(message, onConfirm) {
         overlay.classList.remove("show");
     };
 }
+
+
+
+//* Theme Code
+//* Theme Code
+//* Theme Code
+
+
+
+function applyTheme(theme) {
+    theme.values.forEach(color => {
+        document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
+    });
+    applyContextMenuTheme(theme);
+}
+
+function applyContextMenuTheme(theme) {
+    const contextMenu = document.querySelector(".context-menu");
+    if (contextMenu) {
+        const secondaryColor = getColorByName(theme, "secondary");
+        const tertiaryColor = getColorByName(theme, "tertiary");
+        const quaternaryColor = getColorByName(theme, "quaternary");
+
+        contextMenu.style.backgroundColor = secondaryColor;
+        const menuItems = contextMenu.querySelectorAll(".context-menu-item");
+        menuItems.forEach(item => {
+            item.style.color = tertiaryColor;
+        });
+        const hr = contextMenu.querySelector("hr");
+        if (hr) hr.style.borderColor = quaternaryColor;
+    }
+}
+
+function getColorByName(theme, name) {
+    return theme.values.find(color => color.name === name).color;
+}
+
+function showThemeNotFoundError() {
+    Toastify({
+        text: "The applied theme no longer exists.",
+        duration: 3000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+            background: "var(--primary-color)",
+        },
+        stopOnFocus: true,
+    }).showToast();
+}
+
+function resetFilter() {
+    document.documentElement.style.transition = "filter 0.3s";
+    document.documentElement.style.filter = "grayscale(0%) brightness(100%)";
+}
+
+function applyBlurFilter() {
+    document.documentElement.style.transition = "filter 0.3s";
+    document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
+}
+
+setInterval(updateMusicUI, 1);
