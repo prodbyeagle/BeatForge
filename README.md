@@ -27,6 +27,7 @@ We are actively developing BeatForge and welcome any feedback or suggestions. Pl
 ## Contributors
 
 - (@prodbyeagle) - Developer and Founder
+- (@you) - Contributer or Theme Creator
 
 ## License
 
