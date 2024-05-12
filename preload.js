@@ -57,6 +57,22 @@ contextBridge.exposeInMainWorld('audioMetadata', {
             console.error('Error extracting duration:', error);
             return "Unknown";
         }
+    },
+    extractAlbumCover: async (filePath) => {
+        try {
+            const metadata = await mm.parseFile(filePath, { includeNative: true });
+            if (metadata.common && metadata.common.picture && metadata.common.picture.length > 0) {
+                const picture = metadata.common.picture[0];
+                const base64String = picture.data.toString('base64');
+                const mimeType = picture.format;
+                return `data:${mimeType};base64,${base64String}`;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error extracting album cover:', error);
+            return null;
+        }
     }
 });
 
