@@ -92,12 +92,16 @@ function handleSidebarLeave(event) {
     if (icon) icon.style.color = "var(--tertiary-color)";
 }
 
+//* Context Menu Code
+//* Context Menu Code
+//* Context Menu Code
+
 function showContextMenu(event) {
     hideContextMenu();
     if (event.button === 2) {
         const libraryItem = event.target.closest('.library-item');
         if (libraryItem) {
-            const artistParagraph = libraryItem.querySelector('p');
+            // const artistParagraph = libraryItem.querySelector('p');
             const contextMenuHTML = createContextMenuHTML();
             document.body.insertAdjacentHTML("beforeend", contextMenuHTML);
             activeContextMenu = document.querySelector(".context-menu");
@@ -239,11 +243,10 @@ async function createLibraryItem(data, filePath) {
     li.appendChild(p3);
     li.appendChild(playButton);
 
-    // Überprüfen, ob ein Cover vorhanden ist
     if (data.cover) {
         const coverImg = document.createElement("img");
         coverImg.classList.add("cover-image");
-        coverImg.src = data.cover; // Setzen Sie das Cover als Bildquelle
+        coverImg.src = data.cover;
 
         li.appendChild(coverImg);
     }

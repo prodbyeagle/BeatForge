@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/zoomies.js"></script>
 </head>
 
 <body>
@@ -37,24 +34,14 @@
         <a href="settings.html"><i class="fas fa-cog"></i><span class="sidebar-text">Settings</span></a>
         <a href="library.html"><i class="fas fa-book"></i><span class="sidebar-text">Library</span></a>
         <hr />
-        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
-                1</span></a>
-        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
-                2</span></a>
-        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
-                3</span></a>
-        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
-                4</span></a>
-        <a href="#"><i class="fas fa-square"></i><span class="sidebar-text">Field
-                5</span></a>
-        <hr />
         <a href="onboarding.html"><i class="fas fa-bug"></i><span class="sidebar-text">Onboarding</span></a>
         <a href="intro.html"><i class="fas fa-bug"></i><span class="sidebar-text">Intro</span></a>
         <hr />
         <a href="#" id="version-button" class="title">
             <i class="fa-solid fa-circle-exclamation"></i>
-            <span class="sidebar-text">v0.1</span>
+            <span class="sidebar-text">v0.1.1</span>
         </a>
+        <hr />
     </div>
 
     <div class="confirm-overlay"></div>
@@ -75,14 +62,14 @@
             12.05.2024
         </h2>
         <ul id="update-logs">
-            <li>・ Library:</li>
-            <li>・ Library is now an Library 🤣</li>
-            <li>・ Made the Cards have their Cover Art (if Song has one)</li>
-            <li>・ Library Bugs:</li>
-            <li>・ Bugs Fixed</li>
-            <li>・ Bugs Fixed</li>
-            <li>・ Bugs Fixed</li>
-            <li>・ Bugs Fixed</li>
+            <li>・ 🤣 Library is now an Library</li>
+            <li>・ 🎼 Removed Songname and Artist in Context Menu</li>
+            <li>・ 🖼️ Made the Cards have their Cover Art (if Song has one)</li>
+            <li>・ 🔼 Play Button has now an Actual Button instead of an Emoji</li>
+            <li>・ 🔎 Added an Search System</li>
+            <li>・ 🔀 Added the Shuffle Button (no function yet)</li>
+            <li> ----------------------------------------- </li>
+            <li>・ 🐞 BUG: Play Button in Cards are Starting the Song over! (just scroll in the Timeline)</li>
         </ul>
     </div>
 
@@ -120,7 +107,6 @@
                 </div>
             </div>
             <ul id="latest-beats">
-                <!-- Placeholder für latest beats -->
             </ul>
         </div>
         <div class="card">
@@ -132,26 +118,6 @@
     </div>
     <script src="../js/home.js"></script>
     <script src="../titlebar.js"></script>
-    <script>
-        tippy('.sidebar-text', {
-            content: function (reference) {
-                if (reference.tagName.toLowerCase() === 'i') {
-                    return reference.parentElement.querySelector('.sidebar-text').textContent;
-                } else {
-                    return reference.textContent;
-                }
-            },
-            animation: 'fade',
-            delay: 550,
-            arrow: false,
-        });
-
-        tippy('.profile-pic', {
-            content: "made by @prodbyeagle",
-            animation: 'fade',
-            arrow: false,
-        });
-    </script>
 </body>
 
 </html>
