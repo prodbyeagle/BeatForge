@@ -116,8 +116,6 @@ function createContextMenuHTML() {
     return `
         <div class="context-menu">
             <ul>
-                <li title="Add to Queue" class="context-menu-item">Add to Queue</li>
-                <hr>
                 <li title="Delete the Track" class="context-menu-item">Delete Track</li>
                 <li title="Edit The Metadata" class="context-menu-item">Edit Track</li>
                 <li title="Edit the Current Tags" class="context-menu-item">Edit Tags</li>
@@ -223,7 +221,7 @@ async function createLibraryItem(data, filePath) {
         const audioPlayer = document.getElementById('audio-player');
 
         if (audioPlayer.paused || audioPlayer.ended) {
-            playAudioFile(filePath);
+            playAudioFile(filePath, true);
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         } else {
             audioPlayer.pause();
@@ -253,7 +251,7 @@ async function createLibraryItem(data, filePath) {
 
     li.addEventListener('contextmenu', showContextMenu);
     li.addEventListener('dblclick', function(event) {
-        playAudioFile(filePath);
+        playAudioFile(filePath, true);
     });
 
     return li;
@@ -328,7 +326,7 @@ async function togglePlayPause(event, filePath) {
 
     try {
         if (audioPlayer.paused || audioPlayer.ended) {
-            await playAudioFile(filePath); // Hier wird der Song nur gespielt, wenn er pausiert oder beendet ist
+            await playAudioFile(filePath, true);; // Hier wird der Song nur gespielt, wenn er pausiert oder beendet ist
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         } else {
             audioPlayer.pause();
@@ -339,7 +337,8 @@ async function togglePlayPause(event, filePath) {
     }
 }
 
-async function playAudioFile(filePath) {
+// Aktualisierte playAudioFile-Funktion mit Autoplay-Unterstützung
+async function playAudioFile(filePath, autoplay = false) {
     try {
         const audioPlayer = document.getElementById('audio-player');
         const playButton = document.querySelector('.play-button');
@@ -359,6 +358,13 @@ async function playAudioFile(filePath) {
         } else {
             audioPlayer.pause();
             playButton.innerHTML = '<i class="fas fa-play"></i>';
+        }
+
+        // Wenn Autoplay aktiviert ist, spiele den nächsten Song automatisch ab
+        if (autoplay) {
+            audioPlayer.addEventListener('ended', () => {
+                autoplayNextSong(filePath);
+            });
         }
     } catch (error) {
         console.error('Error playing audio file:', error);
@@ -638,36 +644,53 @@ document.addEventListener('DOMContentLoaded', () => {
             volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
     }
-
-    //* Shuffle Button
-
-    const shuffleButton = document.getElementById('shuffle-button');
-    const shuffleIcon = shuffleButton.querySelector('i');
-    const shuffleStates = ['fa-play', 'fa-shuffle', 'fa-repeat'];
-    const shuffleTitles = ['Play', 'Shuffle', 'Repeat'];
-    let currentStateIndex = 0;
-
-    shuffleButton.addEventListener('click', toggleShuffle);
-
-    function toggleShuffle() {
-        currentStateIndex = (currentStateIndex + 1) % shuffleStates.length;
-        shuffleIcon.classList = 'fas ' + shuffleStates[currentStateIndex];
-        shuffleButton.title = shuffleTitles[currentStateIndex];
-    }
 });
 
-document.getElementById('queue-button').addEventListener('click', () => {
-        Toastify({
-        text: `Queue Button Pressed`,
-        duration: 1500,
+    async function autoplayNextSong(currentFilePath) {
+        try {
+            const songsList = document.getElementById("songs-list");
+            const currentSongIndex = Array.from(songsList.children).findIndex(item => item.dataset.filePath === currentFilePath);
+            const nextSongItem = songsList.children[currentSongIndex + 1];
+
+            if (nextSongItem) {
+                const nextFilePath = nextSongItem.dataset.filePath;
+                await playAudioFile(nextFilePath);
+            } else {
+                // Wenn es keinen nächsten Song gibt, stoppe die Wiedergabe
+                const audioPlayer = document.getElementById('audio-player');
+                audioPlayer.pause();
+            }
+        } catch (error) {
+            console.error('Error autoplaying next song:', error);
+        }
+    }
+
+    function shuffleLibraryItems() {
+        const libraryItems = document.querySelectorAll('.library-item');
+
+    Toastify({
+        text: `Shuffle Songs...`,
+        duration: 450,
         gravity: "bottom",
         position: "right",
         style: {
-            background: "#00A36C",
+            background: "linear-gradient(135deg, #00A36C, #007848)",
         },
         stopOnFocus: true,
     }).showToast();
-});
+
+        // Mische die Library-Elemente zufällig
+        for (let i = libraryItems.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
+        }
+
+        // Gebe die Namen der Songs in der Konsole aus
+        libraryItems.forEach(item => {
+            const songName = item.dataset.songTitle;
+            console.log(songName);
+        });
+}
 
 function deleteTrack(songTitle, artist) {
     openCustomConfirm(
@@ -733,12 +756,15 @@ function addToQueue(songTitle) {
 }
 
 
+//* Search
+//* Search
+//* Search
+
 const libraryItems = document.querySelectorAll(".library-item");
 const searchBar = document.querySelector(".search-bar");
 
 searchBar.addEventListener("input", (event) => {
     const searchTerm = event.target.value.trim();
-    console.log("Search term:", searchTerm);
     if (searchTerm.length > 0) {
         filterLibrary(searchTerm);
     } else {
@@ -746,26 +772,20 @@ searchBar.addEventListener("input", (event) => {
     }
 });
 
-// Funktion zum Zurücksetzen der Suche
 function resetSearch() {
     libraryItems.forEach(item => {
         item.style.display = "block";
     });
-
-    // Leere das Autocomplete-Feld
     searchBar.value = '';
-
-    // Entferne das Autocomplete-Dropdown
     resetAutocomplete();
 }
 
-// Funktion zur Filterung der Bibliothek
 function filterLibrary(searchTerm) {
     libraryItems.forEach(item => {
-        const title = item.querySelector("h2").textContent;
+        const title = item.querySelector("h2").textContent.toLowerCase();
+        const searchTermLower = searchTerm.toLowerCase();
 
-        // Überprüfe, ob der Titel den Suchbegriff enthält
-        if (title.includes(searchTerm)) {
+        if (title.includes(searchTermLower)) {
             item.style.display = "block";
         } else {
             item.style.display = "none";
@@ -773,7 +793,6 @@ function filterLibrary(searchTerm) {
     });
 }
 
-// Autocomplete-Funktion
 searchBar.addEventListener("input", (event) => {
     const searchTerm = event.target.value.trim();
     if (searchTerm.length > 0) {
@@ -784,19 +803,41 @@ searchBar.addEventListener("input", (event) => {
 });
 
 function autocomplete(searchTerm) {
+    const searchTermLower = searchTerm.toLowerCase();
     const suggestions = [];
 
-    // Durchlaufe alle Karten und extrahiere die relevanten Daten
-    document.querySelectorAll('.library-item').forEach(card => {
-        const title = card.querySelector('h2').textContent;
+    if (searchTermLower.startsWith('album:') || searchTermLower.startsWith('artist:')) {
+        const filterType = searchTermLower.startsWith('album:') ? 'album' : 'artist';
+        const filterValue = searchTerm.substring(filterType.length + 1);
 
-        // Überprüfe, ob der Titel den Suchbegriff für Autocomplete enthält
-        if (title.includes(searchTerm) && !suggestions.includes(title)) {
-            suggestions.push(title);
-        }
-    });
+        document.querySelectorAll('.library-item').forEach(card => {
+            const filterableContent = card.querySelector(`p:nth-of-type(${filterType === 'album' ? 3 : 2})`).textContent.toLowerCase();
 
-    // Lösche zuvor angezeigte Vorschläge und erstelle das Dropdown-Menü
+            if (filterableContent.includes(filterValue)) {
+                if (filterType === 'artist') {
+                    const artistName = card.querySelector('p:nth-of-type(1)').textContent.replace('Artist: ', '').toLowerCase();
+                    if (!suggestions.includes(artistName)) {
+                        suggestions.push(artistName);
+                    }
+                }
+                // Wenn der Filtertyp "album" ist, füge den Titel des Albums zur Vorschlagsliste hinzu
+                else if (filterType === 'album') {
+                    const albumTitle = card.querySelector('p:nth-of-type(2)').textContent.replace('Album: ', '').toLowerCase();
+                    if (!suggestions.includes(albumTitle)) {
+                        suggestions.push(albumTitle);
+                    }
+                }
+            }
+        });
+    } else {
+        document.querySelectorAll('.library-item').forEach(card => {
+            const title = card.querySelector('h2').textContent.toLowerCase();
+            if (title.includes(searchTermLower) && !suggestions.includes(title)) {
+                suggestions.push(title);
+            }
+        });
+    }
+
     const autocompleteContainer = document.getElementById("autocomplete-container");
     autocompleteContainer.innerHTML = '';
 
@@ -816,7 +857,6 @@ function autocomplete(searchTerm) {
 
         autocompleteContainer.appendChild(dropdownMenu);
     } else {
-        //Pech.
     }
 }
 
@@ -826,17 +866,15 @@ function resetAutocomplete() {
     autocompleteContainer.innerHTML = '';
 }
 
-// Funktion zum Scrollen zum entsprechenden Library-Element und Blinken
 function scrollToLibraryItem(title) {
     resetSearch();
-
-    // Aktualisiere die libraryItems-Liste
     const libraryItems = document.querySelectorAll(".library-item");
 
     const matchingItem = Array.from(libraryItems).find(item => {
         const card = item.querySelector('h2');
         if (card) {
-            return card.textContent === title;
+            const cardTitle = card.textContent.toLowerCase();
+            return cardTitle === title.toLowerCase();
         } else {
             console.log("Fehler: 'h2' Element wurde nicht gefunden in:", item);
             return false;
@@ -852,13 +890,22 @@ function scrollToLibraryItem(title) {
                     if (matchingItem) {
                         matchingItem.classList.remove('blink');
                     }
-                }, 3500);
+                }, 4000);
             }
         }, 500);
     } else {
         console.log("Fehler: Das entsprechende Library-Element wurde nicht gefunden.");
     }
 }
+
+
+//! Album Search Function (wenn man klickt)
+
+
+
+//! Artist Search Function (wenn man klickt)
+
+
 
 //* Custom Confirm Code
 //* Custom Confirm Code

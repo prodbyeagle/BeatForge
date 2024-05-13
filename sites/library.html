@@ -31,10 +31,8 @@
         <div class="confirm-content">
             <div class="confirm-body">
                 <h2 id="confirmation_text"></h2>
-                <button title="Accept the Confirm" id="confirm_button"
-                    data-i18n="settings.buttons.confirm">Confirm</button>
-                <button title="Cancel the Confirm" id="cancel_button"
-                    data-i18n="settings.buttons.cancel">Cancel</button>
+                <button title="Accept the Confirm" id="confirm_button">Confirm</button>
+                <button title="Cancel the Confirm" id="cancel_button">Cancel</button>
             </div>
         </div>
     </div>
@@ -77,8 +75,9 @@
             <div id="progress-ball"></div>
         </div>
         <div title="Click to Switch Mode" id="total-time">0:00</div>
-        <div title="Shuffle" id="shuffle-button"><i class="fa-solid fa-shuffle"></i></div>
-        <div title="View the Queue" id="queue-button"><i class="fas fa-list"></i></div>
+        <div title="Shuffle" id="shuffle-button" onclick="shuffleLibraryItems()">
+            <i class="fa-solid fa-shuffle"></i>
+        </div>
         <div title="Mute / Unmute" id="volume-button"><i class="fas fa-volume-up"></i></div>
         <div id="volume-slider">
             <div id="volume-range"></div>
