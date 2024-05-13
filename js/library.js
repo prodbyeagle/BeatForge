@@ -679,17 +679,10 @@ document.addEventListener('DOMContentLoaded', () => {
         stopOnFocus: true,
     }).showToast();
 
-        // Mische die Library-Elemente zufällig
         for (let i = libraryItems.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
         }
-
-        // Gebe die Namen der Songs in der Konsole aus
-        libraryItems.forEach(item => {
-            const songName = item.dataset.songTitle;
-            console.log(songName);
-        });
 }
 
 function deleteTrack(songTitle, artist) {
