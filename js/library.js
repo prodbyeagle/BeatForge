@@ -990,4 +990,21 @@ function applyBlurFilter() {
     document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
 }
 
+//* Close or In Background
+
+let closeAction = localStorage.getItem("closeAction");
+
+if (!closeAction) {
+    closeAction = "close";
+    localStorage.setItem("closeAction", closeAction);
+}
+
+document.getElementById("close").addEventListener("click", () => {
+    if (closeAction === "close") {
+        ipcRenderer.send("manualClose");
+    } else if (closeAction === "minimize") {
+        ipcRenderer.send("manualMinimize");
+    }
+});
+
 setInterval(updateMusicUI, 1);

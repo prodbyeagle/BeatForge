@@ -446,24 +446,6 @@ body {
 
 }
 
-.fake-page-preview {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-
-}
-
-.fake-page-iframe {
-    height: 190%;
-    width: 800%;
-    border: none;
-
-}
-
 .confirm {
     display: none;
     position: fixed;
@@ -568,7 +550,8 @@ body {
 #openThemeCreatorOverlayBtn,
 #openOverlayBtn,
 #button,
-#languageDropdownBtn {
+#languageDropdownBtn,
+#toggleApp {
     transition: all 0.1s ease;
     margin: 5px;
     background-color: var(--secondary-color);
@@ -577,7 +560,8 @@ body {
 #openThemeCreatorOverlayBtn:hover,
 #openOverlayBtn:hover,
 #button:hover,
-#languageDropdownBtn:hover {
+#languageDropdownBtn:hover,
+#toggleApp:hover {
     transform: scale(0.96);
     border-radius: 15px;
 }
@@ -585,7 +569,8 @@ body {
 #openThemeCreatorOverlayBtn:active,
 #openOverlayBtn:active,
 #button:active,
-#languageDropdownBtn:active {
+#languageDropdownBtn:active,
+#toggleApp:active {
     transform: scale(1.05);
 }
 

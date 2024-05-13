@@ -321,3 +321,20 @@ modal.addEventListener('mouseup', function() {
 modal.addEventListener('mouseleave', function() {
     isScrolling = false;
 });
+
+//* Close or In Background
+
+let closeAction = localStorage.getItem("closeAction");
+
+if (!closeAction) {
+    closeAction = "close";
+    localStorage.setItem("closeAction", closeAction);
+}
+
+document.getElementById("close").addEventListener("click", () => {
+    if (closeAction === "close") {
+        ipcRenderer.send("manualClose");
+    } else if (closeAction === "minimize") {
+        ipcRenderer.send("manualMinimize");
+    }
+});

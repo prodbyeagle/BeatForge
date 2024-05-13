@@ -28,34 +28,86 @@ async function checkLatestVersion() {
   }
 }
 
-async function checkForUpdates() {
-  const latestVersion = await checkLatestVersion();
-  if (latestVersion && compareVersions(latestVersion, currentVersion) === 1) {
-    const latestRelease = await getLatestRelease();
-    if (latestRelease) {
-      const url = latestRelease.assets[0].browser_download_url;
-      const changelog = latestRelease.body.split('**Full Changelog**:')[0].trim();
-      const message = `There is a new Version ${currentVersion} -> ${latestVersion}. Would you like to update?\n\nChangelog:\n${changelog}`;
-      const options = {
-        type: 'question',
-        buttons: ['Yes', 'No'],
-        defaultId: 0,
-        title: 'New Version Available',
-        message: message,
-      };
+let lastUpdateCheckTime = null;
 
-      const choice = await dialog.showMessageBox(null, options);
-      if (choice.response === 0) {
-        downloadAndInstallUpdate(url);
-        console.log('User chose to update.');
+async function checkForUpdates() {
+  try {
+    // Überprüfe, ob seit dem letzten Update-Check mehr als 5 Minuten vergangen sind
+    if (lastUpdateCheckTime && (Date.now() - lastUpdateCheckTime) < 5 * 60 * 1000) {
+      const remainingCooldown = Math.ceil((5 * 60 * 1000 - (Date.now() - lastUpdateCheckTime)) / 1000 / 60); // Berechne verbleibende Minuten bis zum Ende des Cooldowns
+      const cooldownMessage = `Please wait for ${remainingCooldown} minute(s) before checking for updates again.`;
+      const cooldownOptions = {
+        type: 'info',
+        buttons: ['OK'],
+        defaultId: 0,
+        title: 'Cooldown Period',
+        message: cooldownMessage,
+      };
+      dialog.showMessageBox(null, cooldownOptions);
+      return;
+    }
+
+    const latestVersion = await checkLatestVersion();
+    if (latestVersion) {
+      if (compareVersions(latestVersion, currentVersion) === 1) {
+        const latestRelease = await getLatestRelease();
+        if (latestRelease) {
+          const url = latestRelease.assets[0].browser_download_url;
+          const changelog = latestRelease.body.split('**Full Changelog**:')[0].trim();
+          const message = `There is a new Version ${currentVersion} -> ${latestVersion}. Would you like to update?\n\nChangelog:\n${changelog}`;
+          const options = {
+            type: 'question',
+            buttons: ['Yes', 'No'],
+            defaultId: 0,
+            title: 'New Version Available',
+            message: message,
+          };
+
+          const choice = await dialog.showMessageBox(null, options);
+          if (choice.response === 0) {
+            downloadAndInstallUpdate(url);
+            console.log('User chose to update.');
+          } else {
+            console.log('User chose not to update.');
+          }
+        } else {
+          console.log('Fehler beim Abrufen der neuesten Version.');
+        }
       } else {
-        console.log('User chose not to update.');
+        console.log('Die aktuelle Version ist auf dem neuesten Stand.');
       }
     } else {
-      console.log('Fehler beim Abrufen der neuesten Version.');
+      // Zeige eine Dialognachricht an, dass keine Updates verfügbar sind
+      const options = {
+        type: 'info',
+        buttons: ['OK'],
+        defaultId: 0,
+        title: 'No Updates Available',
+        message: 'There are no updates available at the moment.',
+      };
+      dialog.showMessageBox(null, options);
     }
-  } else {
-    console.log('Die aktuelle Version ist auf dem neuesten Stand.');
+
+    // Aktualisiere den Zeitstempel des letzten Update-Checks
+    lastUpdateCheckTime = Date.now();
+  } catch (error) {
+    // Überprüfe, ob das Limit für die GitHub-API überschritten wurde
+    if (error.response && error.response.status === 403) {
+      const resetTime = new Date(error.response.headers['x-ratelimit-reset'] * 1000);
+      const currentTime = new Date();
+      const minutesUntilReset = Math.ceil((resetTime - currentTime) / (1000 * 60));
+      const errorMessage = `API rate limit exceeded. Please try again in ${minutesUntilReset} minutes.`;
+      const errorOptions = {
+        type: 'error',
+        buttons: ['OK'],
+        defaultId: 0,
+        title: 'Rate Limit Exceeded',
+        message: errorMessage,
+      };
+      dialog.showMessageBox(null, errorOptions);
+    } else {
+      console.error('Error checking for updates:', error);
+    }
   }
 }
 
@@ -225,7 +277,7 @@ if (!gotTheLock) {
     tray = new Tray(path.join(__dirname, 'assets', 'testicon.png'));
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Beatforge v0.2.3',
+        label: 'Beatforge v0.2.5',
         enabled: false
       },
       { type: 'separator' },
@@ -244,6 +296,30 @@ if (!gotTheLock) {
         click: () => {
           app.quit();
         }
+      },
+      {
+        label: 'Check for Updates',
+        click: () => {
+          checkForUpdates();
+        }
+      },
+      { type: 'separator' },
+      {
+        label: 'Debug',
+        submenu: [
+          {
+            label: 'Restart App',
+            click: () => {
+              restartApp();
+            }
+          },
+          {
+            label: 'Clear AppData and Restart',
+            click: () => {
+              performDebugActions();
+            }
+          },
+        ]
       }
     ]);
     tray.on('click', () => {

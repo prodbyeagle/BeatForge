@@ -404,33 +404,33 @@ document.addEventListener("DOMContentLoaded", function () {
   //* Add Folder Code
   //* Add Folder Code
 
-// Überprüfen, ob es gespeicherte Ordner in den Benutzerdaten gibt
-const storedUserData = JSON.parse(localStorage.getItem("userData")) || {};
-let storedFolders = storedUserData.folders || [];
+  // Überprüfen, ob es gespeicherte Ordner in den Benutzerdaten gibt
+  const storedUserData = JSON.parse(localStorage.getItem("userData")) || {};
+  let storedFolders = storedUserData.folders || [];
 
-// Hinzufügen der gespeicherten Ordner zur Benutzeroberfläche
-const beatFoldersContainer = document.querySelector(".beat-folders");
-storedFolders.forEach(folderPath => {
+  // Hinzufügen der gespeicherten Ordner zur Benutzeroberfläche
+  const beatFoldersContainer = document.querySelector(".beat-folders");
+  storedFolders.forEach(folderPath => {
     beatFoldersContainer.appendChild(createFolderElement(folderPath));
-});
+  });
 
-// Hinzufügen eines Event Listeners für die Auswahl neuer Ordner
-const dirsInput = document.getElementById("dirs");
-dirsInput.addEventListener("change", (event) => {
+  // Hinzufügen eines Event Listeners für die Auswahl neuer Ordner
+  const dirsInput = document.getElementById("dirs");
+  dirsInput.addEventListener("change", (event) => {
     // Überprüfen, ob Dateien ausgewählt wurden
     if (event.target.files.length === 0) {
-        // Anzeigen einer Benachrichtigung, dass keine Dateien ausgewählt wurden
-        Toastify({
-          text: "This Folder has no Files. Add one File to add this Folder",
-          duration: 3000,
-          gravity: "bottom",
-          position: "right",
-          style: {
-            background: "#FF3B30",
-          },
-          stopOnFocus: true,
-        }).showToast();
-        return; // Beenden der Funktion, da keine Dateien ausgewählt wurden
+      // Anzeigen einer Benachrichtigung, dass keine Dateien ausgewählt wurden
+      Toastify({
+        text: "This Folder has no Files. Add one File to add this Folder",
+        duration: 3000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+          background: "#FF3B30",
+        },
+        stopOnFocus: true,
+      }).showToast();
+      return; // Beenden der Funktion, da keine Dateien ausgewählt wurden
     }
 
     // Extrahiere den Ordnerpfad der ausgewählten Datei
@@ -442,43 +442,43 @@ dirsInput.addEventListener("change", (event) => {
 
     // Überprüfen, ob der Ordner Dateien enthält
     if (event.target.files.length === 1 && event.target.files[0].type === "") {
-        // Anzeigen einer Benachrichtigung, dass im ausgewählten Ordner keine Dateien gefunden wurden
-        Toastify({
-          text: "No Files Found!",
-          duration: 3000,
-          gravity: "bottom",
-          position: "right",
-          style: {
-            background: "#FF3B30",
-          },
-          stopOnFocus: true,
-        }).showToast();
-        return; // Beenden der Funktion, da keine Dateien im Ordner gefunden wurden
+      // Anzeigen einer Benachrichtigung, dass im ausgewählten Ordner keine Dateien gefunden wurden
+      Toastify({
+        text: "No Files Found!",
+        duration: 3000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+          background: "#FF3B30",
+        },
+        stopOnFocus: true,
+      }).showToast();
+      return; // Beenden der Funktion, da keine Dateien im Ordner gefunden wurden
     }
 
     // Überprüfen, ob der Ordnerpfad bereits in der Liste vorhanden ist
     if (!storedFolders.includes(folderPath)) {
-        // Hinzufügen des Ordnerpfads zur Liste im localStorage
-        storedFolders.push(folderPath);
-        localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
+      // Hinzufügen des Ordnerpfads zur Liste im localStorage
+      storedFolders.push(folderPath);
+      localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
 
-        // Hinzufügen des Ordners zur Benutzeroberfläche
-        beatFoldersContainer.appendChild(createFolderElement(folderPath));
+      // Hinzufügen des Ordners zur Benutzeroberfläche
+      beatFoldersContainer.appendChild(createFolderElement(folderPath));
     } else {
-          Toastify({
-          text: "This Folder already exists!",
-          duration: 3000,
-          gravity: "bottom",
-          position: "right",
-          style: {
-            background: "#FF3B30",
-          },
-          stopOnFocus: true,
-        }).showToast();
+      Toastify({
+        text: "This Folder already exists!",
+        duration: 3000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+          background: "#FF3B30",
+        },
+        stopOnFocus: true,
+      }).showToast();
     }
-});
+  });
 
-function createFolderElement(folderPath) {
+  function createFolderElement(folderPath) {
     const newFolderElement = document.createElement("div");
     newFolderElement.classList.add("beat-folder");
 
@@ -495,11 +495,11 @@ function createFolderElement(folderPath) {
     removeButton.style.backgroundColor = "0%";
     removeButton.classList.add("remove-button");
     removeButton.addEventListener("click", () => {
-        // Entfernen des Ordners aus der Benutzeroberfläche
-        beatFoldersContainer.removeChild(newFolderElement);
-        // Entfernen des Ordners aus den Benutzerdaten im localStorage
-        storedFolders = storedFolders.filter(path => path !== folderPath);
-        localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
+      // Entfernen des Ordners aus der Benutzeroberfläche
+      beatFoldersContainer.removeChild(newFolderElement);
+      // Entfernen des Ordners aus den Benutzerdaten im localStorage
+      storedFolders = storedFolders.filter(path => path !== folderPath);
+      localStorage.setItem("userData", JSON.stringify({ ...storedUserData, folders: storedFolders }));
     });
 
     // Anhängen des Entfernen-Buttons zum Ordner-Element
@@ -510,14 +510,38 @@ function createFolderElement(folderPath) {
 
     // Hinzufügen eines Event Listeners für das Hovern über das Feld
     newFolderElement.addEventListener("mouseover", () => {
-        removeButton.style.opacity = "100%";
+      removeButton.style.opacity = "100%";
     });
 
     // Hinzufügen eines Event Listeners für das Verlassen des Felds
     newFolderElement.addEventListener("mouseout", () => {
-        removeButton.style.opacity = "0%";
+      removeButton.style.opacity = "0%";
     });
 
     return newFolderElement;
-}
+  }
+
+  //* Close or In Background
+
+  let closeAction = localStorage.getItem("closeAction");
+
+  if (!closeAction) {
+    closeAction = "close";
+    localStorage.setItem("closeAction", closeAction);
+  }
+
+  document.getElementById("toggleApp").addEventListener("click", () => {
+    closeAction = (closeAction === "close") ? "minimize" : "close";
+    const buttonText = (closeAction === "close") ? "Close App" : "Minimize App";
+    document.getElementById("toggleApp").innerText = buttonText;
+    localStorage.setItem("closeAction", closeAction);
+  });
+
+  document.getElementById("close").addEventListener("click", () => {
+    if (closeAction === "close") {
+      ipcRenderer.send("manualClose");
+    } else if (closeAction === "minimize") {
+      ipcRenderer.send("manualMinimize");
+    }
+  });
 });
