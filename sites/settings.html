@@ -70,35 +70,23 @@
                                 class="w-full px-3 py-2 text-white bg-gray-800 border-gray-700 rounded focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
                         </div>
                         <div class="mb-4">
-                            <label for="profile-pic" class="block mb-1 font-bold text-white">Change Profile
-                                Picture</label>
+                            <label for="profile-pic" class="block mb-1 font-bold text-white"></label>
                             <div class="flex items-center justify-between">
                                 <input type="file" id="profile-pic" name="profile-pic" accept="image/*"
                                     class="hidden" />
                                 <label for="profile-pic"
                                     class="px-3 py-2 text-white bg-gray-800 border-gray-700 rounded cursor-pointer hover:bg-gray-700 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                                    <span class="text-gray-400">Datei ausgewählt</span>
+                                    <span class="text-gray-400">Choose Profile Picture</span>
                                 </label>
-                                <span id="profile-pic-info" class="text-sm text-gray-400">Keine ausgewählt</span>
+                                <span id="profile-pic-info" class="text-sm text-gray-400"></span>
                             </div>
                         </div>
                         <div class="mb-4">
                             <label for="accent-color" class="block mb-1 font-bold text-white">Change Accent
                                 Color</label>
                             <input type="color" id="accent-color" name="accent-color"
-                                class="w-full px-3 py-2 text-white bg-gray-800 border-gray-700 rounded focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200" />
-                        </div>
-                        <div class="mb-4">
-                            <label for="folders" class="block mb-1 font-bold text-white">Add Folders</label>
-                            <div class="flex items-center justify-between">
-                                <input type="file" id="dirs" name="folders" multiple directory webkitdirectory
-                                    class="hidden" />
-                                <label for="dirs"
-                                    class="px-3 py-2 text-white bg-gray-800 border-gray-700 rounded cursor-pointer hover:bg-gray-700 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                                    <span class="text-gray-400">Ordner auswählen</span>
-                                </label>
-                                <span id="folders-info" class="text-sm text-gray-400">Keine ausgewählt</span>
-                            </div>
+                                class="w-full px-3 py-2 text-white bg-gray-800 border border-gray-700 rounded focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                                style="width: 100%" />
                         </div>
                         <button type="submit" id="button"
                             class="px-4 py-2 text-white bg-indigo-500 rounded hover:bg-indigo-700 focus:outline-none focus:shadow-outline">Save
@@ -122,6 +110,18 @@
                     <div class="card">
                         <h1 class="mb-4 text-lg">Beat Folders</h1>
                         <div class="beat-folders">
+                            <div class="mb-4">
+                                <label for="folders" class="block mb-1 font-bold text-white"></label>
+                                <div class="flex items-center justify-between">
+                                    <input type="file" id="dirs" name="folders" multiple directory webkitdirectory
+                                        class="hidden" />
+                                    <label for="dirs"
+                                        class="px-3 py-2 text-white bg-gray-800 border-gray-700 rounded cursor-pointer hover:bg-gray-700 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200">
+                                        <span class="text-gray-400">Choose Folder</span>
+                                    </label>
+                                    <span id="folders-info" class="text-sm text-gray-400"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
