@@ -95,7 +95,7 @@ if (!gotTheLock) {
   tray = new Tray(path.join(__dirname, 'assets', 'testicon.png'));
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Beatforge v0.2.2',
+      label: 'Beatforge v0.2.3',
       enabled: false
     },
     { type: 'separator' },
@@ -116,6 +116,13 @@ if (!gotTheLock) {
       }
     }
   ]);
+  tray.on('click', () => {
+    if (mainWindow === null) {
+      createMainWindow();
+    } else {
+      mainWindow.show();
+    }
+  });
   tray.setContextMenu(contextMenu);
   tray.setToolTip('Beatforge');
 

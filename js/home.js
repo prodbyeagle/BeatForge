@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateUI(userData) {
         const accentColor = userData.accentColor || "#000000";
         const sidebarText = document.querySelectorAll(".sidebar a");
-        const loaderIcon = document.querySelector(".loader-icon l-zoomies");
+        const loaderIcon = document.querySelector(".loader-icon l-line-wobble");
         usernameElement.textContent = userData.username;
         usernameElement.style.color = accentColor;
 
