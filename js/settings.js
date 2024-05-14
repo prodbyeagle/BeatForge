@@ -51,6 +51,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   ipcRenderer.send("load-themes");
 
+  const designOverlay = document.getElementById("design_overlay");
+  const designModal = document.getElementById("design_modal");
+
+  designOverlay.addEventListener("click", function () {
+    closeDesignModal();
+  });
+
+  function openDesignModal() {
+    designOverlay.style.display = "block";
+    designModal.style.display = "block";
+  }
+
+  function closeDesignModal() {
+    designOverlay.style.display = "none";
+    designModal.style.display = "none";
+  }
+
+  const openOverlayBtn = document.getElementById("openOverlayBtn");
+
+  openOverlayBtn.addEventListener("click", function () {
+    openDesignModal();
+  });
+
   function addThemesToModal(themes) {
     const modalContent = document.querySelector("#design_modal .modal-content");
 
@@ -234,26 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
         hrElement.style.backgroundColor = quaternaryColor;
       });
     }
-  }
-
-  function openCustomConfirm(message, onConfirm) {
-    const confirm = document.getElementById("confirm");
-    const confirmationText = document.getElementById("confirmation_text");
-
-    confirmationText.textContent = message;
-    confirm.style.display = "block";
-
-    const confirmButton = document.getElementById("confirm_button");
-    const cancelButton = document.getElementById("cancel_button");
-
-    confirmButton.onclick = function () {
-      confirm.style.display = "none";
-      onConfirm();
-    };
-
-    cancelButton.onclick = function () {
-      confirm.style.display = "none";
-    };
   }
 
   const storedUserData = JSON.parse(localStorage.getItem("userData")) || {};
