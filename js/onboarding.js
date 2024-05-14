@@ -38,17 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("next-question-1").addEventListener("click", nextQuestion);
 
-    document.getElementById("next-question-2").addEventListener("click", function () {
-        const foldersInput = document.getElementById("folders");
-        const folders = foldersInput.files.length > 0 ? foldersInput.files[0].path : null;
-        if (folders) {
-            localStorage.setItem('foldersPath', folders);
-            nextQuestion();
-        } else {
-            checkAndToast("You need to select a folder.");
-        }
-    });
-
     document.getElementById("next-question-4").addEventListener("click", function () {
         const profilePicInput = document.getElementById("profile-pic");
         if (profilePicInput.files.length > 0) {
@@ -89,10 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const accentColorInput = document.getElementById("accent-color");
     const accentColorValue = document.getElementById("accent-color-value");
 
-
     accentColorValue.textContent = accentColorInput.value;
-
-
     accentColorInput.addEventListener("input", function () {
         accentColorValue.textContent = this.value;
     });
@@ -125,38 +111,33 @@ async function saveUserData(event) {
         return;
     }
 
+    const foldersPath = localStorage.getItem('foldersPath');
 
     const userData = {
         username: username,
-        folders: foldersInput ? foldersInput.files[0].path : null,
+        folders: foldersPath,
         tags: tags,
         profilePic: profilePic,
         accentColor: accentColor,
         onboarding_complete: true,
     };
+
     localStorage.setItem('userData', JSON.stringify(userData));
-
-
     const config = loadConfig();
-
-
     config.onboardingCompleted = true;
-
-
     saveConfig(config);
-
 
     if (window.ipcRenderer) {
         window.ipcRenderer.send('onboarding-complete', {
             username,
             tags,
             profilePic,
-            accentColor
+            accentColor,
+            relaunchApp: true
         });
     } else {
         console.error("ipcRenderer not initialized.");
     }
-
 
     window.location.href = "home.html";
 }
@@ -166,19 +147,19 @@ document.getElementById("onboarding-form").addEventListener("submit", saveUserDa
 
 function loadConfig() {
     try {
-        const data = localStorage.getItem('config');
-        return JSON.parse(data) || {};
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        return userData.config || {};
     } catch (err) {
         console.error("Fehler beim Laden der Konfigurationsdatei:", err.message);
         return {};
     }
 }
 
-
 function saveConfig(config) {
-    localStorage.setItem('config', JSON.stringify(config));
+    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+    userData.config = config;
+    localStorage.setItem('userData', JSON.stringify(userData));
 }
-
 
 document.getElementById("onboarding-form").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -187,7 +168,6 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     const tags = document.getElementById("tags").value;
     const profilePic = document.getElementById("profile-pic").files[0].path;
     const accentColor = document.getElementById("accent-color").value;
-
     const foldersPath = localStorage.getItem('foldersPath');
 
     const userData = {
@@ -201,9 +181,7 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     localStorage.setItem('userData', JSON.stringify(userData));
 
     const config = loadConfig();
-
     config.onboardingCompleted = true;
-
     saveConfig(config);
 
     if (window.ipcRenderer) {
@@ -212,13 +190,13 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
             tags,
             profilePic,
             accentColor,
-            relaunchApp: true // Signalisiere dem Hauptprozess, die App neu zu starten
+            relaunchApp: true
         });
     } else {
         console.error("ipcRenderer not initialized.");
     }
 
-    window.location.href = "home.html"; // Leite zur home.html weiter (wird nur bei Bedarf erreicht, da die App neugestartet wird)
+    window.location.href = "home.html";
 });
 
 window.addEventListener('focus', () => {
