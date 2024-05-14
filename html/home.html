@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BeatForge - Home (BF130524)</title>
+    <title>BeatForge - Home (BF-140524_031-dev)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://rsms.me/">
@@ -18,7 +18,7 @@
 <body>
     <div id="titlebar">
         <div id="titlebar-drag-region"></div>
-        <div id="title">BeatForge - Home (BF130524)</div>
+        <div id="title">BeatForge - Home (BF-140524_031-dev)</div>
         <div id="titlebar-controls">
             <div class="control-button close" id="close"></div>
             <div class="control-button minimize" id="minimize"></div>
@@ -40,9 +40,35 @@
         <hr />
         <a href="#" id="version-button" class="title">
             <i class="fa-solid fa-circle-exclamation"></i>
-            <span class="sidebar-text">v0.2.5</span>
+            <span class="sidebar-text">v0.3.1</span>
         </a>
         <hr />
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>
+                <span id="greeting">Good Morning</span>, <span class="accent-color" id="username">Username</span>!
+            </h1>
+            <p>❗Here can be some Stuff </p>
+            <p>🦅 Created with passion by @prodbyeagle.</p>
+        </div>
+        <div class="card">
+            <h1>🎹 Latest Beats</h1>
+            <div id="latest-beats-loader" class="loader accent-color">
+                <div class="loader-icon">
+                    <l-line-wobble size="100" stroke="6" bg-opacity="0.1" speed="2.5" color="#C886FE"></l-line-wobble>
+                </div>
+            </div>
+            <ul id="latest-beats">
+            </ul>
+        </div>
+        <div class="card">
+            <h1>🆕 Sort a Random Beat</h1>
+            <button id="sort-random-beat">
+                Sort Random Beat
+            </button>
+        </div>
     </div>
 
     <div class="confirm-overlay"></div>
@@ -59,35 +85,26 @@
     <div id="overlay" class="overlay"></div>
     <div id="modal" class="modal">
         <span id="close-button" class="close-modal">❌</span>
-        <h2><i class="fas fa-rotate fa-solid" style="display: inline-block; margin-right: 10px;"></i> What's New? |
-            13.05.2024
+        <h2>
+            <i class="fas fa-rotate fa-solid" style="display: inline-block; margin-right: 10px;"></i> What's New? |
+            <span id="latest-date"></span>
         </h2>
         <ul id="update-logs">
-            <li style="font-size: 22px;">・ 18.04.2024</li>
+            <li style="font-size: 22px;">・ 14.05.2024</li>
             <hr />
-            <li>・ Added Update Logs</li>
-            <li>・ Toastify instead of Alert</li>
-            <li>・ Onboarding Fixed Hopefully 🤞</li>
-            <li>・ Light Changes</li>
+            <li>・ Removed Question 2 in Onboarding</li>
+            <li>・ Removed Debug Menu bc it has no good Reason</li>
+            <li>・ Added Dialog before User clears his Data from the Tray Menu</li>
+            <li>・ Fixed some Little Stuff</li>
             <hr />
-            <li style="font-size: 22px;">・ 21.04.2024</li>
+            <li>・ ❗Play Button in Cards still Bugged</li>
             <hr />
-            <li>・ Console Logs gone! or change to .error</li>
-            <li>・ libary to library</li>
-            <li>・ Small Changes</li>
-            <li>・ Better Format</li>
+            <li style="font-size: 22px;">・ 13.05.2024</li>
             <hr />
-            <li style="font-size: 22px;">・ 29.04.2024</li>
-            <hr />
-            <li>・ New Icon (not final)</li>
-            <li>・ Added Blur and Focus Effects</li>
-            <hr />
-            <li style="font-size: 22px;">・ 09.05.2024</li>
-            <hr />
-            <li>・ Started in Library:</li>
-            <li>・ Added Context Menu for Files</li>
-            <li>・ Made Files Dynamic instead of Hard Coded HTML</li>
-            <li>・ Bugs Fixed</li>
+            <li>・ Added Autoplay</li>
+            <li>・ Made Autocomplete Search Better</li>
+            <li>・ Added Tray Icon</li>
+            <li>・ Fixed some Little Stuff</li>
             <hr />
             <li style="font-size: 22px;">・ 12.05.2024</li>
             <hr />
@@ -100,42 +117,37 @@
             <hr />
             <li>・ 🐞 BUG: Play Button in Cards are Starting the Song over! (just scroll in the Timeline)</li>
             <hr />
-            <li style="font-size: 22px;">・ 13.05.2024</li>
+            <li style="font-size: 22px;">・ 09.05.2024</li>
             <hr />
-            <li>・ Added Autoplay</li>
-            <li>・ Made Autocomplete Search Better</li>
-            <li>・ Added Tray Icon</li>
-            <li>・ Fixed some Little Stuff</li>
+            <li>・ Started in Library:</li>
+            <li>・ Added Context Menu for Files</li>
+            <li>・ Made Files Dynamic instead of Hard Coded HTML</li>
+            <li>・ Bugs Fixed</li>
+            <hr />
+            <li style="font-size: 22px;">・ 29.04.2024</li>
+            <hr />
+            <li>・ New Icon (not final)</li>
+            <li>・ Added Blur and Focus Effects</li>
+            <hr />
+            <li style="font-size: 22px;">・ 21.04.2024</li>
+            <hr />
+            <li>・ Console Logs gone! or change to .error</li>
+            <li>・ libary to library</li>
+            <li>・ Small Changes</li>
+            <li>・ Better Format</li>
+            <hr />
+            <li style="font-size: 22px;">・ 18.04.2024</li>
+            <hr />
+            <li>・ Added Update Logs</li>
+            <li>・ Toastify instead of Alert</li>
+            <li>・ Onboarding Fixed Hopefully 🤞</li>
+            <li>・ Light Changes</li>
         </ul>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h1>
-                <span id="greeting">Good Morning</span>, <span class="accent-color" id="username">Username</span>!
-            </h1>
-            <p>❗Here can be some Stuff </p>
-            <p>🦅 Created with passion by @prodbyeagle.</p>
-        </div>
-        <div class="card">
-            <h1>🎹 Latest Beats</h1>
-            <div id="latest-beats-loader" class="loader accent-color">
-                <div class="loader-icon">
-                    <l-line-wobble size="100" stroke="6" bg-opacity="0.1" speed="1.4" color="#C886FE"></l-line-wobble>
-                </div>
-            </div>
-            <ul id="latest-beats">
-            </ul>
-        </div>
-        <div class="card">
-            <h1>🆕 Sort a Random Beat</h1>
-            <button id="sort-random-beat">
-                Sort Random Beat
-            </button>
-        </div>
-    </div>
     <script src="../js/home.js"></script>
-    <script src="../titlebar.js"></script>
+    <script src="../functions/titlebar.js"></script>
+
 </body>
 
 </html>
