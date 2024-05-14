@@ -9,12 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("closeAction", closeAction);
     }
 
-    document.querySelector("#toggleApp").addEventListener("click", () => {
-        closeAction = (closeAction === "close") ? "minimize" : "close";
-        document.querySelector("#toggleApp").innerText = (closeAction === "close") ? "Close App" : "Minimize App";
-        localStorage.setItem("closeAction", closeAction);
-    });
-
     document.querySelector("#close").addEventListener("click", () => {
         if (closeAction === "close") {
             ipcRenderer.send("manualClose");
