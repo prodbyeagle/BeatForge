@@ -410,9 +410,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Hinzufügen der gespeicherten Ordner zur Benutzeroberfläche
   const beatFoldersContainer = document.querySelector(".beat-folders");
-  storedFolders.forEach(folderPath => {
-    beatFoldersContainer.appendChild(createFolderElement(folderPath));
-  });
+
+  if (Array.isArray(storedFolders)) {
+    // Überprüfen, ob storedFolders ein Array ist, bevor wir forEach verwenden
+    if (storedFolders.length > 0) {
+      storedFolders.forEach(folderPath => {
+        beatFoldersContainer.appendChild(createFolderElement(folderPath));
+      });
+    } else {
+      // Wenn keine gespeicherten Ordner vorhanden sind, eine Meldung anzeigen
+      const noFoldersMessage = document.createElement("p");
+      noFoldersMessage.textContent = "No folders available.";
+      beatFoldersContainer.appendChild(noFoldersMessage);
+    }
+  } else {
+    console.error("Stored folders data is not an array.");
+  }
 
   // Hinzufügen eines Event Listeners für die Auswahl neuer Ordner
   const dirsInput = document.getElementById("dirs");
@@ -436,9 +449,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Extrahiere den Ordnerpfad der ausgewählten Datei
     const filePath = event.target.files[0].path;
     const folderPath = filePath.substring(0, filePath.lastIndexOf("\\"));
-
-    // Speichern des Ordnerpfads im localStorage
-    localStorage.setItem("folders", folderPath);
 
     // Überprüfen, ob der Ordner Dateien enthält
     if (event.target.files.length === 1 && event.target.files[0].type === "") {
@@ -529,12 +539,19 @@ document.addEventListener("DOMContentLoaded", function () {
     closeAction = "close";
     localStorage.setItem("closeAction", closeAction);
   }
-
   document.getElementById("toggleApp").addEventListener("click", () => {
+    const button = document.getElementById("toggleApp");
     closeAction = (closeAction === "close") ? "minimize" : "close";
     const buttonText = (closeAction === "close") ? "Close App" : "Minimize App";
-    document.getElementById("toggleApp").innerText = buttonText;
+    button.innerText = buttonText;
     localStorage.setItem("closeAction", closeAction);
+
+    // Füge eine 1px dicke Border hinzu
+    if (closeAction === "close") {
+      button.style.border = "1px solid var(--primary-color)";
+    } else {
+      button.style.border = "none";
+    }
   });
 
   document.getElementById("close").addEventListener("click", () => {
