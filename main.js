@@ -363,7 +363,7 @@ if (!gotTheLock) {
         icon: path.join(__dirname, "assets", "testicon.png"),
         webPreferences: {
           nodeIntegration: true,
-          preload: path.join(__dirname, "preload.js"),
+          preload: path.join(__dirname, "functions", "preload.js"),
         },
       });
 
@@ -371,7 +371,7 @@ if (!gotTheLock) {
         sendThemesToRenderer();
       });
 
-      mainWindow.loadFile(path.join(__dirname, "sites", "home.html"));
+      mainWindow.loadFile(path.join(__dirname, "html", "home.html"));
 
       mainWindow.on("close", () => {
         mainWindow = null;
@@ -390,7 +390,7 @@ if (!gotTheLock) {
         icon: path.join(__dirname, "assets", "testicon.png"),
         webPreferences: {
           nodeIntegration: true,
-          preload: path.join(__dirname, "preload.js"),
+          preload: path.join(__dirname, "functions", "preload.js"),
         },
       });
 
@@ -400,7 +400,7 @@ if (!gotTheLock) {
         sendThemesToRenderer();
       });
 
-      mainWindow.loadFile(path.join(__dirname, "sites", "intro.html"));
+      mainWindow.loadFile(path.join(__dirname, "html", "intro.html"));
 
       mainWindow.on("close", () => {
         app.quit();

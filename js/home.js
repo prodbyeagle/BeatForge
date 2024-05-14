@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
         latestBeatsElement.appendChild(li);
     });
 
+    const latestDateElement = document.getElementById("latest-date");
+    const currentDate = new Date();
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}.${month}.${year}`;
+    latestDateElement.textContent = formattedDate;
+
 
     function updateUI(userData) {
         const accentColor = userData.accentColor || "#000000";
@@ -198,30 +206,30 @@ window.addEventListener("blur", () => {
         "grayscale(60%) brightness(60%)";
 });
 
-      //* Scroll Code
+//* Scroll Code
 
 var modal = document.getElementById('modal');
 var isScrolling = false;
 var startY;
 var startScrollTop;
 
-modal.addEventListener('mousedown', function(e) {
+modal.addEventListener('mousedown', function (e) {
     isScrolling = true;
     startY = e.pageY;
     startScrollTop = modal.scrollTop;
 });
 
-modal.addEventListener('mousemove', function(e) {
+modal.addEventListener('mousemove', function (e) {
     if (!isScrolling) return;
     var delta = startY - e.pageY;
     modal.scrollTop = startScrollTop + delta;
 });
 
-modal.addEventListener('mouseup', function() {
+modal.addEventListener('mouseup', function () {
     isScrolling = false;
 });
 
-modal.addEventListener('mouseleave', function() {
+modal.addEventListener('mouseleave', function () {
     isScrolling = false;
 });
 

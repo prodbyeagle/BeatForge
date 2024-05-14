@@ -107,7 +107,6 @@ body {
     display: flex;
     margin-top: 10px;
     flex-direction: column;
-    /* box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.1); */
 }
 
 .card {
@@ -163,12 +162,9 @@ body {
 
 .modal hr {
     width: calc(100% - 40px);
-    /* 20px Abstand auf jeder Seite */
     margin: 20px auto;
-    /* Zentrierte Positionierung */
     border: none;
     border-top: 2px solid #cfcfcf;
-    /* Strichdicke von 2px und Farbe */
 }
 
 .show {
@@ -410,17 +406,4 @@ body {
 .confirm button:hover {
     transform: scale(1.03);
     border-radius: 15px;
-}
-
-#update-logs {
-    overflow: auto;
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-}
-
-#update-logs::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, and Opera */
 }
