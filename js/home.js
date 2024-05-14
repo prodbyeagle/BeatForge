@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const greetingElement = document.getElementById("greeting");
     const sortButton = document.getElementById("sort-random-beat");
-    const usernameElement = document.getElementById("username");
-    const profilePicImg = document.getElementById("profilePicImg");
     const versionElement = document.querySelector(".sidebar a.title");
     const overlay = document.querySelector(".overlay");
     const modal = document.querySelector(".modal");
@@ -13,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const li = document.createElement("li");
         li.textContent = beat;
         latestBeatsElement.appendChild(li);
+
+        updateGreeting();
     });
 
     const latestDateElement = document.getElementById("latest-date");
@@ -22,45 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const year = currentDate.getFullYear();
     const formattedDate = `${day}.${month}.${year}`;
     latestDateElement.textContent = formattedDate;
-
-
-    function updateUI(userData) {
-        const accentColor = userData.accentColor || "#000000";
-        const sidebarText = document.querySelectorAll(".sidebar a");
-        const loaderIcon = document.querySelector(".loader-icon l-line-wobble");
-        usernameElement.textContent = userData.username;
-        usernameElement.style.color = accentColor;
-
-        loaderIcon.setAttribute("color", accentColor);
-
-        sidebarText.forEach((item) => {
-            item.addEventListener("mouseenter", handleSidebarHover);
-            item.addEventListener("mouseleave", handleSidebarLeave);
-        });
-
-
-        updateGreeting();
-        profilePicImg.src = userData.profilePic;
-    }
-
-    function handleSidebarHover(event) {
-        const accentColor = localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData")).accentColor || "#000000"
-            : "#000000";
-        const element = event.currentTarget;
-        const icon = element.querySelector("i");
-        element.style.color = accentColor;
-        icon.style.color = accentColor;
-    }
-
-    function handleSidebarLeave(event) {
-        const element = event.currentTarget;
-        const icon = element.querySelector("i");
-        element.style.color = "var(--tertiary-color)";
-        if (icon) {
-            icon.style.color = "var(--tertiary-color)";
-        }
-    }
 
     function updateGreeting() {
         const time = new Date().getHours();
@@ -75,15 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
-    const savedUserData = localStorage.getItem("userData");
-    if (savedUserData) {
-        const userData = JSON.parse(savedUserData);
-        updateUI(userData);
-    }
-
     var isCooldown = false;
-
     sortButton.addEventListener("click", function () {
 
         if (isCooldown) {
@@ -128,16 +81,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
     versionElement.addEventListener("click", function () {
-
         overlay.classList.add("show");
         modal.classList.add("show");
     });
 
 
     closeModalButton.addEventListener("click", function () {
-
         overlay.classList.remove("show");
         modal.classList.remove("show");
     });
@@ -150,62 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-window.addEventListener('load', () => {
-    const appliedTheme = JSON.parse(localStorage.getItem('appliedTheme'));
-    if (appliedTheme) {
-
-        appliedTheme.values.forEach(color => {
-            document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
-        });
-    } else {
-
-        Toastify({
-            text: "The applied theme no longer exists.",
-            duration: 3000,
-            gravity: "bottom",
-            position: "right",
-            style: {
-                background: "var(--primary-color)"
-            },
-            stopOnFocus: true,
-        }).showToast();
-    }
-});
-
-function openCustomConfirm(message, onConfirm) {
-    const confirm = document.getElementById('confirm');
-    const confirmationText = document.getElementById('confirmation_text');
-
-    confirmationText.textContent = message;
-    confirm.style.display = 'block';
-    confirm.style.zIndex = '9999'
-
-    const confirmButton = document.getElementById('confirm_button');
-    const cancelButton = document.getElementById('cancel_button');
-
-    confirmButton.onclick = function () {
-        confirm.style.display = 'none';
-        onConfirm();
-    }
-
-    cancelButton.onclick = function () {
-        confirm.style.display = 'none';
-    }
-}
-
-window.addEventListener("focus", () => {
-    document.documentElement.style.transition = "filter 0.2s";
-    document.documentElement.style.filter =
-        "grayscale(0%) brightness(100%)";
-});
-
-window.addEventListener("blur", () => {
-    document.documentElement.style.transition = "filter 0.2s";
-    document.documentElement.style.filter =
-        "grayscale(60%) brightness(60%)";
-});
-
+//* Scroll Code
+//* Scroll Code
 //* Scroll Code
 
 var modal = document.getElementById('modal');
@@ -233,6 +129,8 @@ modal.addEventListener('mouseleave', function () {
     isScrolling = false;
 });
 
+//* Close or In Background
+//* Close or In Background
 //* Close or In Background
 
 let closeAction = localStorage.getItem("closeAction");

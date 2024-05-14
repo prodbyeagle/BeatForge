@@ -8,23 +8,6 @@ document.addEventListener("auxclick", function (event) {
     }
 });
 
-window.addEventListener("load", () => {
-    const appliedTheme = JSON.parse(localStorage.getItem("appliedTheme"));
-    if (appliedTheme) {
-        applyTheme(appliedTheme);
-    } else {
-        showThemeNotFoundError();
-    }
-});
-
-window.addEventListener("focus", () => {
-    resetFilter();
-});
-
-window.addEventListener("blur", () => {
-    applyBlurFilter();
-});
-
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 try {
@@ -937,15 +920,6 @@ function openCustomConfirm(message, onConfirm) {
 //* Theme Code
 //* Theme Code
 
-
-
-function applyTheme(theme) {
-    theme.values.forEach(color => {
-        document.documentElement.style.setProperty(`--${color.name}-color`, color.color);
-    });
-    applyContextMenuTheme(theme);
-}
-
 function applyContextMenuTheme(theme) {
     const contextMenu = document.querySelector(".context-menu");
     if (contextMenu) {
@@ -967,29 +941,8 @@ function getColorByName(theme, name) {
     return theme.values.find(color => color.name === name).color;
 }
 
-function showThemeNotFoundError() {
-    Toastify({
-        text: "The applied theme no longer exists.",
-        duration: 3000,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "var(--primary-color)",
-        },
-        stopOnFocus: true,
-    }).showToast();
-}
-
-function resetFilter() {
-    document.documentElement.style.transition = "filter 0.3s";
-    document.documentElement.style.filter = "grayscale(0%) brightness(100%)";
-}
-
-function applyBlurFilter() {
-    document.documentElement.style.transition = "filter 0.3s";
-    document.documentElement.style.filter = "grayscale(60%) brightness(60%)";
-}
-
+//* Close or In Background
+//* Close or In Background
 //* Close or In Background
 
 let closeAction = localStorage.getItem("closeAction");

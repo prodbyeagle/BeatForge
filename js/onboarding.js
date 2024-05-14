@@ -197,14 +197,24 @@ document.getElementById("onboarding-form").addEventListener("submit", async (eve
     }
 
     window.location.href = "home.html";
-});
 
-window.addEventListener('focus', () => {
-    document.documentElement.style.transition = 'filter 0.5s';
-    document.documentElement.style.filter = 'grayscale(0%) brightness(100%)';
-});
 
-window.addEventListener('blur', () => {
-    document.documentElement.style.transition = 'filter 0.5s';
-    document.documentElement.style.filter = 'grayscale(60%) brightness(60%)';
+    //* Close or In Background
+    //* Close or In Background
+    //* Close or In Background
+
+    let closeAction = localStorage.getItem("closeAction");
+
+    if (!closeAction) {
+        closeAction = "close";
+        localStorage.setItem("closeAction", closeAction);
+    }
+
+    document.getElementById("close").addEventListener("click", () => {
+        if (closeAction === "close") {
+            ipcRenderer.send("manualClose");
+        } else if (closeAction === "minimize") {
+            ipcRenderer.send("manualMinimize");
+        }
+    });
 });
