@@ -1,5 +1,53 @@
 [
     {
+        "name": "Eagle Theme",
+        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
+        "owner": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#635985",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#443C68"
+            },
+            {
+                "name": "tertiary",
+                "color": "#FFE6E6"
+            },
+            {
+                "name": "quaternary",
+                "color": "#E1AFD1"
+            }
+        ]
+    },
+    {
+        "name": "Dark Night",
+        "description": "made by @dwhincandi",
+        "owner": true,
+        "values": [
+            {
+                "name": "primary",
+                "color": "#0B132B",
+                "_comment": "Cards and Co."
+            },
+            {
+                "name": "secondary",
+                "color": "#1C2541"
+            },
+            {
+                "name": "tertiary",
+                "color": "#3A506B"
+            },
+            {
+                "name": "quaternary",
+                "color": "#140152"
+            }
+        ]
+    },
+    {
         "name": "Ocean Blue",
         "description": "Dive into the depths of the ocean with this soothing blue theme.",
         "values": [
@@ -272,75 +320,6 @@
             {
                 "name": "quaternary",
                 "color": "#314E5E"
-            }
-        ]
-    },
-    {
-        "name": "Eagle Theme",
-        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#635985",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#443C68"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FFE6E6"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E1AFD1"
-            }
-        ]
-    },
-    {
-        "name": "Test",
-        "description": "made by @dwhincandi",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#caa8f5",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#9984d4"
-            },
-            {
-                "name": "tertiary",
-                "color": "#592e83"
-            },
-            {
-                "name": "quaternary",
-                "color": "#230c33"
-            }
-        ]
-    },
-    {
-        "name": "Dark Night",
-        "description": "made by @dwhincandi",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#0B132B",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#1C2541"
-            },
-            {
-                "name": "tertiary",
-                "color": "#3A506B"
-            },
-            {
-                "name": "quaternary",
-                "color": "#140152"
             }
         ]
     },
