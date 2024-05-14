@@ -48,5 +48,4 @@ function applyThemeOnLoad() {
    });
 }
 
-// Rufe die Funktion auf, um die Funktionalität beim Laden der Seite anzuwenden
 applyThemeOnLoad();

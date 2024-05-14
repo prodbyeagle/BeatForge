@@ -11,32 +11,32 @@ document.addEventListener("auxclick", function (event) {
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 try {
-  if (userData) {
-    updateUI(userData);
-  } else {
-    throw new Error("User data not found in localStorage");
-  }
+    if (userData) {
+        updateUI(userData);
+    } else {
+        throw new Error("User data not found in localStorage");
+    }
 } catch (error) {
-  error(error.message);
+    error(error.message);
 }
 
 function updateUI(userData) {
-  const sidebarText = document.querySelectorAll(".sidebar a");
+    const sidebarText = document.querySelectorAll(".sidebar a");
 
-  sidebarText.forEach((item) => {
-    item.addEventListener("mouseenter", handleSidebarHover);
-    item.addEventListener("mouseleave", handleSidebarLeave);
-  });
-  profilePicImg.src = userData.profilePic;
-
-  const libraryItems = document.querySelectorAll(".library-item");
-
-  libraryItems.forEach((item) => {
-    item.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      showContextMenu(event);
+    sidebarText.forEach((item) => {
+        item.addEventListener("mouseenter", handleSidebarHover);
+        item.addEventListener("mouseleave", handleSidebarLeave);
     });
-  });
+    profilePicImg.src = userData.profilePic;
+
+    const libraryItems = document.querySelectorAll(".library-item");
+
+    libraryItems.forEach((item) => {
+        item.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+            showContextMenu(event);
+        });
+    });
 }
 
 function applySidebarListeners() {
@@ -143,10 +143,11 @@ function handleContextMenuItemClick(event, data) {
         const songTitle = data.songTitle;
         if (songTitle) {
             const artist = data.artist;
+            const album = data.album;
             if (action === "Delete Track") {
                 deleteTrack(songTitle, artist);
             } else if (action === "Edit Track") {
-                editTrack(songTitle, artist);
+                editTrack(songTitle, artist, album);
             } else if (action === "Edit Tags") {
                 editTags(songTitle);
             } else if (action === "Add to Queue") {
@@ -200,7 +201,7 @@ async function createLibraryItem(data, filePath) {
     playButton.style.cursor = "pointer"; // Setzt den Mauszeigerstil auf "Zeiger"
     playButton.style.color = "var(--tertiary-color)"; // Setzt die Schriftfarbe auf den Wert der CSS-Variable var(--tertiary-color)
 
-    playButton.addEventListener('click', function() {
+    playButton.addEventListener('click', function () {
         const audioPlayer = document.getElementById('audio-player');
 
         if (audioPlayer.paused || audioPlayer.ended) {
@@ -233,7 +234,7 @@ async function createLibraryItem(data, filePath) {
     }
 
     li.addEventListener('contextmenu', showContextMenu);
-    li.addEventListener('dblclick', function(event) {
+    li.addEventListener('dblclick', function (event) {
         playAudioFile(filePath, true);
     });
 
@@ -242,9 +243,9 @@ async function createLibraryItem(data, filePath) {
 
 async function getFoldersFromMainProcess() {
     try {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const folders = userData.folders || [];
-    return folders;
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const folders = userData.folders || [];
+        return folders;
     } catch (error) {
         console.error('Fehler beim Abrufen der Ordnerpfade vom Hauptprozess:', error);
         return [];
@@ -284,7 +285,7 @@ async function importFilesFromFoldersHelper(folderPaths) {
                             artist: artist,
                             length: length,
                             filePath: filePath,
-                            cover: cover // Hinzufügen des Coverbilds zum fileInfo-Objekt
+                            cover: cover
                         };
 
                         const libraryItem = await createLibraryItem(fileInfo, filePath); // Hier awaiten
@@ -479,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isVolumeDragging = false;
     }
 
-        progressRange.addEventListener('click', (event) => {
+    progressRange.addEventListener('click', (event) => {
         const rect = progressRange.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
         const progressWidth = rect.width;
@@ -629,28 +630,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-    async function autoplayNextSong(currentFilePath) {
-        try {
-            const songsList = document.getElementById("songs-list");
-            const currentSongIndex = Array.from(songsList.children).findIndex(item => item.dataset.filePath === currentFilePath);
-            const nextSongItem = songsList.children[currentSongIndex + 1];
+async function autoplayNextSong(currentFilePath) {
+    try {
+        const songsList = document.getElementById("songs-list");
+        const currentSongIndex = Array.from(songsList.children).findIndex(item => item.dataset.filePath === currentFilePath);
+        const nextSongItem = songsList.children[currentSongIndex + 1];
 
-            if (nextSongItem) {
-                const nextFilePath = nextSongItem.dataset.filePath;
-                await playAudioFile(nextFilePath);
-            } else {
-                // Wenn es keinen nächsten Song gibt, stoppe die Wiedergabe
-                const audioPlayer = document.getElementById('audio-player');
-                audioPlayer.pause();
-            }
-        } catch (error) {
-            console.error('Error autoplaying next song:', error);
+        if (nextSongItem) {
+            const nextFilePath = nextSongItem.dataset.filePath;
+            await playAudioFile(nextFilePath);
+        } else {
+            // Wenn es keinen nächsten Song gibt, stoppe die Wiedergabe
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.pause();
         }
+    } catch (error) {
+        console.error('Error autoplaying next song:', error);
+    }
+}
+
+// Funktion zum Mischen der Bibliothekselemente
+function shuffleLibraryItems() {
+    const libraryItems = document.querySelectorAll('.library-item');
+
+    // Merke die ursprüngliche Reihenfolge
+    const originalOrder = Array.from(libraryItems).map(item => item.cloneNode(true));
+
+    // Mische die Elemente
+    for (let i = libraryItems.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
     }
 
-    function shuffleLibraryItems() {
-        const libraryItems = document.querySelectorAll('.library-item');
-
+    // Zeige Toast-Nachricht
     Toastify({
         text: `Shuffle Songs...`,
         duration: 450,
@@ -662,10 +674,15 @@ document.addEventListener('DOMContentLoaded', () => {
         stopOnFocus: true,
     }).showToast();
 
-        for (let i = libraryItems.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
-        }
+    // Rückgängig machen, wenn mit der rechten Maustaste geklickt wird
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault(); // Verhindere das Standardkontextmenü
+
+        // Setze die Bibliothekselemente auf die ursprüngliche Reihenfolge zurück
+        const libraryContainer = document.querySelector('.library-container');
+        libraryContainer.innerHTML = '';
+        originalOrder.forEach(item => libraryContainer.appendChild(item));
+    });
 }
 
 function deleteTrack(songTitle, artist) {
@@ -686,19 +703,14 @@ function deleteTrack(songTitle, artist) {
     );
 }
 
-function editTrack(songTitle, artist) {
-    //! OVERLAY
+function editTrack(songTitle, artist, album) {
+    const fileInfo = {
+        title: songTitle,
+        artist: artist,
+        album: album,
+    };
 
-    Toastify({
-        text: `Track "${songTitle}" by ${artist} edited successfully! NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
-        duration: 1500,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "#00A36C",
-        },
-        stopOnFocus: true,
-    }).showToast();
+    createEditSongModal(fileInfo);
 }
 
 function editTags(songTitle) {
@@ -880,39 +892,6 @@ function scrollToLibraryItem(title) {
 
 
 //! Artist Search Function (wenn man klickt)
-
-
-
-//* Custom Confirm Code
-//* Custom Confirm Code
-//* Custom Confirm Code
-
-
-
-function openCustomConfirm(message, onConfirm) {
-    const overlay = document.querySelector(".confirm-overlay");
-    overlay.classList.add("show");
-
-    const confirm = document.getElementById("confirm");
-    const confirmationText = document.getElementById("confirmation_text");
-
-    confirmationText.textContent = message;
-    confirm.style.display = "block";
-
-    const confirmButton = document.getElementById("confirm_button");
-    const cancelButton = document.getElementById("cancel_button");
-
-    confirmButton.onclick = function () {
-        confirm.style.display = "none";
-        overlay.classList.remove("show");
-        onConfirm();
-    };
-
-    cancelButton.onclick = function () {
-        confirm.style.display = "none";
-        overlay.classList.remove("show");
-    };
-}
 
 
 

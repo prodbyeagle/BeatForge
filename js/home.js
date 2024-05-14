@@ -7,12 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeModalButton = document.querySelector(".close-modal");
     const latestBeatsElement = document.getElementById("latest-beats");
     const latestBeats = [];
+
+    updateGreeting();
+
     latestBeats.forEach((beat) => {
         const li = document.createElement("li");
         li.textContent = beat;
         latestBeatsElement.appendChild(li);
-
-        updateGreeting();
     });
 
     const latestDateElement = document.getElementById("latest-date");
@@ -96,8 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.addEventListener("click", function () {
         overlay.classList.remove("show");
         modal.classList.remove("show");
-
     });
+
+    // createModal('error', 'Es ist ein Fehler aufgetreten!', 'ERROR');
+    // createModal('warning', 'Achtung: Bitte überprüfe deine Eingaben!', 'Warnung');
+    // createModal('normal', 'Dies ist eine normale Benachrichtigung.', 'Hey!');
+
 });
 
 //* Close or In Background

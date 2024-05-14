@@ -153,7 +153,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 4;
+    z-index: 15;
     width: 60%;
     max-width: 600px;
     cursor: help;
@@ -610,7 +610,7 @@ body {
     align-items: center;
     justify-content: space-between;
     border-radius: 5px;
-    z-index: 12;
+    z-index: 5;
     transition: box-shadow 0.2s ease, border-radius 0.2s ease, transform 0.5s ease;
 }
 
@@ -734,7 +734,7 @@ body {
     left: 50%;
     color: #fff;
     transform: translate(-50%, -50%);
-    z-index: 6;
+    z-index: 5;
 }
 
 .search-bar {
@@ -747,7 +747,6 @@ body {
     outline: none;
     font-size: 16px;
     color: #fff;
-    z-index: 16;
 }
 
 .autocomplete-dropdown {
@@ -802,4 +801,15 @@ body {
 
 .blink {
     animation: blink 1s infinite;
+}
+
+.custom-input {
+    background-color: #fff;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    /* Fügen Sie Abstand zwischen den Inputs hinzu */
 }
