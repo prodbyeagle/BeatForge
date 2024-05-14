@@ -483,6 +483,19 @@ function restartApp() {
 }
 
 function performDebugActions() {
-  deleteConfigFile();
-  restartApp();
+  dialog.showMessageBox({
+    type: 'question',
+    buttons: ['Yes', 'No'],
+    title: 'Confirm Data Clearing',
+    message: 'Are you sure you want to clear your data?'
+  }).then((result) => {
+    if (result.response === 0) {
+      deleteConfigFile();
+      restartApp();
+    } else {
+      console.log('Data clearing cancelled.');
+    }
+  }).catch((err) => {
+    console.error(err);
+  });
 }
