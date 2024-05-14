@@ -1,7 +1,3 @@
-//* library.js
-let activeContextMenu = null;
-
-// Event-Listener
 document.addEventListener("auxclick", function (event) {
     if (event.button === 1) {
         event.preventDefault();
@@ -10,47 +6,11 @@ document.addEventListener("auxclick", function (event) {
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
-try {
-    if (userData) {
-        updateUI(userData);
-    } else {
-        throw new Error("User data not found in localStorage");
-    }
-} catch (error) {
-    error(error.message);
-}
+//* Context Code
+//* Context Code
+//* Context Code
 
-function updateUI(userData) {
-    const sidebarText = document.querySelectorAll(".sidebar a");
-
-    sidebarText.forEach((item) => {
-        item.addEventListener("mouseenter", handleSidebarHover);
-        item.addEventListener("mouseleave", handleSidebarLeave);
-    });
-    profilePicImg.src = userData.profilePic;
-
-    const libraryItems = document.querySelectorAll(".library-item");
-
-    libraryItems.forEach((item) => {
-        item.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-            showContextMenu(event);
-        });
-    });
-}
-
-function applySidebarListeners() {
-    const sidebarLinks = document.querySelectorAll(".sidebar a");
-    sidebarLinks.forEach(link => {
-        link.addEventListener("mouseenter", handleSidebarHover);
-        link.addEventListener("mouseleave", handleSidebarLeave);
-    });
-}
-
-function updateProfilePic(userData) {
-    const profilePicImg = document.getElementById("profile-pic");
-    profilePicImg.src = userData.profilePic;
-}
+let activeContextMenu = null;
 
 function applyLibraryItemListeners() {
     const libraryItems = document.querySelectorAll(".library-item");
@@ -59,32 +19,11 @@ function applyLibraryItemListeners() {
     });
 }
 
-// Sidebar Hover-Handling
-function handleSidebarHover(event) {
-    const accentColor = userData?.accentColor || "#000000";
-    const element = event.currentTarget;
-    const icon = element.querySelector("i");
-    element.style.color = accentColor;
-    if (icon) icon.style.color = accentColor;
-}
-
-function handleSidebarLeave(event) {
-    const element = event.currentTarget;
-    const icon = element.querySelector("i");
-    element.style.color = "var(--tertiary-color)";
-    if (icon) icon.style.color = "var(--tertiary-color)";
-}
-
-//* Context Menu Code
-//* Context Menu Code
-//* Context Menu Code
-
 function showContextMenu(event) {
     hideContextMenu();
     if (event.button === 2) {
         const libraryItem = event.target.closest('.library-item');
         if (libraryItem) {
-            // const artistParagraph = libraryItem.querySelector('p');
             const contextMenuHTML = createContextMenuHTML();
             document.body.insertAdjacentHTML("beforeend", contextMenuHTML);
             activeContextMenu = document.querySelector(".context-menu");
@@ -175,6 +114,27 @@ function hideContextMenu() {
     }
 }
 
+function applyContextMenuTheme(theme) {
+    const contextMenu = document.querySelector(".context-menu");
+    if (contextMenu) {
+        const secondaryColor = getColorByName(theme, "secondary");
+        const tertiaryColor = getColorByName(theme, "tertiary");
+        const quaternaryColor = getColorByName(theme, "quaternary");
+
+        contextMenu.style.backgroundColor = secondaryColor;
+        const menuItems = contextMenu.querySelectorAll(".context-menu-item");
+        menuItems.forEach(item => {
+            item.style.color = tertiaryColor;
+        });
+        const hr = contextMenu.querySelector("hr");
+        if (hr) hr.style.borderColor = quaternaryColor;
+    }
+}
+
+function getColorByName(theme, name) {
+    return theme.values.find(color => color.name === name).color;
+}
+
 //* Beat Code
 //* Beat Code
 //* Beat Code
@@ -198,8 +158,8 @@ async function createLibraryItem(data, filePath) {
     const playButton = document.createElement("button");
     playButton.innerHTML = '<i class="fas fa-play"></i>';
     playButton.classList.add("play-button");
-    playButton.style.cursor = "pointer"; // Setzt den Mauszeigerstil auf "Zeiger"
-    playButton.style.color = "var(--tertiary-color)"; // Setzt die Schriftfarbe auf den Wert der CSS-Variable var(--tertiary-color)
+    playButton.style.cursor = "pointer";
+    playButton.style.color = "var(--tertiary-color)";
 
     playButton.addEventListener('click', function () {
         const audioPlayer = document.getElementById('audio-player');
@@ -270,7 +230,6 @@ async function importFilesFromFoldersHelper(folderPaths) {
                     if (file.endsWith('.mp3') || file.endsWith('.wav')) {
                         const filePath = folderPath + '/' + file;
 
-                        // Metadaten extrahieren
                         const [artist, album, length, cover] = await Promise.all([
                             window.audioMetadata.extractArtist(filePath),
                             window.audioMetadata.extractAlbum(filePath),
@@ -288,7 +247,7 @@ async function importFilesFromFoldersHelper(folderPaths) {
                             cover: cover
                         };
 
-                        const libraryItem = await createLibraryItem(fileInfo, filePath); // Hier awaiten
+                        const libraryItem = await createLibraryItem(fileInfo, filePath);
                         const songsList = document.getElementById("songs-list");
                         songsList.appendChild(libraryItem);
                     }
@@ -310,7 +269,7 @@ async function togglePlayPause(event, filePath) {
 
     try {
         if (audioPlayer.paused || audioPlayer.ended) {
-            await playAudioFile(filePath, true);; // Hier wird der Song nur gespielt, wenn er pausiert oder beendet ist
+            await playAudioFile(filePath, true);;
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         } else {
             audioPlayer.pause();
@@ -321,7 +280,6 @@ async function togglePlayPause(event, filePath) {
     }
 }
 
-// Aktualisierte playAudioFile-Funktion mit Autoplay-Unterstützung
 async function playAudioFile(filePath, autoplay = false) {
     try {
         const audioPlayer = document.getElementById('audio-player');
@@ -329,8 +287,8 @@ async function playAudioFile(filePath, autoplay = false) {
 
         if (audioPlayer.src !== filePath) {
             audioPlayer.src = filePath;
-            await audioPlayer.load(); // Neues Laden des Audio-Elements, um sicherzustellen, dass die Metadaten aktualisiert werden
-            playButton.innerHTML = '<i class="fas fa-play"></i>'; // Setze den Button-Text zurück, wenn eine neue Datei geladen wird
+            await audioPlayer.load();
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
 
         if (audioPlayer.paused || audioPlayer.ended) {
@@ -344,7 +302,6 @@ async function playAudioFile(filePath, autoplay = false) {
             playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
 
-        // Wenn Autoplay aktiviert ist, spiele den nächsten Song automatisch ab
         if (autoplay) {
             audioPlayer.addEventListener('ended', () => {
                 autoplayNextSong(filePath);
@@ -401,7 +358,7 @@ function updateProgress() {
 
     if (!isNaN(totalTime)) {
         progressBar.style.width = `${(currentTime / totalTime) * 100}%`;
-        updateProgressBallPosition(); // Aktualisiere die Position der Kugel entsprechend dem Fortschritt
+        updateProgressBallPosition();
     } else {
         progressBar.style.width = '0';
     }
@@ -439,8 +396,6 @@ function updateVolume(mouseX) {
     let volumePercentage = ((mouseX - rect.left) / volumeWidth) * 100;
     volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
     volumeRange.style.width = volumePercentage + '%';
-
-    // Update audio player volume
     const volume = volumePercentage / 100;
     audioPlayer.volume = volume;
 }
@@ -460,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mouseup', stopVolumeDragging);
 
     function startVolumeDragging(event) {
-        event.preventDefault(); // Verhindert Standardverhalten (z. B. Textauswahl)
+        event.preventDefault();
         isVolumeDragging = true;
         handleVolumeDrag(event);
     }
@@ -502,19 +457,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveVolumeSetting(volumePercentage) {
-        localStorage.setItem('volumePercentage', volumePercentage);
+        if (!userData) {
+            console.error('userData not found.');
+            return;
+        }
+
+        userData.volumePercentage = volumePercentage;
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 
     function loadVolumeSetting() {
-        const savedVolumePercentage = localStorage.getItem('volumePercentage');
-        if (savedVolumePercentage !== null) {
-            setVolume(savedVolumePercentage);
-        }
+        const savedUserData = JSON.parse(localStorage.getItem('userData'));
+        console.log(savedUserData.volumePercentage)
+        return savedUserData && savedUserData.volumePercentage ? savedUserData.volumePercentage : 100;
     }
-
-    loadVolumeSetting();
-
-    //* Progress Bar
 
     progressRange.addEventListener('click', (event) => {
         const rect = progressRange.getBoundingClientRect();
@@ -614,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
     }
 
-    //* MUTE/UNMUTE
+
 
     const volumeButton = document.getElementById('volume-button');
     volumeButton.addEventListener('click', toggleMute);
@@ -640,7 +596,7 @@ async function autoplayNextSong(currentFilePath) {
             const nextFilePath = nextSongItem.dataset.filePath;
             await playAudioFile(nextFilePath);
         } else {
-            // Wenn es keinen nächsten Song gibt, stoppe die Wiedergabe
+
             const audioPlayer = document.getElementById('audio-player');
             audioPlayer.pause();
         }
@@ -649,20 +605,17 @@ async function autoplayNextSong(currentFilePath) {
     }
 }
 
-// Funktion zum Mischen der Bibliothekselemente
+
 function shuffleLibraryItems() {
     const libraryItems = document.querySelectorAll('.library-item');
 
-    // Merke die ursprüngliche Reihenfolge
-    const originalOrder = Array.from(libraryItems).map(item => item.cloneNode(true));
 
-    // Mische die Elemente
     for (let i = libraryItems.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
     }
 
-    // Zeige Toast-Nachricht
+
     Toastify({
         text: `Shuffle Songs...`,
         duration: 450,
@@ -673,17 +626,129 @@ function shuffleLibraryItems() {
         },
         stopOnFocus: true,
     }).showToast();
-
-    // Rückgängig machen, wenn mit der rechten Maustaste geklickt wird
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault(); // Verhindere das Standardkontextmenü
-
-        // Setze die Bibliothekselemente auf die ursprüngliche Reihenfolge zurück
-        const libraryContainer = document.querySelector('.library-container');
-        libraryContainer.innerHTML = '';
-        originalOrder.forEach(item => libraryContainer.appendChild(item));
-    });
 }
+
+function saveSortOptionToUserData(option) {
+
+    if (!userData) {
+        console.error('userData not found.');
+        return;
+    }
+
+    if (!userData.sortOption) {
+        userData.sortOption = {};
+    }
+
+    userData.sortOption = option;
+}
+
+function loadSortOptionFromUserData() {
+    if (userData && userData.sortOption) {
+        return userData.sortOption;
+    } else {
+        return 'album';
+    }
+}
+
+function sortByAlbum() {
+    try {
+        const libraryContainer = document.getElementById('songs-list');
+        if (!libraryContainer) {
+            console.error('Library container not found.');
+            return;
+        }
+
+        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
+        if (libraryItems.length === 0) {
+            console.warn('No library items found.');
+            return;
+        }
+
+        libraryItems.sort((a, b) => {
+            const albumA = a.getAttribute('data-album').toLowerCase();
+            const albumB = b.getAttribute('data-album').toLowerCase();
+            return albumA.localeCompare(albumB);
+        });
+
+        libraryItems.forEach(item => libraryContainer.appendChild(item));
+    } catch (error) {
+        console.error('Error sorting library by album:', error);
+    }
+    saveSortOptionToUserData('album');
+}
+
+function sortByDuration() {
+    try {
+        const libraryContainer = document.getElementById('songs-list');
+        if (!libraryContainer) {
+            console.error('Library container not found.');
+            return;
+        }
+
+        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
+        if (libraryItems.length === 0) {
+            console.warn('No library items found.');
+            return;
+        }
+
+        libraryItems.sort((a, b) => {
+            const durationA = parseFloat(a.getAttribute('data-length'));
+            const durationB = parseFloat(b.getAttribute('data-length'));
+            return durationA - durationB;
+        });
+
+        libraryItems.forEach(item => libraryContainer.appendChild(item));
+    } catch (error) {
+        console.error('Error sorting library by duration:', error);
+    }
+
+    saveSortOptionToUserData('duration');
+}
+
+
+function sortByTitle() {
+    try {
+        const libraryContainer = document.getElementById('songs-list');
+        if (!libraryContainer) {
+            console.error('Library container not found.');
+            return;
+        }
+
+        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
+        if (libraryItems.length === 0) {
+            console.warn('No library items found.');
+            return;
+        }
+
+        libraryItems.sort((a, b) => {
+            const titleA = a.getAttribute('data-song-title').toLowerCase();
+            const titleB = b.getAttribute('data-song-title').toLowerCase();
+            return titleA.localeCompare(titleB);
+        });
+
+        libraryItems.forEach(item => libraryContainer.appendChild(item));
+    } catch (error) {
+        console.error('Error sorting library by title:', error);
+    }
+    saveSortOptionToUserData('title');
+}
+
+
+const sortSelect = document.getElementById('sort-select');
+const savedSortOption = loadSortOptionFromUserData();
+sortSelect.value = savedSortOption;
+
+sortSelect.addEventListener('change', function () {
+    const selectedValue = sortSelect.value;
+
+    if (selectedValue === 'album') {
+        sortByAlbum();
+    } else if (selectedValue === 'duration') {
+        sortByDuration();
+    } else if (selectedValue === 'title') {
+        sortByTitle();
+    }
+});
 
 function deleteTrack(songTitle, artist) {
     openCustomConfirm(
@@ -709,13 +774,10 @@ function editTrack(songTitle, artist, album) {
         artist: artist,
         album: album,
     };
-
     createEditSongModal(fileInfo);
 }
 
 function editTags(songTitle) {
-    //! OVERLAY
-
     Toastify({
         text: `"${songTitle}" Tags edited successfully! NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
         duration: 1500,
@@ -729,8 +791,6 @@ function editTags(songTitle) {
 }
 
 function addToQueue(songTitle) {
-    //? This Code needs to be Adding the Song to an Queue so it can play those Song after the Others (maybe Playlists?)
-
     Toastify({
         text: `"${songTitle}" added successfully to Queue! NOT REAL NOT REAL NOT REAL NOT REAL`,
         duration: 1500,
@@ -743,10 +803,9 @@ function addToQueue(songTitle) {
     }).showToast();
 }
 
-
-//* Search
-//* Search
-//* Search
+//* Search & Autocomplete Code
+//* Search & Autocomplete Code
+//* Search & Autocomplete Code
 
 const libraryItems = document.querySelectorAll(".library-item");
 const searchBar = document.querySelector(".search-bar");
@@ -808,7 +867,6 @@ function autocomplete(searchTerm) {
                         suggestions.push(artistName);
                     }
                 }
-                // Wenn der Filtertyp "album" ist, füge den Titel des Albums zur Vorschlagsliste hinzu
                 else if (filterType === 'album') {
                     const albumTitle = card.querySelector('p:nth-of-type(2)').textContent.replace('Album: ', '').toLowerCase();
                     if (!suggestions.includes(albumTitle)) {
@@ -848,7 +906,7 @@ function autocomplete(searchTerm) {
     }
 }
 
-// Funktion zum Zurücksetzen des Autocomplete
+
 function resetAutocomplete() {
     const autocompleteContainer = document.getElementById("autocomplete-container");
     autocompleteContainer.innerHTML = '';
@@ -886,43 +944,9 @@ function scrollToLibraryItem(title) {
     }
 }
 
-
-//! Album Search Function (wenn man klickt)
-
-
-
-//! Artist Search Function (wenn man klickt)
-
-
-
-//* Theme Code
-//* Theme Code
-//* Theme Code
-
-function applyContextMenuTheme(theme) {
-    const contextMenu = document.querySelector(".context-menu");
-    if (contextMenu) {
-        const secondaryColor = getColorByName(theme, "secondary");
-        const tertiaryColor = getColorByName(theme, "tertiary");
-        const quaternaryColor = getColorByName(theme, "quaternary");
-
-        contextMenu.style.backgroundColor = secondaryColor;
-        const menuItems = contextMenu.querySelectorAll(".context-menu-item");
-        menuItems.forEach(item => {
-            item.style.color = tertiaryColor;
-        });
-        const hr = contextMenu.querySelector("hr");
-        if (hr) hr.style.borderColor = quaternaryColor;
-    }
-}
-
-function getColorByName(theme, name) {
-    return theme.values.find(color => color.name === name).color;
-}
-
-//* Close or In Background
-//* Close or In Background
-//* Close or In Background
+//* Other Code
+//* Other Code
+//* Other Code
 
 let closeAction = localStorage.getItem("closeAction");
 

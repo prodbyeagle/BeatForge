@@ -66,18 +66,15 @@ async function checkForUpdates() {
           const choice = await dialog.showMessageBox(null, options);
           if (choice.response === 0) {
             downloadAndInstallUpdate(url);
-            console.log('User chose to update.');
           } else {
-            console.log('User chose not to update.');
           }
         } else {
           console.log('Fehler beim Abrufen der neuesten Version.');
         }
       } else {
-        console.log('Die aktuelle Version ist auf dem neuesten Stand.');
+        // console.log('Die aktuelle Version ist auf dem neuesten Stand.');
       }
     } else {
-      // Zeige eine Dialognachricht an, dass keine Updates verfügbar sind
       const options = {
         type: 'info',
         buttons: ['OK'],

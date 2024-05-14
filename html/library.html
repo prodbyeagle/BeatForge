@@ -56,6 +56,11 @@
 
     <div class="container">
         <div class="card">
+            <select id="sort-select">
+                <option value="album">Sort by Album</option>
+                <option value="duration">Sort by Duration</option>
+                <option value="title">Sort by Title</option>
+            </select>
             <h1>Library</h1>
             <div class="section">
                 <ul id="songs-list" class="library-list">
@@ -89,6 +94,7 @@
     <script src="../functions/toggleAppCloseAction.js"></script>
     <script src="../functions/openCustomConfirm.js"></script>
     <script src="../functions/createEditSongModal.js"></script>
+    <script src="../functions/handleSidebarHoverLeave.js"></script>
 
     <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
