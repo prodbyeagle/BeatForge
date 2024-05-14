@@ -95,8 +95,7 @@ body {
     align-items: center;
 }
 
-.sidebar hr,
-.debug_modal hr {
+.sidebar hr {
     border: none;
     border-top: 2px solid var(--quaternary-color);
     margin: 20px 0;
@@ -143,8 +142,7 @@ body {
     }
 }
 
-.modal,
-.debug_modal {
+.modal {
     display: none;
     position: fixed;
     top: 50%;
@@ -177,20 +175,17 @@ body {
     display: block;
 }
 
-.modal h2,
-.debug_modal h2 {
+.modal h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.modal ul,
-.debug_modal ul {
+.modal ul {
     list-style-type: none;
     padding: 0;
 }
 
-.modal li,
-.debug_modal li {
+.modal li {
     font-size: 16px;
     margin-bottom: 10px;
     line-height: 1.5;
@@ -295,8 +290,7 @@ body {
 }
 
 .button,
-#sort-random-beat,
-#debug-button {
+#sort-random-beat {
     background-color: var(--secondary-color);
     color: #fff;
     padding: 10px;
@@ -307,15 +301,13 @@ body {
 }
 
 .button:hover,
-#sort-random-beat:hover,
-#debug-button:hover {
+#sort-random-beat:hover {
     transform: scale(0.96);
     border-radius: 15px;
 }
 
 .button:active,
-#sort-random-beat:active,
-#debug-button:active {
+#sort-random-beat:active {
     transform: scale(1.05);
 }
 
