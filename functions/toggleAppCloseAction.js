@@ -1,20 +1,23 @@
 function toggleAppCloseAction() {
    let userData = JSON.parse(localStorage.getItem("userData"));
-   let closeAction = userData.closeAction;
+   let closeAction = userData ? userData.closeAction : null;
 
    if (!closeAction) {
       closeAction = "close";
-      userData.closeAction = closeAction;
+      userData = { closeAction: closeAction };
       localStorage.setItem("userData", JSON.stringify(userData));
    }
 
    const toggleAppButton = document.getElementById("toggleApp");
 
    if (toggleAppButton) {
+      const buttonText = closeAction === "close" ? "❌ Close App" : "➖ Minimize App";
+      toggleAppButton.innerText = buttonText; // Setze den Button-Text basierend auf closeAction
+
       toggleAppButton.addEventListener("click", () => {
          closeAction = closeAction === "close" ? "minimize" : "close";
-         const buttonText = closeAction === "close" ? "Close App" : "Minimize App";
-         toggleAppButton.innerText = buttonText;
+         const buttonText = closeAction === "close" ? "❌ Close App" : "➖ Minimize App";
+         toggleAppButton.innerText = buttonText; // Setze den Button-Text basierend auf closeAction
          userData.closeAction = closeAction;
          localStorage.setItem("userData", JSON.stringify(userData));
 
