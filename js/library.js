@@ -639,7 +639,6 @@ function shuffleLibraryItems() {
         libraryItems[i].parentNode.insertBefore(libraryItems[j], libraryItems[i]);
     }
 
-
     Toastify({
         text: `Shuffle Songs...`,
         duration: 450,
@@ -651,128 +650,6 @@ function shuffleLibraryItems() {
         stopOnFocus: true,
     }).showToast();
 }
-
-function saveSortOptionToUserData(option) {
-
-    if (!userData) {
-        console.error('userData not found.');
-        return;
-    }
-
-    if (!userData.sortOption) {
-        userData.sortOption = {};
-    }
-
-    userData.sortOption = option;
-}
-
-function loadSortOptionFromUserData() {
-    if (userData && userData.sortOption) {
-        return userData.sortOption;
-    } else {
-        return 'album';
-    }
-}
-
-function sortByAlbum() {
-    try {
-        const libraryContainer = document.getElementById('songs-list');
-        if (!libraryContainer) {
-            console.error('Library container not found.');
-            return;
-        }
-
-        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
-        if (libraryItems.length === 0) {
-            console.warn('No library items found.');
-            return;
-        }
-
-        libraryItems.sort((a, b) => {
-            const albumA = a.getAttribute('data-album').toLowerCase();
-            const albumB = b.getAttribute('data-album').toLowerCase();
-            return albumA.localeCompare(albumB);
-        });
-
-        libraryItems.forEach(item => libraryContainer.appendChild(item));
-    } catch (error) {
-        console.error('Error sorting library by album:', error);
-    }
-    saveSortOptionToUserData('album');
-}
-
-function sortByDuration() {
-    try {
-        const libraryContainer = document.getElementById('songs-list');
-        if (!libraryContainer) {
-            console.error('Library container not found.');
-            return;
-        }
-
-        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
-        if (libraryItems.length === 0) {
-            console.warn('No library items found.');
-            return;
-        }
-
-        libraryItems.sort((a, b) => {
-            const durationA = parseFloat(a.getAttribute('data-length'));
-            const durationB = parseFloat(b.getAttribute('data-length'));
-            return durationA - durationB;
-        });
-
-        libraryItems.forEach(item => libraryContainer.appendChild(item));
-    } catch (error) {
-        console.error('Error sorting library by duration:', error);
-    }
-
-    saveSortOptionToUserData('duration');
-}
-
-
-function sortByTitle() {
-    try {
-        const libraryContainer = document.getElementById('songs-list');
-        if (!libraryContainer) {
-            console.error('Library container not found.');
-            return;
-        }
-
-        const libraryItems = Array.from(libraryContainer.querySelectorAll('.library-item'));
-        if (libraryItems.length === 0) {
-            console.warn('No library items found.');
-            return;
-        }
-
-        libraryItems.sort((a, b) => {
-            const titleA = a.getAttribute('data-song-title').toLowerCase();
-            const titleB = b.getAttribute('data-song-title').toLowerCase();
-            return titleA.localeCompare(titleB);
-        });
-
-        libraryItems.forEach(item => libraryContainer.appendChild(item));
-    } catch (error) {
-        console.error('Error sorting library by title:', error);
-    }
-    saveSortOptionToUserData('title');
-}
-
-
-const sortSelect = document.getElementById('sort-select');
-const savedSortOption = loadSortOptionFromUserData();
-sortSelect.value = savedSortOption;
-
-sortSelect.addEventListener('change', function () {
-    const selectedValue = sortSelect.value;
-
-    if (selectedValue === 'album') {
-        sortByAlbum();
-    } else if (selectedValue === 'duration') {
-        sortByDuration();
-    } else if (selectedValue === 'title') {
-        sortByTitle();
-    }
-});
 
 function deleteTrack(songTitle, artist) {
     openCustomConfirm(

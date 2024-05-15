@@ -802,27 +802,3 @@ body {
 .blink {
     animation: blink 1s infinite;
 }
-
-.custom-input {
-    background-color: var(--primary-color);
-    color: var(--tertiary-color);
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    /* Fügen Sie Abstand zwischen den Inputs hinzu */
-}
-
-#sort-select {
-    background-color: var(--secondary-color);
-    color: var(--tertiary-color);
-    width: 25%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    /* Fügen Sie Abstand zwischen den Inputs hinzu */
-}
