@@ -520,9 +520,11 @@ document.addEventListener('DOMContentLoaded', () => {
         audioPlayer.play();
     }
 
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    let totalTimeDisplayMode = userData.totalTimeDisplayMode || 'normal';
+
     const totalTimeElement = document.getElementById('total-time');
     let timerId;
-    let totalTimeDisplayMode = localStorage.getItem('totalTimeDisplayMode') || 'normal';
 
     updateTotalTimeDisplay();
     totalTimeElement.addEventListener('click', toggleTotalTimeDisplay);
@@ -534,7 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
             totalTimeDisplayMode = 'normal';
         }
         updateTotalTimeDisplay();
-        localStorage.setItem('totalTimeDisplayMode', totalTimeDisplayMode);
+        userData.totalTimeDisplayMode = totalTimeDisplayMode;
+        localStorage.setItem("userData", JSON.stringify(userData));
     }
 
     function updateTotalTimeDisplay() {
@@ -569,8 +572,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
     }
-
-
 
     const volumeButton = document.getElementById('volume-button');
     volumeButton.addEventListener('click', toggleMute);
