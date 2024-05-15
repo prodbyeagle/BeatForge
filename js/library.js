@@ -139,6 +139,8 @@ function getColorByName(theme, name) {
 //* Beat Code
 //* Beat Code
 
+let autoplayListenerAdded = false;
+
 async function createLibraryItem(data, filePath) {
     const li = document.createElement("li");
     li.classList.add("library-item");
@@ -285,6 +287,11 @@ async function playAudioFile(filePath, autoplay = false) {
         const audioPlayer = document.getElementById('audio-player');
         const playButton = document.querySelector('.play-button');
 
+        // Check if the next song is already playing
+        if (audioPlayer.src === filePath && !audioPlayer.paused) {
+            return;
+        }
+
         if (audioPlayer.src !== filePath) {
             audioPlayer.src = filePath;
             await audioPlayer.load();
@@ -297,19 +304,27 @@ async function playAudioFile(filePath, autoplay = false) {
             togglePlayerControls(true);
             updateTotalTime(formatTime(audioPlayer.duration));
             highlightCurrentPlayingCard(filePath);
+
+            // Remove existing event listener if it exists
+            audioPlayer.removeEventListener('ended', handleAutoplayNext);
+
+            // Add event listener for autoplay
+            if (autoplay) {
+                audioPlayer.addEventListener('ended', handleAutoplayNext);
+            }
         } else {
             audioPlayer.pause();
             playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
-
-        if (autoplay) {
-            audioPlayer.addEventListener('ended', () => {
-                autoplayNextSong(filePath);
-            });
-        }
     } catch (error) {
         console.error('Error playing audio file:', error);
     }
+}
+
+function handleAutoplayNext() {
+    const audioPlayer = document.getElementById('audio-player');
+    const currentFilePath = audioPlayer.src;
+    autoplayNextSong(currentFilePath);
 }
 
 function highlightCurrentPlayingCard(filePath) {
@@ -590,22 +605,30 @@ document.addEventListener('DOMContentLoaded', () => {
 async function autoplayNextSong(currentFilePath) {
     try {
         const songsList = document.getElementById("songs-list");
-        const currentSongIndex = Array.from(songsList.children).findIndex(item => item.dataset.filePath === currentFilePath);
-        const nextSongItem = songsList.children[currentSongIndex + 1];
+        const currentSongItem = Array.from(songsList.children).find(item => item.dataset.filePath === currentFilePath);
 
-        if (nextSongItem) {
-            const nextFilePath = nextSongItem.dataset.filePath;
-            await playAudioFile(nextFilePath);
+        // Überprüfen, ob das aktuelle Song-Element gefunden wurde
+        if (currentSongItem) {
+            const currentSongIndex = Array.from(songsList.children).indexOf(currentSongItem);
+            const nextSongItem = songsList.children[currentSongIndex + 1];
+
+            // Überprüfen, ob das nächste Song-Element vorhanden ist
+            if (nextSongItem) {
+                const nextFilePath = nextSongItem.dataset.filePath;
+                await playAudioFile(nextFilePath);
+                console.log('Next song played successfully.');
+            } else {
+                const audioPlayer = document.getElementById('audio-player');
+                audioPlayer.pause();
+                console.log('No next song available. Audio player paused.');
+            }
         } else {
-
-            const audioPlayer = document.getElementById('audio-player');
-            audioPlayer.pause();
+            console.error('Current song item not found.');
         }
     } catch (error) {
         console.error('Error autoplaying next song:', error);
     }
 }
-
 
 function shuffleLibraryItems() {
     const libraryItems = document.querySelectorAll('.library-item');
