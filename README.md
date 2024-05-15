@@ -18,7 +18,7 @@ BeatForge is an advanced app designed for producers who want to better organize 
 
 ## Installation
 
-To install BeatForge, simply download the installer executable file from the [release page](https://github.com/prodbyeagle/BeatForge/tags) and follow the on-screen instructions.
+To install BeatForge, simply download the installer executable file from the [release page](https://github.com/prodbyeagle/BeatForge/releases) and follow the on-screen instructions.
 
 ## Feedback
 
