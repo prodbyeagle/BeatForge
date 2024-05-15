@@ -944,15 +944,16 @@ function scrollToLibraryItem(title) {
     }
 }
 
-//* Other Code
-//* Other Code
-//* Other Code
+//* Close or In Background
+//* Close or In Background
+//* Close or In Background
 
-let closeAction = localStorage.getItem("closeAction");
+let closeAction = userData.closeAction;
 
 if (!closeAction) {
     closeAction = "close";
-    localStorage.setItem("closeAction", closeAction);
+    userData.closeAction = closeAction;
+    localStorage.setItem("userData", JSON.stringify(userData));
 }
 
 document.getElementById("close").addEventListener("click", () => {

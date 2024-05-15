@@ -369,11 +369,11 @@ document.addEventListener("DOMContentLoaded", function () {
   //* Close or In Background
   //* Close or In Background
 
-  let closeAction = localStorage.getItem("closeAction");
+  let closeAction = localStorage.getItem(userData.closeAction);
 
   if (!closeAction) {
     closeAction = "close";
-    localStorage.setItem("closeAction", closeAction);
+    localStorage.setItem(userData.closeAction, closeAction);
   }
 
   document.getElementById("close").addEventListener("click", () => {

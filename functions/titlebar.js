@@ -2,11 +2,13 @@
 // const { ipcRenderer } = require('electron') is in preload.js defined;
 
 document.addEventListener("DOMContentLoaded", function () {
-    let closeAction = localStorage.getItem("closeAction");
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    let closeAction = userData.closeAction;
 
     if (!closeAction) {
         closeAction = "close";
-        localStorage.setItem("closeAction", closeAction);
+        userData.closeAction = closeAction;
+        localStorage.setItem("userData", JSON.stringify(userData));
     }
 
     document.querySelector("#close").addEventListener("click", () => {
