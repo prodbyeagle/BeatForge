@@ -1,4 +1,4 @@
-
+const userData = JSON.parse(localStorage.getItem("userData"));
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("settings-form");
@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = form.username.value;
     const profilePicInput = form["profile-pic"];
     const accentColor = form["accent-color"].value;
-    const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (username !== "" && username !== userData.username) {
       userData.username = username;
@@ -369,11 +368,12 @@ document.addEventListener("DOMContentLoaded", function () {
   //* Close or In Background
   //* Close or In Background
 
-  let closeAction = localStorage.getItem(userData.closeAction);
+  let closeAction = userData.closeAction;
 
   if (!closeAction) {
     closeAction = "close";
-    localStorage.setItem(userData.closeAction, closeAction);
+    userData.closeAction = closeAction;
+    localStorage.setItem("userData", JSON.stringify(userData));
   }
 
   document.getElementById("close").addEventListener("click", () => {
