@@ -65,6 +65,10 @@
         </div>
     </div>
 
+    <div id="loading-indicator" class="loading-indicator">
+        <l-metronome class="spinner" size="40" speed="1.6" color="var(--secondary-color)"></l-metronome>
+    </div>
+
     <div id="player-controls">
         <div id="current-time">0:00</div>
         <div id="track-progress">
@@ -83,16 +87,19 @@
     </div>
 
     <script src="../js/library.js"></script>
+    <script src="../functions/tags.js"></script>
     <script src="../functions/titlebar.js"></script>
-    <script src="../functions/handleWindowFocusBlur.js"></script>
+    <script src="../functions/importFiles.js"></script>
     <script src="../functions/applyThemeOnLoad.js"></script>
-    <script src="../functions/toggleAppCloseAction.js"></script>
     <script src="../functions/openCustomConfirm.js"></script>
     <script src="../functions/createEditSongModal.js"></script>
+    <script src="../functions/toggleAppCloseAction.js"></script>
+    <script src="../functions/handleWindowFocusBlur.js"></script>
     <script src="../functions/handleSidebarHoverLeave.js"></script>
 
-    <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://kit.fontawesome.com/aee75c1c72.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/metronome.js"></script>
 </body>
 
 </html>

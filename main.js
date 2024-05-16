@@ -35,7 +35,7 @@ async function checkForUpdates() {
     // Überprüfe, ob seit dem letzten Update-Check mehr als 5 Minuten vergangen sind
     if (lastUpdateCheckTime && (Date.now() - lastUpdateCheckTime) < 5 * 60 * 1000) {
       const remainingCooldown = Math.ceil((5 * 60 * 1000 - (Date.now() - lastUpdateCheckTime)) / 1000 / 60); // Berechne verbleibende Minuten bis zum Ende des Cooldowns
-      const cooldownMessage = `Please wait for ${remainingCooldown} minute(s) before checking for updates again.`;
+      const cooldownMessage = `Please wait for ${remainingCooldown} minute(s) before checking for updates again. (its for anti spam sorry!)`;
       const cooldownOptions = {
         type: 'info',
         buttons: ['OK'],
@@ -271,7 +271,7 @@ if (!gotTheLock) {
     }
 
     //* Tray
-    tray = new Tray(path.join(__dirname, 'assets', 'testicon.png'));
+    tray = new Tray(path.join(__dirname, 'assets', 'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
       {
         label: 'Beatforge v0.5.1',
@@ -357,7 +357,7 @@ if (!gotTheLock) {
         autoHideMenuBar: true,
         fullscreenable: false,
         frame: false,
-        icon: path.join(__dirname, "assets", "testicon.png"),
+        icon: path.join(__dirname, "assets", "icon.png"),
         webPreferences: {
           nodeIntegration: true,
           preload: path.join(__dirname, "functions", "preload.js"),
@@ -384,7 +384,7 @@ if (!gotTheLock) {
         autoHideMenuBar: true,
         fullscreenable: false,
         frame: false,
-        icon: path.join(__dirname, "assets", "testicon.png"),
+        icon: path.join(__dirname, "assets", "icon.png"),
         webPreferences: {
           nodeIntegration: true,
           preload: path.join(__dirname, "functions", "preload.js"),

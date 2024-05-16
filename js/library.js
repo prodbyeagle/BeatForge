@@ -5,6 +5,7 @@ document.addEventListener("auxclick", function (event) {
 });
 
 const userData = JSON.parse(localStorage.getItem("userData"));
+const tags = userData.tags;
 
 //* Context Code
 //* Context Code
@@ -38,12 +39,11 @@ function createContextMenuHTML() {
     return `
         <div class="context-menu">
             <ul>
+                <li title="😜" class="context-menu-item-noninteractive">😜</li>
+                <hr>
                 <li title="Delete the Track" class="context-menu-item">Delete Track</li>
                 <li title="Edit The Metadata" class="context-menu-item">Edit Track</li>
                 <li title="Edit the Current Tags" class="context-menu-item">Edit Tags</li>
-                <hr>
-                <li title="Delete the Track" class="context-menu-item">Go to Album</li>
-                <li title="Edit The Metadata" class="context-menu-item">Go to Artist</li>
                 <hr>
                 <li title="Tags" class="context-menu-item-noninteractive">Tags Placeholder</li>
             </ul>
@@ -88,7 +88,7 @@ function handleContextMenuItemClick(event, data) {
             } else if (action === "Edit Track") {
                 editTrack(songTitle, artist, album);
             } else if (action === "Edit Tags") {
-                editTags(songTitle);
+                createEditTagModal(tags)
             } else if (action === "Add to Queue") {
                 addToQueue(songTitle);
             }
@@ -141,128 +141,6 @@ function getColorByName(theme, name) {
 
 let autoplayListenerAdded = false;
 
-async function createLibraryItem(data, filePath) {
-    const li = document.createElement("li");
-    li.classList.add("library-item");
-
-    const h2 = document.createElement("h2");
-    h2.textContent = data.title;
-
-    const p1 = document.createElement("p");
-    p1.textContent = "Artist: " + data.artist;
-
-    const p2 = document.createElement("p");
-    p2.textContent = "Album: " + data.album;
-
-    const p3 = document.createElement("p");
-    p3.textContent = "Length: " + data.length;
-
-    const playButton = document.createElement("button");
-    playButton.innerHTML = '<i class="fas fa-play"></i>';
-    playButton.classList.add("play-button");
-    playButton.style.cursor = "pointer";
-    playButton.style.color = "var(--tertiary-color)";
-
-    playButton.addEventListener('click', function () {
-        const audioPlayer = document.getElementById('audio-player');
-
-        if (audioPlayer.paused || audioPlayer.ended) {
-            playAudioFile(filePath, true);
-            playButton.innerHTML = '<i class="fas fa-pause"></i>';
-        } else {
-            audioPlayer.pause();
-            playButton.innerHTML = '<i class="fas fa-play"></i>';
-        }
-    });
-
-    li.dataset.songTitle = data.title;
-    li.dataset.artist = data.artist;
-    li.dataset.album = data.album;
-    li.dataset.length = data.length;
-    li.dataset.filePath = filePath;
-
-    li.appendChild(h2);
-    li.appendChild(p1);
-    li.appendChild(p2);
-    li.appendChild(p3);
-    li.appendChild(playButton);
-
-    if (data.cover) {
-        const coverImg = document.createElement("img");
-        coverImg.classList.add("cover-image");
-        coverImg.src = data.cover;
-
-        li.appendChild(coverImg);
-    }
-
-    li.addEventListener('contextmenu', showContextMenu);
-    li.addEventListener('dblclick', function (event) {
-        playAudioFile(filePath, true);
-    });
-
-    return li;
-}
-
-async function getFoldersFromMainProcess() {
-    try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const folders = userData.folders || [];
-        return folders;
-    } catch (error) {
-        console.error('Fehler beim Abrufen der Ordnerpfade vom Hauptprozess:', error);
-        return [];
-    }
-}
-
-async function importFilesFromFolders() {
-    try {
-        const folders = await getFoldersFromMainProcess();
-        await importFilesFromFoldersHelper(folders);
-    } catch (error) {
-        console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
-    }
-}
-
-async function importFilesFromFoldersHelper(folderPaths) {
-    try {
-        if (Array.isArray(folderPaths)) {
-            for (const folderPath of folderPaths) {
-                const files = await window.fileSystem.readDirectory(folderPath);
-                for (const file of files) {
-                    if (file.endsWith('.mp3') || file.endsWith('.wav')) {
-                        const filePath = folderPath + '/' + file;
-
-                        const [artist, album, length, cover] = await Promise.all([
-                            window.audioMetadata.extractArtist(filePath),
-                            window.audioMetadata.extractAlbum(filePath),
-                            window.audioMetadata.extractDuration(filePath),
-                            window.audioMetadata.extractAlbumCover(filePath)
-                        ]);
-
-                        const fileInfo = {
-                            title: file.replace(/\.[^/.]+$/, ''),
-                            location: folderPath,
-                            album: album,
-                            artist: artist,
-                            length: length,
-                            filePath: filePath,
-                            cover: cover
-                        };
-
-                        const libraryItem = await createLibraryItem(fileInfo, filePath);
-                        const songsList = document.getElementById("songs-list");
-                        songsList.appendChild(libraryItem);
-                    }
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
-    }
-}
-
-importFilesFromFolders();
-
 async function togglePlayPause(event, filePath) {
     const audioPlayer = document.getElementById('audio-player');
     const playButton = event.target;
@@ -284,8 +162,15 @@ async function togglePlayPause(event, filePath) {
 
 async function playAudioFile(filePath, autoplay = false) {
     try {
+        console.log('Playing audio file:', filePath);
         const audioPlayer = document.getElementById('audio-player');
         const playButton = document.querySelector('.play-button');
+
+        // Check if the browser supports the audio format
+        if (!audioPlayer.canPlayType('audio/mpeg') && !audioPlayer.canPlayType('audio/wav')) {
+            console.error('Browser does not support the audio format.');
+            return;
+        }
 
         // Check if the next song is already playing
         if (audioPlayer.src === filePath && !audioPlayer.paused) {
@@ -442,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const offsetX = event.clientX - rect.left;
             let volumePercentage = (offsetX / volumeWidth) * 100;
             volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
-            setVolume(volumePercentage);
+            setVolume(volumePercentage); // Lautstärke sofort setzen
         }
     }
 
@@ -459,10 +344,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function setVolume(volumePercentage) {
-        const audioPlayer = document.getElementById('audio-player');
-        audioPlayer.volume = volumePercentage / 100;
+        // Umrechnung in den Bereich von 0 bis 1
+        const volumeValue = volumePercentage / 100;
+        audioPlayer.volume = volumeValue;
         updateVolumeBallPosition(volumePercentage);
         saveVolumeSetting(volumePercentage);
+    }
+
+    window.addEventListener('resize', () => {
+        const volumePercentage = getVolumePercentageFromBallPosition();
+        updateVolumeBallPosition(volumePercentage);
+    });
+
+    function getVolumePercentageFromBallPosition() {
+        const volumeWidth = volumeBar.clientWidth;
+        const ballPosition = parseFloat(volumeBall.style.left);
+        return (ballPosition / volumeWidth) * 100;
     }
 
     function updateVolumeBallPosition(volumePercentage) {
@@ -472,20 +369,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveVolumeSetting(volumePercentage) {
-        if (!userData) {
-            console.error('userData not found.');
-            return;
-        }
-
-        userData.volumePercentage = volumePercentage;
-        localStorage.setItem('userData', JSON.stringify(userData));
+        localStorage.setItem('volumePercentage', volumePercentage);
     }
 
     function loadVolumeSetting() {
-        const savedUserData = JSON.parse(localStorage.getItem('userData'));
-        console.log(savedUserData.volumePercentage)
-        return savedUserData && savedUserData.volumePercentage ? savedUserData.volumePercentage : 100;
+        const volumePercentage = parseFloat(localStorage.getItem('volumePercentage'));
+        if (!isNaN(volumePercentage)) {
+            // Umrechnung in den Bereich von 0 bis 100
+            return Math.max(0, Math.min(volumePercentage, 100));
+        }
+        return 100; // Standardwert, falls nichts im Local Storage vorhanden ist
     }
+
+    // Lautstärke beim Laden setzen
+    const initialVolume = loadVolumeSetting();
+    setVolume(initialVolume);
 
     progressRange.addEventListener('click', (event) => {
         const rect = progressRange.getBoundingClientRect();

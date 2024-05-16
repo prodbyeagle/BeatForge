@@ -73,8 +73,57 @@ contextBridge.exposeInMainWorld('audioMetadata', {
             console.error('Error extracting album cover:', error);
             return null;
         }
-    }
+    },
+    extractAlbumData: async (filePath) => {
+        try {
+            const metadata = await mm.parseFile(filePath, { includeNative: true });
+
+            const albumData = {
+                title: metadata.common && metadata.common.album ? metadata.common.album : "Unknown Album",
+                artist: metadata.common && metadata.common.artist ? metadata.common.artist : "Unknown Artist",
+                genre: metadata.common && metadata.common.genre ? metadata.common.genre : "Unknown Genre",
+                year: metadata.common && metadata.common.year ? metadata.common.year : "Unknown Year",
+                duration: metadata.format && metadata.format.duration ? await extractDuration(metadata.format.duration) : "Unknown Duration",
+                cover: null,
+                tracks: []
+            };
+
+            // Extracting album cover if available
+            if (metadata.common && metadata.common.picture && metadata.common.picture.length > 0) {
+                const picture = metadata.common.picture[0];
+                const base64String = picture.data.toString('base64');
+                const mimeType = picture.format;
+                albumData.cover = `data:${mimeType};base64,${base64String}`;
+            }
+
+            const trackFrames = metadata.native['ID3v2.3'].filter(frame => frame.id === 'TIT2');
+            console.log(metadata)
+            trackFrames.forEach(frame => {
+                const title = frame.value || "Unknown Title";
+                albumData.tracks.push({ title: title });
+            });
+
+            return albumData;
+        } catch (error) {
+            console.error('Error extracting album data:', error);
+            return {
+                title: "Unknown Album",
+                artist: "Unknown Artist",
+                genre: "Unknown Genre",
+                year: "Unknown Year",
+                duration: "Unknown Duration",
+                cover: null,
+                tracks: []
+            };
+        }
+    },
 });
+
+async function extractDuration(durationInSeconds) {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = Math.floor(durationInSeconds % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
 
 contextBridge.exposeInMainWorld('ipcRenderer', {
     send: (channel, data) => {
