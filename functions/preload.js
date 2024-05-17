@@ -1,14 +1,13 @@
 const { contextBridge, ipcRenderer } = require('electron');
-const fs = require('fs');
+const fs = require('fs').promises;
 const mm = require('music-metadata');
 
 contextBridge.exposeInMainWorld('fileSystem', {
     readDirectory: async (folderPath) => {
         try {
-            const files = await fs.promises.readdir(folderPath);
-            return files;
+            return await fs.readdir(folderPath);
         } catch (error) {
-            console.error('Error reading directory:', error);
+            console.error('Fehler beim Lesen des Verzeichnisses:', error);
             return [];
         }
     }
@@ -74,49 +73,20 @@ contextBridge.exposeInMainWorld('audioMetadata', {
             return null;
         }
     },
-    extractAlbumData: async (filePath) => {
+    extractModifiedDate: async (filePath) => {
         try {
-            const metadata = await mm.parseFile(filePath, { includeNative: true });
-
-            const albumData = {
-                title: metadata.common && metadata.common.album ? metadata.common.album : "Unknown Album",
-                artist: metadata.common && metadata.common.artist ? metadata.common.artist : "Unknown Artist",
-                genre: metadata.common && metadata.common.genre ? metadata.common.genre : "Unknown Genre",
-                year: metadata.common && metadata.common.year ? metadata.common.year : "Unknown Year",
-                duration: metadata.format && metadata.format.duration ? await extractDuration(metadata.format.duration) : "Unknown Duration",
-                cover: null,
-                tracks: []
-            };
-
-            // Extracting album cover if available
-            if (metadata.common && metadata.common.picture && metadata.common.picture.length > 0) {
-                const picture = metadata.common.picture[0];
-                const base64String = picture.data.toString('base64');
-                const mimeType = picture.format;
-                albumData.cover = `data:${mimeType};base64,${base64String}`;
+            const stats = await fs.stat(filePath);
+            if (stats && stats.mtime) {
+                return stats.mtime.getTime();
+            } else {
+                console.error('Das Dateisystem hat keine Informationen über die Datei bereitgestellt:', filePath);
+                return null;
             }
-
-            const trackFrames = metadata.native['ID3v2.3'].filter(frame => frame.id === 'TIT2');
-            console.log(metadata)
-            trackFrames.forEach(frame => {
-                const title = frame.value || "Unknown Title";
-                albumData.tracks.push({ title: title });
-            });
-
-            return albumData;
         } catch (error) {
-            console.error('Error extracting album data:', error);
-            return {
-                title: "Unknown Album",
-                artist: "Unknown Artist",
-                genre: "Unknown Genre",
-                year: "Unknown Year",
-                duration: "Unknown Duration",
-                cover: null,
-                tracks: []
-            };
+            console.error('Fehler beim Extrahieren des Änderungsdatums:', error);
+            return null;
         }
-    },
+    }
 });
 
 async function extractDuration(durationInSeconds) {

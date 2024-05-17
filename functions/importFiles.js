@@ -28,6 +28,7 @@ async function importFilesFromFolders() {
       showLoadingIndicator(); // Anzeigen der Ladeanzeige
       const folders = await getFoldersFromMainProcess();
       await importFilesFromFoldersHelper(folders);
+      loadSortCriteria();
       hideLoadingIndicator(); // Ausblenden der Ladeanzeige nach Abschluss des Imports
    } catch (error) {
       console.error('Fehler beim Importieren von Dateien aus den Ordnern:', error);
@@ -43,11 +44,12 @@ async function importFilesFromFoldersHelper(folderPaths) {
             if (file.endsWith('.mp3') || file.endsWith('.wav')) {
                const filePath = `${folderPath}/${file}`;
                // console.log('Generated filePath:', filePath);
-               const [artist, album, length, cover] = await Promise.all([
+               const [artist, album, length, cover, date] = await Promise.all([
                   window.audioMetadata.extractArtist(filePath),
                   window.audioMetadata.extractAlbum(filePath),
                   window.audioMetadata.extractDuration(filePath),
-                  window.audioMetadata.extractAlbumCover(filePath)
+                  window.audioMetadata.extractAlbumCover(filePath),
+                  window.audioMetadata.extractModifiedDate(filePath)
                ]);
                const fileInfo = {
                   title: file.replace(/\.[^/.]+$/, ''),
@@ -55,8 +57,9 @@ async function importFilesFromFoldersHelper(folderPaths) {
                   album: album,
                   artist: artist,
                   length: length,
+                  date: date,
                   filePath: filePath,
-                  cover: cover
+                  cover: cover,
                };
                await createAndAppendLibraryItem(fileInfo, filePath);
             }
@@ -111,15 +114,12 @@ async function createLibraryItem(data, filePath) {
       }
    });
 
-   h2.addEventListener('click', function () {
-      viewAlbum(data.album);
-   });
-
    li.dataset.songTitle = data.title;
    li.dataset.artist = data.artist;
    li.dataset.album = data.album;
    li.dataset.length = data.length;
    li.dataset.filePath = filePath;
+   li.dataset.modified = data.date;
 
    li.appendChild(h2);
    li.appendChild(p1);
@@ -143,4 +143,58 @@ async function createLibraryItem(data, filePath) {
    return li;
 }
 
-importFilesFromFolders();
+document.getElementById('sort-select').addEventListener('change', function () {
+   const selectedCriteria = this.value;
+   saveSortCriteria(selectedCriteria);
+   sortLibrary(selectedCriteria);
+});
+
+// Function to save sort criteria in userData
+function saveSortCriteria(criteria) {
+   const userData = JSON.parse(localStorage.getItem('userData')) || {};
+   userData.sortCriteria = criteria;
+   localStorage.setItem('userData', JSON.stringify(userData));
+}
+
+function sortLibrary(criteria) {
+   const songsList = document.getElementById("songs-list");
+   const items = Array.from(songsList.getElementsByClassName("library-item"));
+
+   items.sort((a, b) => {
+      let aValue, bValue;
+
+      switch (criteria) {
+         case 'title':
+            aValue = a.dataset.songTitle.toLowerCase();
+            bValue = b.dataset.songTitle.toLowerCase();
+            break;
+         case 'duration':
+            aValue = parseFloat(a.dataset.length);
+            bValue = parseFloat(b.dataset.length);
+            break;
+         case 'album':
+            aValue = a.dataset.album.toLowerCase();
+            bValue = b.dataset.album.toLowerCase();
+            break;
+         case 'newest':
+            aValue = parseInt(a.dataset.modified, 10);
+            bValue = parseInt(b.dataset.modified, 10);
+            return bValue - aValue;
+         default:
+            return 0;
+      }
+      if (aValue < bValue) return -1;
+      if (aValue > bValue) return 1;
+      return 0;
+   });
+
+   songsList.innerHTML = '';
+   items.forEach(item => songsList.appendChild(item));
+}
+
+function loadSortCriteria() {
+   const userData = JSON.parse(localStorage.getItem('userData')) || {};
+   const sortCriteria = userData.sortCriteria || 'title'; // Default to 'title' if no criteria is set
+   document.getElementById('sort-select').value = sortCriteria;
+   sortLibrary(sortCriteria);
+}

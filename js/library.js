@@ -85,7 +85,7 @@ function handleContextMenuItemClick(event, data) {
             const artist = data.artist;
             const album = data.album;
             if (action === "Delete Track") {
-                deleteTrack(songTitle, artist);
+                deleteTrack(songTitle);
             } else if (action === "Edit Track") {
                 editTrack(songTitle, artist, album);
             } else if (action === "Edit Tags") {
@@ -150,12 +150,15 @@ async function togglePlayPause(event, filePath) {
 
     try {
         if (audioPlayer.paused || audioPlayer.ended) {
-            await playAudioFile(filePath, true);;
+            await playAudioFile(filePath, true);
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         } else {
-            audioPlayer.pause();
+            pauseAudio();
             playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
+
+        // Send media command to main process
+        ipcRenderer.send('media-command', audioPlayer.paused ? 'pause' : 'play');
     } catch (error) {
         console.error('Error toggling playback:', error);
     }
@@ -170,6 +173,22 @@ async function playAudioFile(filePath, autoplay = false) {
         // Check if the browser supports the audio format
         if (!audioPlayer.canPlayType('audio/mpeg') && !audioPlayer.canPlayType('audio/wav')) {
             console.error('Browser does not support the audio format.');
+            return;
+        }
+
+        // Check if the file exists
+        const fileExists = await checkFileExists(filePath);
+        if (!fileExists) {
+            // Wenn die Datei nicht vorhanden ist, sende ein Toastify
+            Toastify({
+                text: 'File not found.',
+                duration: 3000,
+                gravity: "bottom",
+                position: "right",
+                style: {
+                    background: "linear-gradient(135deg, #FF6347, #B22222)",
+                },
+            }).showToast();
             return;
         }
 
@@ -205,6 +224,21 @@ async function playAudioFile(filePath, autoplay = false) {
     } catch (error) {
         console.error('Error playing audio file:', error);
     }
+}
+
+// Funktion zum Überprüfen, ob die Datei existiert
+async function checkFileExists(filePath) {
+    return new Promise(resolve => {
+        fetch(filePath)
+            .then(response => {
+                if (response.ok) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            })
+            .catch(() => resolve(false));
+    });
 }
 
 function handleAutoplayNext() {
@@ -312,13 +346,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let isVolumeDragging = false;
 
     volumeBall.addEventListener('mousedown', startVolumeDragging);
-    document.addEventListener('mousemove', debounce(handleVolumeDrag, 1));
+    document.addEventListener('mousemove', handleVolumeDrag);
     document.addEventListener('mouseup', stopVolumeDragging);
+
+    // Call this function on page load
+    window.onload = function () {
+        loadSortCriteria();
+        importFilesFromFolders(); // Ensure files are imported after setting the sort criteria
+    };
 
     function startVolumeDragging(event) {
         event.preventDefault();
         isVolumeDragging = true;
         handleVolumeDrag(event);
+    }
+
+    function pauseAudio() {
+        audioPlayer.pause();
+    }
+
+    function resumeAudio() {
+        if (!audioPlayer.paused) return;
+        audioPlayer.play();
     }
 
     function handleVolumeDrag(event) {
@@ -330,18 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
             volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
             setVolume(volumePercentage); // Lautstärke sofort setzen
         }
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function (...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
     }
 
     function stopVolumeDragging() {
@@ -382,29 +419,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveVolumeSetting(volumePercentage) {
-        localStorage.setItem('volumePercentage', volumePercentage);
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        localStorage.removeItem('volumePercentage');
+
+        userData.volumePercentage = volumePercentage;
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 
     function loadVolumeSetting() {
-        const volumePercentage = parseFloat(localStorage.getItem('volumePercentage'));
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        const volumePercentage = userData.volumePercentage;
         if (!isNaN(volumePercentage)) {
-            // Umrechnung in den Bereich von 0 bis 100
             return Math.max(0, Math.min(volumePercentage, 100));
         }
-        return 100; // Standardwert, falls nichts im Local Storage vorhanden ist
+        return 100;
     }
 
     // Lautstärke beim Laden setzen
     const initialVolume = loadVolumeSetting();
     setVolume(initialVolume);
-
-    progressRange.addEventListener('click', (event) => {
-        const rect = progressRange.getBoundingClientRect();
-        const offsetX = event.clientX - rect.left;
-        const progressWidth = rect.width;
-        const percentage = (offsetX / progressWidth);
-        audioPlayer.currentTime = audioPlayer.duration * percentage;
-    });
 
     progressBall.addEventListener('mousedown', (event) => {
         isDragging = true;
@@ -435,15 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressWidth = rect.width;
         const percentage = Math.min(Math.max((offsetX / progressWidth), 0), 1);
         audioPlayer.currentTime = audioPlayer.duration * percentage;
-    }
-
-    function pauseAudio() {
-        audioPlayer.pause();
-    }
-
-    function resumeAudio() {
-        if (!audioPlayer.paused) return;
-        audioPlayer.play();
     }
 
     let userData = JSON.parse(localStorage.getItem("userData"));
@@ -562,12 +586,12 @@ function shuffleLibraryItems() {
     }).showToast();
 }
 
-function deleteTrack(songTitle, artist) {
+function deleteTrack(songTitle) {
     openCustomConfirm(
-        `Are you sure you want to delete: "${songTitle}" by ${artist}?`,
+        `Are you sure you want to delete: "${songTitle}"?`,
         () => {
             Toastify({
-                text: `${songTitle} Deleted!  NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
+                text: `${songTitle} Deleted!`,
                 duration: 1500,
                 gravity: "bottom",
                 position: "right",
@@ -580,18 +604,22 @@ function deleteTrack(songTitle, artist) {
     );
 }
 
-function editTrack(songTitle, artist, album) {
-    const fileInfo = {
-        title: songTitle,
-        artist: artist,
-        album: album,
-    };
-    createEditSongModal(fileInfo);
+function editTrack(songTitle) {
+    Toastify({
+        text: `"${songTitle}" edited successfully!`,
+        duration: 1500,
+        gravity: "bottom",
+        position: "right",
+        style: {
+            background: "#00A36C",
+        },
+        stopOnFocus: true,
+    }).showToast();
 }
 
 function editTags(songTitle) {
     Toastify({
-        text: `"${songTitle}" Tags edited successfully! NOT REAL NOT REAL NOT REAL NOT REAL NOT REAL`,
+        text: `"${songTitle}" Tags edited successfully!`,
         duration: 1500,
         gravity: "bottom",
         position: "right",
@@ -604,7 +632,7 @@ function editTags(songTitle) {
 
 function addToQueue(songTitle) {
     Toastify({
-        text: `"${songTitle}" added successfully to Queue! NOT REAL NOT REAL NOT REAL NOT REAL`,
+        text: `"${songTitle}" added successfully to Queue!`,
         duration: 1500,
         gravity: "bottom",
         position: "right",
