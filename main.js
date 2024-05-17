@@ -274,7 +274,7 @@ if (!gotTheLock) {
     tray = new Tray(path.join(__dirname, 'assets', 'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Beatforge v0.5.1',
+        label: 'Beatforge v0.5.2',
         enabled: false
       },
       { type: 'separator' },

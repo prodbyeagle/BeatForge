@@ -103,6 +103,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // createModal('warning', 'Achtung: Bitte überprüfe deine Eingaben!', 'Warnung');
     // createModal('normal', 'Dies ist eine normale Benachrichtigung.', 'Hey!');
 
+    // Überprüfe, ob das Element "libraryData" im lokalen Speicher vorhanden ist
+    if (localStorage.getItem('libraryData') !== null) {
+        // Wenn das Element vorhanden ist, lösche es
+        localStorage.removeItem('libraryData');
+        console.log('Das Element "libraryData" wurde erfolgreich gelöscht.');
+    } else {
+        // Wenn das Element nicht vorhanden ist, gib eine entsprechende Meldung aus
+        console.log('Das Element "libraryData" existiert nicht im lokalen Speicher und kann daher nicht gelöscht werden.');
+    }
 });
 
 //* Close or In Background
