@@ -68,9 +68,10 @@ function positionContextMenu(event) {
 }
 
 function activateContextMenuListeners(data) {
-    const contextMenuItems = document.querySelectorAll(".context-menu-item");
-    contextMenuItems.forEach(item => {
-        item.addEventListener("click", (event) => handleContextMenuItemClick(event, data));
+    document.body.addEventListener("click", (event) => {
+        if (event.target.classList.contains("context-menu-item")) {
+            handleContextMenuItemClick(event, data);
+        }
     });
 }
 
@@ -311,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isVolumeDragging = false;
 
     volumeBall.addEventListener('mousedown', startVolumeDragging);
-    document.addEventListener('mousemove', handleVolumeDrag);
+    document.addEventListener('mousemove', debounce(handleVolumeDrag, 1));
     document.addEventListener('mouseup', stopVolumeDragging);
 
     function startVolumeDragging(event) {
@@ -329,6 +330,18 @@ document.addEventListener('DOMContentLoaded', () => {
             volumePercentage = Math.max(0, Math.min(volumePercentage, 100));
             setVolume(volumePercentage); // Lautstärke sofort setzen
         }
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
     function stopVolumeDragging() {
