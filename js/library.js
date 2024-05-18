@@ -170,6 +170,12 @@ async function playAudioFile(filePath, autoplay = false) {
         const audioPlayer = document.getElementById('audio-player');
         const playButton = document.querySelector('.play-button');
 
+        // Ensure audioPlayer and playButton are available
+        if (!audioPlayer || !playButton) {
+            console.error('Audio player or play button not found.');
+            return;
+        }
+
         // Check if the browser supports the audio format
         if (!audioPlayer.canPlayType('audio/mpeg') && !audioPlayer.canPlayType('audio/wav')) {
             console.error('Browser does not support the audio format.');
@@ -223,6 +229,26 @@ async function playAudioFile(filePath, autoplay = false) {
         }
     } catch (error) {
         console.error('Error playing audio file:', error);
+    }
+}
+
+function playPause() {
+    const audioPlayer = document.getElementById('audio-player');
+    const playButton = document.getElementById('play-button');
+
+    if (!audioPlayer || !playButton) {
+        console.error('Audio player or play button not found.');
+        return;
+    }
+
+    if (audioPlayer.paused || audioPlayer.ended) {
+        // Wenn das Audio pausiert ist oder beendet wurde, starte es
+        audioPlayer.play();
+        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        // Wenn das Audio gerade spielt, pausiere es
+        audioPlayer.pause();
+        playButton.innerHTML = '<i class="fas fa-play"></i>';
     }
 }
 
@@ -535,6 +561,17 @@ document.addEventListener('DOMContentLoaded', () => {
             volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
     }
+
+    const sidebar = document.querySelector(".sidebar");
+    const container = document.querySelector(".container");
+
+    sidebar.addEventListener("mouseenter", function () {
+        container.style.marginLeft = "210px"; // Adjust this value according to the expanded width of the sidebar
+    });
+
+    sidebar.addEventListener("mouseleave", function () {
+        container.style.marginLeft = "120px"; // Adjust this value to the default width of the sidebar
+    });
 });
 
 async function autoplayNextSong(currentFilePath) {

@@ -31,21 +31,37 @@ body {
     background-color: var(--primary-color);
     border-radius: 1px 10px 10px 0;
     padding: 30px 30px;
-    margin-right: 20px;
-    margin-top: 30px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.2s ease;
-    position: sticky;
+    position: fixed;
+    margin-right: 20px;
+    margin-top: 30px;
     top: 0;
     left: 0;
-    bottom: 0;
+    height: 100%;
+    /* Ensure the sidebar spans the entire height */
     z-index: 1;
 }
 
 .sidebar:hover {
     width: 180px;
+    margin-right: 20px;
     margin-top: 30px;
+}
+
+.container {
+    margin-left: 120px;
+    /* Adjust this value to avoid overlap with the sidebar */
+    padding: 30px;
+    /* Optional: Add padding for better aesthetics */
+    transition: margin-left 0.2s ease;
+    /* Smooth transition for margin change */
+}
+
+.sidebar:hover+.container {
+    margin-left: 210px;
+    /* Adjust this value according to the expanded width of the sidebar */
 }
 
 .sidebar a {
@@ -621,18 +637,18 @@ body {
 
 #player-controls #current-time {
     color: var(--tertiary-color);
-    margin-right: 5px;
-    min-width: 50px;
+    margin-right: 3px;
+    margin-left: 3px;
+    min-width: 35px;
     text-align: right;
 }
 
 #player-controls #total-time {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--secondary-color);
     border-radius: 10px;
     color: var(--tertiary-color);
     margin-right: 15px;
     padding: 2px;
-    /* Hier wird der Abstand um den Inhalt herum festgelegt */
     min-width: 20px;
     text-align: right;
     cursor: pointer;
@@ -685,7 +701,6 @@ body {
     margin-left: 15px;
     position: relative;
     height: 6px;
-    /* Ändern Sie die Höhe der Lautstärkeleiste */
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 2px;
     cursor: pointer;
@@ -721,6 +736,12 @@ body {
 }
 
 #queue-button {
+    cursor: pointer;
+    color: var(--tertiary-color);
+    margin-left: 10px;
+}
+
+#play-button {
     cursor: pointer;
     color: var(--tertiary-color);
     margin-right: 10px;
