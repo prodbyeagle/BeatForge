@@ -279,7 +279,7 @@ if (!gotTheLock) {
       },
       { type: 'separator' },
       {
-        label: 'Open Beatforge',
+        label: '✅ Open Beatforge',
         click: () => {
           if (mainWindow === null) {
             createMainWindow();
@@ -289,13 +289,14 @@ if (!gotTheLock) {
         }
       },
       {
-        label: 'Close Beatforge',
+        label: '❌ Close Beatforge',
         click: () => {
           app.quit();
         }
       },
+      { type: 'separator' },
       {
-        label: 'Check for Updates',
+        label: '🆙 Check for Updates',
         click: () => {
           checkForUpdates();
         }
@@ -305,13 +306,13 @@ if (!gotTheLock) {
         label: 'Debug',
         submenu: [
           {
-            label: 'Restart App',
+            label: '🔁 Restart App',
             click: () => {
               restartApp();
             }
           },
           {
-            label: 'Clear AppData and Restart',
+            label: '🚯 Clear AppData and Restart',
             click: () => {
               performDebugActions();
             }
@@ -352,8 +353,8 @@ if (!gotTheLock) {
         height: 1000,
         maxWidth: 1920,
         maxHeight: 1080,
-        minWidth: 800,
-        minHeight: 1000,
+        minWidth: 700,
+        minHeight: 700,
         autoHideMenuBar: true,
         fullscreenable: false,
         frame: false,
@@ -383,6 +384,7 @@ if (!gotTheLock) {
         minHeight: 1000,
         autoHideMenuBar: true,
         fullscreenable: false,
+        resizable: false,
         frame: false,
         icon: path.join(__dirname, "assets", "icon.png"),
         webPreferences: {

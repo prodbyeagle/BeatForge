@@ -79,7 +79,6 @@ async function createAndAppendLibraryItem(fileInfo, filePath) {
       console.error('Fehler beim Erstellen und Anhängen des Bibliothekseintrags:', error);
    }
 }
-
 async function createLibraryItem(data, filePath) {
    const li = document.createElement("li");
    li.classList.add("library-item");
@@ -96,24 +95,6 @@ async function createLibraryItem(data, filePath) {
    const p3 = document.createElement("p");
    p3.textContent = "Length: " + data.length;
 
-   const playButton = document.createElement("button");
-   playButton.innerHTML = '<i class="fas fa-play"></i>';
-   playButton.classList.add("play-button");
-   playButton.style.cursor = "pointer";
-   playButton.style.color = "var(--tertiary-color)";
-
-   playButton.addEventListener('click', function () {
-      const audioPlayer = document.getElementById('audio-player');
-
-      if (audioPlayer.paused || audioPlayer.ended) {
-         playAudioFile(filePath, true);
-         playButton.innerHTML = '<i class="fas fa-pause"></i>';
-      } else {
-         audioPlayer.pause();
-         playButton.innerHTML = '<i class="fas fa-play"></i>';
-      }
-   });
-
    li.dataset.songTitle = data.title;
    li.dataset.artist = data.artist;
    li.dataset.album = data.album;
@@ -125,7 +106,6 @@ async function createLibraryItem(data, filePath) {
    li.appendChild(p1);
    li.appendChild(p2);
    li.appendChild(p3);
-   li.appendChild(playButton);
 
    if (data.cover) {
       const coverImg = document.createElement("img");
@@ -136,8 +116,20 @@ async function createLibraryItem(data, filePath) {
    }
 
    li.addEventListener('contextmenu', showContextMenu);
-   li.addEventListener('dblclick', function () {
-      playAudioFile(filePath, true);
+
+   li.addEventListener('dblclick', async function () {
+      const audioPlayer = document.getElementById('audio-player');
+      if (audioPlayer) {
+         audioPlayer.src = filePath;
+         try {
+            await playAudioFile(filePath, true);
+            console.log('Playing audio file:', filePath);
+         } catch (error) {
+            console.error('Error playing audio file:', error);
+         }
+      } else {
+         console.error('Audio player element not found');
+      }
    });
 
    return li;
