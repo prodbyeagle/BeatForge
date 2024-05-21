@@ -737,6 +737,7 @@ body {
 
 #queue-button {
     cursor: pointer;
+    font-size: 10px;
     color: var(--tertiary-color);
     margin-left: 10px;
 }
@@ -753,18 +754,32 @@ body {
     margin-right: 10px;
 }
 
-.search-container {
-    position: absolute;
-    top: 6.5%;
-    left: 50%;
+.search-sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Abstand zwischen den Elementen */
+}
+
+#sort-select {
+    background-color: var(--secondary-color);
     color: var(--tertiary-color);
-    transform: translate(-50%, -50%);
-    z-index: 5;
+    padding: 10px;
+    border: 1px solid var(--quaternary-color);
+    border-radius: 10px;
+    font-size: 16px;
+    width: auto;
+    /* Anpassung, damit das Select-Element keine fixe Breite hat */
+}
+
+.search-container {
+    position: relative;
+    flex: 0.3;
+    /* Nimmt den verfügbaren Platz ein */
 }
 
 .search-bar {
-    position: relative;
-    width: 200px;
+    width: 100%;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid var(--quaternary-color);
@@ -777,9 +792,8 @@ body {
 .autocomplete-dropdown {
     position: absolute;
     top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150%;
+    left: 0;
+    width: 100%;
     max-height: 200px;
     overflow-y: auto;
     background-color: var(--secondary-color);
@@ -787,7 +801,7 @@ body {
     border-radius: 10px;
     color: var(--tertiary-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: auto;
+    z-index: 100;
 }
 
 #search-bar::placeholder {
@@ -864,15 +878,4 @@ body {
     width: 40px;
     height: 40px;
     color: var(--primary-color);
-}
-
-#sort-select {
-    background-color: var(--secondary-color);
-    color: var(--tertiary-color);
-    width: 25%;
-    padding: 10px;
-    border: 1px solid var(--quaternary-color);
-    border-radius: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
 }

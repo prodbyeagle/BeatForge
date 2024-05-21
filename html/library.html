@@ -49,19 +49,20 @@
         <hr />
     </div>
 
-    <div class="search-container">
-        <input type="text" id="search-bar" class="search-bar" placeholder="Search...">
-        <div id="autocomplete-container"></div>
-    </div>
-
     <div class="container">
         <div class="card">
-            <select id="sort-select">
-                <option value="title">Title</option>
-                <option value="duration">Duration</option>
-                <option value="album">Album</option>
-                <option value="newest">Newest</option>
-            </select>
+            <div class="search-sort-container">
+                <select id="sort-select">
+                    <option value="title">A-Z</option>
+                    <option value="duration">Duration</option>
+                    <option value="album">Album</option>
+                    <option value="newest">Newest</option>
+                </select>
+                <div class="search-container">
+                    <input type="text" id="search-bar" class="search-bar" placeholder="Search...">
+                    <div id="autocomplete-container"></div>
+                </div>
+            </div>
             <h1>Library</h1>
             <div class="section">
                 <ul id="songs-list" class="library-list">
