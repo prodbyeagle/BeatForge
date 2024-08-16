@@ -1,125 +1,157 @@
-// tags.js
-
-function addTagToBeat(beatName, tag) {
-   let beats = JSON.parse(localStorage.getItem('beats')) || {};
-   if (!beats[beatName]) {
-      beats[beatName] = [];
-   }
-   beats[beatName].push(tag);
-   localStorage.setItem('beats', JSON.stringify(beats));
-}
-
-function addExistingTagsFromUserData() {
-   let userData = JSON.parse(localStorage.getItem('userData')) || {};
-   let existingTags = userData.tags.split(",");
-   existingTags.forEach(tag => {
-      addTagToBeat(tag);
-   });
-}
+let currentModal = null;
+let currentOverlay = null;
 
 function createEditTagModal(tagName) {
-   const overlay = document.createElement('div');
-   overlay.classList.add('overlay');
-   document.body.appendChild(overlay);
+  removeExistingModalAndOverlay();
 
-   const modal = document.createElement('div');
-   modal.classList.add('modal');
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+  document.body.appendChild(overlay);
+  currentOverlay = overlay;
 
-   const modalContent = document.createElement('div');
-   modalContent.classList.add('modal-content');
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
 
-   const modalTitle = document.createElement('h2');
-   modalTitle.textContent = `Edit Tags`;
-   modalContent.appendChild(modalTitle);
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
 
-   const tagNameInput = document.createElement('input');
-   tagNameInput.type = 'text';
-   tagNameInput.value = tagName;
-   tagNameInput.placeholder = 'Enter tag name';
-   tagNameInput.classList.add('custom-input');
-   modalContent.appendChild(tagNameInput);
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = `Edit Tags`;
+  modalContent.appendChild(modalTitle);
 
-   const saveButton = document.createElement('button');
-   saveButton.textContent = 'Save';
-   saveButton.addEventListener('click', () => {
+  const tagNameInput = document.createElement("input");
+  tagNameInput.type = "text";
+  tagNameInput.value = tagName;
+  tagNameInput.placeholder = "Enter tag name";
+  tagNameInput.classList.add("custom-input");
+  modalContent.appendChild(tagNameInput);
 
-      const newTagName = tagNameInput.value;
-      console.log(`Tag '${tagName}' was edited to '${newTagName}'`);
-      closeModal();
-   });
-   modalContent.appendChild(saveButton);
+  const saveButton = document.createElement("button");
+  saveButton.textContent = "Save";
+  saveButton.addEventListener("click", () => {
+    const newTagName = tagNameInput.value;
+    console.log(`Tag '${tagName}' was edited to '${newTagName}'`);
+    closeModal();
+  });
+  modalContent.appendChild(saveButton);
 
-   const cancelButton = document.createElement('button');
-   cancelButton.textContent = 'Cancel';
-   cancelButton.addEventListener('click', () => {
-      closeModal();
-   });
-   modalContent.appendChild(cancelButton);
+  const cancelButton = document.createElement("button");
+  cancelButton.textContent = "Cancel";
+  cancelButton.addEventListener("click", () => {
+    closeModal();
+  });
+  modalContent.appendChild(cancelButton);
 
-   function closeModal() {
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-   }
+  function closeModal() {
+    modal.remove();
+    overlay.remove();
+    currentModal = null;
+    currentOverlay = null;
+  }
 
-   modal.appendChild(modalContent);
-   document.body.appendChild(modal);
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
 
-   modal.style.display = 'block';
-   overlay.style.display = 'block';
+  modal.style.display = "block";
+  overlay.style.display = "block";
 
-   overlay.addEventListener('click', () => {
-      closeModal();
-   });
+  overlay.addEventListener("click", () => {
+    closeModal();
+  });
+
+  currentModal = modal;
+}
+
+function removeExistingModalAndOverlay() {
+  if (currentModal) {
+    currentModal.remove();
+    currentModal = null;
+  }
+  if (currentOverlay) {
+    currentOverlay.remove();
+    currentOverlay = null;
+  }
 }
 
 function createCreateTagModal() {
-   const overlay = document.createElement('div');
-   overlay.classList.add('overlay');
-   document.body.appendChild(overlay);
+  removeExistingModalAndOverlay();
 
-   const modal = document.createElement('div');
-   modal.classList.add('modal');
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+  document.body.appendChild(overlay);
+  currentOverlay = overlay;
 
-   const modalContent = document.createElement('div');
-   modalContent.classList.add('modal-content');
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
 
-   const modalTitle = document.createElement('h2');
-   modalTitle.textContent = 'Create New Tag';
-   modalContent.appendChild(modalTitle);
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
 
-   const tagNameInput = document.createElement('input');
-   tagNameInput.type = 'text';
-   tagNameInput.placeholder = 'Enter tag name';
-   modalContent.appendChild(tagNameInput);
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = "Create New Tag";
+  modalContent.appendChild(modalTitle);
 
-   const createButton = document.createElement('button');
-   createButton.textContent = 'Create';
-   createButton.addEventListener('click', () => {
-      const tagName = tagNameInput.value;
-      console.log(`New tag created: '${tagName}'`);
-      closeModal();
-   });
-   modalContent.appendChild(createButton);
+  const tagNameInput = document.createElement("input");
+  tagNameInput.type = "text";
+  tagNameInput.placeholder = "Enter tag name";
+  modalContent.appendChild(tagNameInput);
 
-   const cancelButton = document.createElement('button');
-   cancelButton.textContent = 'Cancel';
-   cancelButton.addEventListener('click', () => {
-      closeModal();
-   });
-   modalContent.appendChild(cancelButton);
+  const createButton = document.createElement("button");
+  createButton.textContent = "Create";
+  createButton.addEventListener("click", () => {
+    const tagName = tagNameInput.value;
+    console.log(`New tag created: '${tagName}'`);
+    closeModal();
+  });
+  modalContent.appendChild(createButton);
 
-   function closeModal() {
-      modal.style.display = 'none';
-      overlay.style.display = 'none';
-   }
+  const cancelButton = document.createElement("button");
+  cancelButton.textContent = "Cancel";
+  cancelButton.addEventListener("click", () => {
+    closeModal();
+  });
+  modalContent.appendChild(cancelButton);
 
-   modal.appendChild(modalContent);
-   document.body.appendChild(modal);
+  function closeModal() {
+    modal.remove();
+    overlay.remove();
+    currentModal = null;
+    currentOverlay = null;
+  }
 
-   modal.style.display = 'block';
-   overlay.style.display = 'block';
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
 
-   overlay.addEventListener('click', () => {
-      closeModal();
-   });
+  modal.style.display = "block";
+  overlay.style.display = "block";
+
+  overlay.addEventListener("click", () => {
+    closeModal();
+  });
+
+  currentModal = modal;
+}
+
+function showToast(message) {
+  if (currentToast) {
+    currentToast.hideToast();
+  }
+  currentToast = Toastify({
+    text: message,
+    duration: 1500,
+    gravity: "bottom",
+    position: "right",
+    style: {
+      background: "#00A36C",
+    },
+    stopOnFocus: true,
+  }).showToast();
+}
+
+function editTrack(songTitle) {
+  showToast(`"${songTitle}" edited successfully!`);
+}
+
+function editTags(songTitle) {
+  showToast(`"${songTitle}" Tags edited successfully!`);
 }

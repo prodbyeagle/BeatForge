@@ -42,7 +42,7 @@ function createContextMenuHTML() {
                 <li title="😜" class="context-menu-item-noninteractive">😜</li>
                 <hr>
                 <li title="Delete the Track" class="context-menu-item">Delete Track</li>
-                <li title="Edit The Metadata" class="context-menu-item">Edit Track</li>
+                <li title="Edit The Metadata" class="context-menu-item-disabled">Edit Track</li>
                 <li title="Edit the Current Tags" class="context-menu-item">Edit Tags</li>
                 <hr>
                 <li title="Tags" class="context-menu-item-noninteractive">Tags Placeholder</li>
@@ -75,31 +75,59 @@ function activateContextMenuListeners(data) {
     });
 }
 
+let toastInstance = null;
+
 function handleContextMenuItemClick(event, data) {
-    const action = event.target.textContent;
-    hideContextMenu();
-    const libraryItem = document.querySelector(`.library-item[data-song-title="${data.songTitle}"]`);
-    if (libraryItem) {
-        const songTitle = data.songTitle;
-        if (songTitle) {
-            const artist = data.artist;
-            const album = data.album;
-            if (action === "Delete Track") {
-                deleteTrack(songTitle);
-            } else if (action === "Edit Track") {
-                editTrack(songTitle, artist, album);
-            } else if (action === "Edit Tags") {
-                createEditTagModal(tags)
-            } else if (action === "Add to Queue") {
-                addToQueue(songTitle);
-            }
-        } else {
-            showError("Song title not found in dataset");
-        }
+  const action = event.target.textContent;
+  hideContextMenu();
+  const libraryItem = document.querySelector(
+    `.library-item[data-song-title="${data.songTitle}"]`
+  );
+  if (libraryItem) {
+    const songTitle = data.songTitle;
+    if (songTitle) {
+    //   const artist = data.artist;
+    //   const album = data.album;
+      if (action === "Delete Track") {
+        deleteTrack(songTitle);
+      } else if (action === "Edit Track") {
+        return;
+      } else if (action === "Edit Tags") {
+        createEditTagModal(tags);
+      } else if (action === "Add to Queue") {
+        addToQueue(songTitle);
+      }
     } else {
-        showError("Library item not found");
-        console.error("Library item not found. Event details:", "Data:", data);
+      showError("Song title not found in dataset");
     }
+  } else {
+    showError("Library item not found");
+    console.error("Library item not found. Event details:", "Data:", data);
+  }
+}
+
+function editTrack(songTitle) {
+  showToast(`"${songTitle}" edited successfully!`);
+}
+
+function editTags(songTitle) {
+  showToast(`"${songTitle}" Tags edited successfully!`);
+}
+
+function showToast(message) {
+  if (toastInstance) {
+    toastInstance.hideToast();
+  }
+  toastInstance = Toastify({
+    text: message,
+    duration: 1500,
+    gravity: "bottom",
+    position: "right",
+    style: {
+      background: "#00A36C",
+    },
+    stopOnFocus: true,
+  }).showToast();
 }
 
 function hideContextMenuOnClickOutside(event) {
@@ -639,32 +667,6 @@ function deleteTrack(songTitle) {
             }).showToast();
         }
     );
-}
-
-function editTrack(songTitle) {
-    Toastify({
-        text: `"${songTitle}" edited successfully!`,
-        duration: 1500,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "#00A36C",
-        },
-        stopOnFocus: true,
-    }).showToast();
-}
-
-function editTags(songTitle) {
-    Toastify({
-        text: `"${songTitle}" Tags edited successfully!`,
-        duration: 1500,
-        gravity: "bottom",
-        position: "right",
-        style: {
-            background: "#00A36C",
-        },
-        stopOnFocus: true,
-    }).showToast();
 }
 
 function addToQueue(songTitle) {
