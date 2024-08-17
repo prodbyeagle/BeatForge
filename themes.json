@@ -1,575 +1,575 @@
 [
-    {
-        "name": "1st Theme",
-        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
-        "owner": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#635985",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#443C68"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FFE6E6"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E1AFD1"
-            }
-        ]
-    },
-    {
-        "name": "Dark Night",
-        "description": "made by @dwhincandi",
-        "owner": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#0B132B",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#1C2541"
-            },
-            {
-                "name": "tertiary",
-                "color": "#3A506B"
-            },
-            {
-                "name": "quaternary",
-                "color": "#140152"
-            }
-        ]
-    },
-    {
-        "name": "Ocean Blue",
-        "description": "Dive into the depths of the ocean with this soothing blue theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#0077B6",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#00B4D8"
-            },
-            {
-                "name": "tertiary",
-                "color": "#90E0EF"
-            },
-            {
-                "name": "quaternary",
-                "color": "#CAF0F8"
-            }
-        ]
-    },
-    {
-        "name": "Forest Green",
-        "description": "Explore the lush greenery of the forest with this calming green theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#014421",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#388E3C"
-            },
-            {
-                "name": "tertiary",
-                "color": "#81C784"
-            },
-            {
-                "name": "quaternary",
-                "color": "#C8E6C9"
-            }
-        ]
-    },
-    {
-        "name": "Sunset Orange",
-        "description": "Experience the warmth of a sunset with this vibrant orange theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#D62828",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F77F00"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FDBA74"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FCE8DA"
-            }
-        ]
-    },
-    {
-        "name": "Mountain Gray",
-        "description": "Embrace the rugged beauty of the mountains with this sophisticated gray theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#6C757D",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#ADB5BD"
-            },
-            {
-                "name": "tertiary",
-                "color": "#CED4DA"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E9ECEF"
-            }
-        ]
-    },
-    {
-        "name": "Desert Sand",
-        "description": "Wander through the arid landscape of the desert with this earthy sand theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#C4A484",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#D9BF9D"
-            },
-            {
-                "name": "tertiary",
-                "color": "#ECD8BA"
-            },
-            {
-                "name": "quaternary",
-                "color": "#F9EBD0"
-            }
-        ]
-    },
-    {
-        "name": "Winter Frost",
-        "description": "Experience the tranquility of a snowy winter landscape with this icy theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#A3F7B5",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#48BFE3"
-            },
-            {
-                "name": "tertiary",
-                "color": "#407F7F"
-            },
-            {
-                "name": "quaternary",
-                "color": "#2A9D8F"
-            }
-        ]
-    },
-    {
-        "name": "Pastel Paradise",
-        "description": "Escape to a dreamy pastel paradise with this soft and gentle theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#B7F0B1",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#7FCD91"
-            },
-            {
-                "name": "tertiary",
-                "color": "#33A499"
-            },
-            {
-                "name": "quaternary",
-                "color": "#0D6759"
-            }
-        ]
-    },
-    {
-        "name": "Urban Nights",
-        "description": "Immerse yourself in the electrifying energy of the urban night with this dynamic theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#011627",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#2EC4B6"
-            },
-            {
-                "name": "tertiary",
-                "color": "#E71D36"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FF9F1C"
-            }
-        ]
-    },
-    {
-        "name": "Industrial Chic",
-        "description": "Embrace the raw beauty of industrial design with this gritty theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#4D6A6D",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#98C1D9"
-            },
-            {
-                "name": "tertiary",
-                "color": "#E0FBFC"
-            },
-            {
-                "name": "quaternary",
-                "color": "#B5EAD7"
-            }
-        ]
-    },
-    {
-        "name": "Tropical Paradise",
-        "description": "Savor the vibrant hues of a tropical paradise with this exotic theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FFD166",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#06D6A0"
-            },
-            {
-                "name": "tertiary",
-                "color": "#118AB2"
-            },
-            {
-                "name": "quaternary",
-                "color": "#073B4C"
-            }
-        ]
-    },
-    {
-        "name": "Galactic Dreams",
-        "description": "Embark on an interstellar journey through space and time with this cosmic theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#003049",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#D62828"
-            },
-            {
-                "name": "tertiary",
-                "color": "#F77F00"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FCBF49"
-            }
-        ]
-    },
-    {
-        "name": "Mono Madness",
-        "description": "Dive into the depths of black and white with this minimalist monochrome theme.",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#E5E5E5",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#B0BAC7"
-            },
-            {
-                "name": "tertiary",
-                "color": "#5C8A8A"
-            },
-            {
-                "name": "quaternary",
-                "color": "#314E5E"
-            }
-        ]
-    },
-    {
-        "name": "Wonder Cream",
-        "description": "made by @dwhincandi",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#E9AFA3",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F9DEC9",
-                "_comment": "Body"
-            },
-            {
-                "name": "tertiary",
-                "color": "#3A405A",
-                "_comment": "font color"
-            },
-            {
-                "name": "quaternary",
-                "color": "#3A405A",
-                "_comment": "hr color"
-            }
-        ]
-    },
-    {
-        "name": "Chocolate Glaze",
-        "description": "🦅 made by @prodbyeagle",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#99582A",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#432818",
-                "_comment": "Body"
-            },
-            {
-                "name": "tertiary",
-                "color": "#BB9457",
-                "_comment": "font color"
-            },
-            {
-                "name": "quaternary",
-                "color": "#6F1D1B",
-                "_comment": "hr color"
-            }
-        ]
-    },
-    {
-        "name": "Cappuccino",
-        "description": "made by @dwhincandi",
-        "values": [
-            {
-                "name": "primary",
-                "color": "#99582a",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#bb9457",
-                "_comment": "Body"
-            },
-            {
-                "name": "tertiary",
-                "color": "#432818",
-                "_comment": "font color"
-            },
-            {
-                "name": "quaternary",
-                "color": "#6f1d1b",
-                "_comment": "hr color"
-            }
-        ]
-    },
-    {
-        "name": "Golden Hour",
-        "description": "Witness the magical glow of the golden hour with this warm golden theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FFBA08",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FAA307"
-            },
-            {
-                "name": "tertiary",
-                "color": "#F48C06"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E85D04"
-            }
-        ]
-    },
-    {
-        "name": "Spring Blossom",
-        "description": "Celebrate the renewal of life with this fresh spring blossom theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#8AC926",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#1982C4"
-            },
-            {
-                "name": "tertiary",
-                "color": "#6A4C93"
-            },
-            {
-                "name": "quaternary",
-                "color": "#F72585"
-            }
-        ]
-    },
-    {
-        "name": "Autumn Leaves",
-        "description": "Fall in love with the colors of autumn with this rich leaf-inspired theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#B5179E",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F35D5D"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FCBF49"
-            },
-            {
-                "name": "quaternary",
-                "color": "#5A189A"
-            }
-        ]
-    },
-    {
-        "name": "Color Craziness",
-        "description": "made by @dwhincandi",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FF006E",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FFBE0B",
-                "_comment": "Body"
-            },
-            {
-                "name": "tertiary",
-                "color": "#8338EC",
-                "_comment": "font color"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FB5607",
-                "_comment": "hr color"
-            }
-        ]
-    },
-    {
-        "name": "Summer Sunshine",
-        "description": "Bask in the warmth of summer sunshine with this cheerful yellow theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FFD166",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#FF851B"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FF4136"
-            },
-            {
-                "name": "quaternary",
-                "color": "#85144B"
-            }
-        ]
-    },
-    {
-        "name": "Neon Nights",
-        "description": "Get lost in the neon-lit streets of a futuristic metropolis with this electrifying theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#00A0A0",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#00FFFF"
-            },
-            {
-                "name": "tertiary",
-                "color": "#FF00FF"
-            },
-            {
-                "name": "quaternary",
-                "color": "#FFFF00"
-            }
-        ]
-    },
-    {
-        "name": "Pastel Rainbow",
-        "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
-        "warning": true,
-        "values": [
-            {
-                "name": "primary",
-                "color": "#FF6B6B",
-                "_comment": "Cards and Co."
-            },
-            {
-                "name": "secondary",
-                "color": "#F4A261"
-            },
-            {
-                "name": "tertiary",
-                "color": "#2A9D8F"
-            },
-            {
-                "name": "quaternary",
-                "color": "#E9C46A"
-            }
-        ]
-    }
+  {
+    "name": "1st Theme",
+    "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
+    "owner": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#635985",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#443C68"
+      },
+      {
+        "name": "tertiary",
+        "color": "#FFE6E6"
+      },
+      {
+        "name": "quaternary",
+        "color": "#E1AFD1"
+      }
+    ]
+  },
+  {
+    "name": "Dark Night",
+    "description": "made by @dwhincandi",
+    "owner": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#0B132B",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#1C2541"
+      },
+      {
+        "name": "tertiary",
+        "color": "#3A506B"
+      },
+      {
+        "name": "quaternary",
+        "color": "#140152"
+      }
+    ]
+  },
+  {
+    "name": "Ocean Blue",
+    "description": "Dive into the depths of the ocean with this soothing blue theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#0077B6",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#00B4D8"
+      },
+      {
+        "name": "tertiary",
+        "color": "#90E0EF"
+      },
+      {
+        "name": "quaternary",
+        "color": "#CAF0F8"
+      }
+    ]
+  },
+  {
+    "name": "Forest Green",
+    "description": "Explore the lush greenery of the forest with this calming green theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#014421",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#388E3C"
+      },
+      {
+        "name": "tertiary",
+        "color": "#81C784"
+      },
+      {
+        "name": "quaternary",
+        "color": "#C8E6C9"
+      }
+    ]
+  },
+  {
+    "name": "Sunset Orange",
+    "description": "Experience the warmth of a sunset with this vibrant orange theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#D62828",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#F77F00"
+      },
+      {
+        "name": "tertiary",
+        "color": "#FDBA74"
+      },
+      {
+        "name": "quaternary",
+        "color": "#FCE8DA"
+      }
+    ]
+  },
+  {
+    "name": "Mountain Gray",
+    "description": "Embrace the rugged beauty of the mountains with this sophisticated gray theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#6C757D",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#ADB5BD"
+      },
+      {
+        "name": "tertiary",
+        "color": "#CED4DA"
+      },
+      {
+        "name": "quaternary",
+        "color": "#E9ECEF"
+      }
+    ]
+  },
+  {
+    "name": "Desert Sand",
+    "description": "Wander through the arid landscape of the desert with this earthy sand theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#C4A484",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#D9BF9D"
+      },
+      {
+        "name": "tertiary",
+        "color": "#ECD8BA"
+      },
+      {
+        "name": "quaternary",
+        "color": "#F9EBD0"
+      }
+    ]
+  },
+  {
+    "name": "Winter Frost",
+    "description": "Experience the tranquility of a snowy winter landscape with this icy theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#A3F7B5",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#48BFE3"
+      },
+      {
+        "name": "tertiary",
+        "color": "#407F7F"
+      },
+      {
+        "name": "quaternary",
+        "color": "#2A9D8F"
+      }
+    ]
+  },
+  {
+    "name": "Pastel Paradise",
+    "description": "Escape to a dreamy pastel paradise with this soft and gentle theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#B7F0B1",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#7FCD91"
+      },
+      {
+        "name": "tertiary",
+        "color": "#33A499"
+      },
+      {
+        "name": "quaternary",
+        "color": "#0D6759"
+      }
+    ]
+  },
+  {
+    "name": "Urban Nights",
+    "description": "Immerse yourself in the electrifying energy of the urban night with this dynamic theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#011627",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#2EC4B6"
+      },
+      {
+        "name": "tertiary",
+        "color": "#E71D36"
+      },
+      {
+        "name": "quaternary",
+        "color": "#FF9F1C"
+      }
+    ]
+  },
+  {
+    "name": "Industrial Chic",
+    "description": "Embrace the raw beauty of industrial design with this gritty theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#4D6A6D",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#98C1D9"
+      },
+      {
+        "name": "tertiary",
+        "color": "#E0FBFC"
+      },
+      {
+        "name": "quaternary",
+        "color": "#B5EAD7"
+      }
+    ]
+  },
+  {
+    "name": "Tropical Paradise",
+    "description": "Savor the vibrant hues of a tropical paradise with this exotic theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#FFD166",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#06D6A0"
+      },
+      {
+        "name": "tertiary",
+        "color": "#118AB2"
+      },
+      {
+        "name": "quaternary",
+        "color": "#073B4C"
+      }
+    ]
+  },
+  {
+    "name": "Galactic Dreams",
+    "description": "Embark on an interstellar journey through space and time with this cosmic theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#003049",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#D62828"
+      },
+      {
+        "name": "tertiary",
+        "color": "#F77F00"
+      },
+      {
+        "name": "quaternary",
+        "color": "#FCBF49"
+      }
+    ]
+  },
+  {
+    "name": "Mono Madness",
+    "description": "Dive into the depths of black and white with this minimalist monochrome theme.",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#E5E5E5",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#B0BAC7"
+      },
+      {
+        "name": "tertiary",
+        "color": "#5C8A8A"
+      },
+      {
+        "name": "quaternary",
+        "color": "#314E5E"
+      }
+    ]
+  },
+  {
+    "name": "Wonder Cream",
+    "description": "made by @dwhincandi",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#E9AFA3",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#F9DEC9",
+        "_comment": "Body"
+      },
+      {
+        "name": "tertiary",
+        "color": "#3A405A",
+        "_comment": "font color"
+      },
+      {
+        "name": "quaternary",
+        "color": "#3A405A",
+        "_comment": "hr color"
+      }
+    ]
+  },
+  {
+    "name": "Chocolate Glaze",
+    "description": "🦅 made by @prodbyeagle",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#99582A",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#432818",
+        "_comment": "Body"
+      },
+      {
+        "name": "tertiary",
+        "color": "#BB9457",
+        "_comment": "font color"
+      },
+      {
+        "name": "quaternary",
+        "color": "#6F1D1B",
+        "_comment": "hr color"
+      }
+    ]
+  },
+  {
+    "name": "Cappuccino",
+    "description": "made by @dwhincandi",
+    "values": [
+      {
+        "name": "primary",
+        "color": "#99582a",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#bb9457",
+        "_comment": "Body"
+      },
+      {
+        "name": "tertiary",
+        "color": "#432818",
+        "_comment": "font color"
+      },
+      {
+        "name": "quaternary",
+        "color": "#6f1d1b",
+        "_comment": "hr color"
+      }
+    ]
+  },
+  {
+    "name": "Golden Hour",
+    "description": "Witness the magical glow of the golden hour with this warm golden theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#FFBA08",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#FAA307"
+      },
+      {
+        "name": "tertiary",
+        "color": "#F48C06"
+      },
+      {
+        "name": "quaternary",
+        "color": "#E85D04"
+      }
+    ]
+  },
+  {
+    "name": "Spring Blossom",
+    "description": "Celebrate the renewal of life with this fresh spring blossom theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#8AC926",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#1982C4"
+      },
+      {
+        "name": "tertiary",
+        "color": "#6A4C93"
+      },
+      {
+        "name": "quaternary",
+        "color": "#F72585"
+      }
+    ]
+  },
+  {
+    "name": "Autumn Leaves",
+    "description": "Fall in love with the colors of autumn with this rich leaf-inspired theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#B5179E",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#F35D5D"
+      },
+      {
+        "name": "tertiary",
+        "color": "#FCBF49"
+      },
+      {
+        "name": "quaternary",
+        "color": "#5A189A"
+      }
+    ]
+  },
+  {
+    "name": "Color Craziness",
+    "description": "made by @dwhincandi",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#FF006E",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#FFBE0B",
+        "_comment": "Body"
+      },
+      {
+        "name": "tertiary",
+        "color": "#8338EC",
+        "_comment": "font color"
+      },
+      {
+        "name": "quaternary",
+        "color": "#FB5607",
+        "_comment": "hr color"
+      }
+    ]
+  },
+  {
+    "name": "Summer Sunshine",
+    "description": "Bask in the warmth of summer sunshine with this cheerful yellow theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#FFD166",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#FF851B"
+      },
+      {
+        "name": "tertiary",
+        "color": "#FF4136"
+      },
+      {
+        "name": "quaternary",
+        "color": "#85144B"
+      }
+    ]
+  },
+  {
+    "name": "Neon Nights",
+    "description": "Get lost in the neon-lit streets of a futuristic metropolis with this electrifying theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#00A0A0",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#00FFFF"
+      },
+      {
+        "name": "tertiary",
+        "color": "#FF00FF"
+      },
+      {
+        "name": "quaternary",
+        "color": "#FFFF00"
+      }
+    ]
+  },
+  {
+    "name": "Pastel Rainbow",
+    "description": "Indulge in the soft and dreamy hues of a pastel rainbow with this delightful theme.",
+    "warning": true,
+    "values": [
+      {
+        "name": "primary",
+        "color": "#FF6B6B",
+        "_comment": "Cards and Co."
+      },
+      {
+        "name": "secondary",
+        "color": "#F4A261"
+      },
+      {
+        "name": "tertiary",
+        "color": "#2A9D8F"
+      },
+      {
+        "name": "quaternary",
+        "color": "#E9C46A"
+      }
+    ]
+  }
 ]

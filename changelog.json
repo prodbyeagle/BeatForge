@@ -1,0 +1,90 @@
+{
+  "changelog": [
+    {
+      "date": "18.05.2024",
+      "entries": [
+        "Fixed the Library",
+        "Confirm Overlay was removed? Now it's fixed",
+        "Added Sorting Back (much better)",
+        "Close / Minimize Button now Update itself",
+        "Made some Debugging Stuff"
+      ]
+    },
+    {
+      "date": "15.05.2024",
+      "entries": [
+        "Removed Question 2 in Onboarding",
+        "Removed Debug Menu bc it has no good Reason",
+        "Added Dialog before User clears his Data from the Tray Menu",
+        "Fixed some Little Stuff",
+        "Made Code functions into Separated .js Files",
+        "Folder Renamed From 'sites' to 'html'",
+        "❗Play Button in Cards still Bugged"
+      ]
+    },
+    {
+      "date": "14.05.2024",
+      "entries": [
+        "Removed Question 2 in Onboarding",
+        "Removed Debug Menu bc it has no good Reason",
+        "Added Dialog before User clears his Data from the Tray Menu",
+        "Fixed some Little Stuff",
+        "Made Code functions into Separated .js Files",
+        "Folder Renamed From 'sites' to 'html'",
+        "❗Play Button in Cards still Bugged"
+      ]
+    },
+    {
+      "date": "13.05.2024",
+      "entries": [
+        "Added Autoplay",
+        "Made Autocomplete Search Better",
+        "Added Tray Icon",
+        "Fixed some Little Stuff"
+      ]
+    },
+    {
+      "date": "12.05.2024",
+      "entries": [
+        "Library is now a Library",
+        "Removed Songname and Artist in Context Menu",
+        "Made the Cards have their Cover Art (if Song has one)",
+        "Play Button has now an Actual Button instead of an Emoji",
+        "Added an Search System",
+        "Added the Shuffle Button (no function yet)",
+        "🐞 BUG: Play Button in Cards are Starting the Song over! (just scroll in the Timeline)"
+      ]
+    },
+    {
+      "date": "09.05.2024",
+      "entries": [
+        "Started in Library:",
+        "Added Context Menu for Files",
+        "Made Files Dynamic instead of Hard Coded HTML",
+        "Bugs Fixed"
+      ]
+    },
+    {
+      "date": "29.04.2024",
+      "entries": ["New Icon (not final)", "Added Blur and Focus Effects"]
+    },
+    {
+      "date": "21.04.2024",
+      "entries": [
+        "Console Logs gone! or change to .error",
+        "libary to library",
+        "Small Changes",
+        "Better Format"
+      ]
+    },
+    {
+      "date": "18.04.2024",
+      "entries": [
+        "Added Update Logs",
+        "Toastify instead of Alert",
+        "Onboarding Fixed Hopefully 🤞",
+        "Light Changes"
+      ]
+    }
+  ]
+}

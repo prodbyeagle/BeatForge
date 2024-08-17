@@ -5,15 +5,10 @@ BeatForge is an advanced app designed for producers who want to better organize 
 ## Features
 
 - **Custom Tags System**: Users can tag their beats with custom tags for easier categorization and retrieval.
-  
 - **Onboarding**: A user-friendly onboarding process makes it easy to get started with the app and showcases key features.
-  
 - **Library with Filters**: The library feature allows users to filter and sort their beats based on various criteria such as length, size, file format, etc.
-  
 - **Automatic Tag Function** (coming soon): If turned on! The App analyzes each beat in the Background for 5-10 seconds to detect its key and mood (dark, sad, or happy), and adds corresponding tags.
-  
 - **Theme Browser**: Users can choose from a variety of designs to customize the app according to their preferences.
-  
 - **Clean Design**: BeatForge features a clean and intuitive design that facilitates easy navigation and management of beats.
 
 ## Installation
@@ -35,8 +30,7 @@ BeatForge is currently under development and the license information will be pro
 
 ---
 
-*Note: Some features marked as "coming soon" may not be implemented yet when you use this app.*
-
+_Note: Some features marked as "coming soon" may not be implemented yet when you use this app._
 
 ---
 
