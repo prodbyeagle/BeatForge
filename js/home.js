@@ -32,41 +32,41 @@ document.addEventListener("DOMContentLoaded", async function () {
   const formattedDate = `${day}.${month}.${year}`;
   latestDateElement.textContent = formattedDate;
 
-  // Fetch and display latest beats
-  try {
-    // Abrufen der Ordnerpfade aus dem localStorage
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    if (userData && userData.folders) {
-      const foldersArray = userData.folders;
+  // // Fetch and display latest beats
+  // try {
+  //   // Abrufen der Ordnerpfade aus dem localStorage
+  //   const userData = JSON.parse(localStorage.getItem("userData"));
+  //   if (userData && userData.folders) {
+  //     const foldersArray = userData.folders;
 
-      // Abrufen der neuesten Beats
-      const latestBeats = await window.audioMetadata.getLatestBeats(
-        foldersArray
-      );
+  //     // Abrufen der neuesten Beats
+  //     const latestBeats = await window.audioMetadata.getLatestBeats(
+  //       foldersArray
+  //     );
 
-      // Füge die neuesten Beats zur Startseite hinzu
-      latestBeatsElement.innerHTML = ""; // Leeren des Containers
+  //     // Füge die neuesten Beats zur Startseite hinzu
+  //     latestBeatsElement.innerHTML = ""; // Leeren des Containers
 
-      latestBeats.forEach((beat) => {
-        const beatElement = document.createElement("div");
-        beatElement.classList.add("beat");
+  //     latestBeats.forEach((beat) => {
+  //       const beatElement = document.createElement("div");
+  //       beatElement.classList.add("beat");
 
-        beatElement.innerHTML = `
-          <img src="${beat.albumCover || ""}" alt="Cover" class="beat-cover">
-          <div class="beat-info">
-              <h3>${beat.title}</h3>
-              <p>${beat.artist}</p>
-          </div>
-        `;
+  //       beatElement.innerHTML = `
+  //         <img src="${beat.albumCover || ""}" alt="Cover" class="beat-cover">
+  //         <div class="beat-info">
+  //             <h3>${beat.title}</h3>
+  //             <p>${beat.artist}</p>
+  //         </div>
+  //       `;
 
-        latestBeatsElement.appendChild(beatElement);
-      });
-    } else {
-      console.error("User data or folders not found in localStorage.");
-    }
-  } catch (error) {
-    console.error("Fehler beim Laden der neuesten Beats:", error);
-  }
+  //       latestBeatsElement.appendChild(beatElement);
+  //     });
+  //   } else {
+  //     console.error("User data or folders not found in localStorage.");
+  //   }
+  // } catch (error) {
+  //   console.error("Fehler beim Laden der neuesten Beats:", error);
+  // }
 
   // Event listener for sorting beats
   var isCooldown = false;
@@ -137,41 +137,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   } else {
     return;
   }
-
-  // Load Changelog
-  function loadChangelog() {
-    fetch("../changelog.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const changelog = data.changelog;
-        const updateLogsElement = document.getElementById("update-logs");
-        updateLogsElement.innerHTML = ""; // Leeren der aktuellen Inhalte
-
-        changelog.forEach((log) => {
-          const dateElement = document.createElement("li");
-          dateElement.style.fontSize = "22px";
-          dateElement.textContent = `・ ${log.date}`;
-          updateLogsElement.appendChild(dateElement);
-
-          const hrElement = document.createElement("hr");
-          updateLogsElement.appendChild(hrElement);
-
-          log.entries.forEach((entry) => {
-            const entryElement = document.createElement("li");
-            entryElement.textContent = `・ ${entry}`;
-            updateLogsElement.appendChild(entryElement);
-          });
-
-          const hrElementEnd = document.createElement("hr");
-          updateLogsElement.appendChild(hrElementEnd);
-        });
-      })
-      .catch((error) =>
-        console.error("Fehler beim Laden des Changelogs:", error)
-      );
-  }
-
-  loadChangelog();
 
   // Handle close or minimize action
   let closeAction = localStorage.getItem("closeAction");

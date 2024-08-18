@@ -108,49 +108,49 @@ contextBridge.exposeInMainWorld("audioMetadata", {
       return null;
     }
   },
-  getLatestBeats: async (foldersArray, numberOfBeats = 5) => {
-    try {
-      const musicFiles = [];
+  // getLatestBeats: async (foldersArray, numberOfBeats = 5) => {
+  //   try {
+  //     const musicFiles = [];
 
-      for (const folderPath of foldersArray) {
-        const files = await fs.readdir(folderPath);
+  //     for (const folderPath of foldersArray) {
+  //       const files = await fs.readdir(folderPath);
 
-        for (const file of files) {
-          const filePath = path.join(folderPath, file);
-          const stats = await fs.stat(filePath);
+  //       for (const file of files) {
+  //         const filePath = path.join(folderPath, file);
+  //         const stats = await fs.stat(filePath);
 
-          if (
-            stats.isFile() &&
-            (file.endsWith(".mp3") || file.endsWith(".wav"))
-          ) {
-            const modifiedDate = await audioMetadata.extractModifiedDate(
-              filePath
-            );
-            const title = (await audioMetadata.extractTitle(filePath)) || file;
-            const artist = await audioMetadata.extractArtist(filePath);
-            const albumCover = await audioMetadata.extractAlbumCover(filePath);
+  //         if (
+  //           stats.isFile() &&
+  //           (file.endsWith(".mp3") || file.endsWith(".wav"))
+  //         ) {
+  //           const modifiedDate = await audioMetadata.extractModifiedDate(
+  //             filePath
+  //           );
+  //           const title = (await audioMetadata.extractTitle(filePath)) || file;
+  //           const artist = await audioMetadata.extractArtist(filePath);
+  //           const albumCover = await audioMetadata.extractAlbumCover(filePath);
 
-            musicFiles.push({
-              title,
-              artist,
-              modifiedDate,
-              albumCover,
-              filePath,
-            });
-          }
-        }
-      }
+  //           musicFiles.push({
+  //             title,
+  //             artist,
+  //             modifiedDate,
+  //             albumCover,
+  //             filePath,
+  //           });
+  //         }
+  //       }
+  //     }
 
-      // Sortiere Musikdateien nach Änderungsdatum (neueste zuerst)
-      musicFiles.sort((a, b) => b.modifiedDate - a.modifiedDate);
+  //     // Sortiere Musikdateien nach Änderungsdatum (neueste zuerst)
+  //     musicFiles.sort((a, b) => b.modifiedDate - a.modifiedDate);
 
-      // Nimm nur die neuesten "numberOfBeats" Dateien
-      return musicFiles.slice(0, numberOfBeats);
-    } catch (error) {
-      console.error("Fehler beim Abrufen der neuesten Beats:", error);
-      return [];
-    }
-  },
+  //     // Nimm nur die neuesten "numberOfBeats" Dateien
+  //     return musicFiles.slice(0, numberOfBeats);
+  //   } catch (error) {
+  //     console.error("Fehler beim Abrufen der neuesten Beats:", error);
+  //     return [];
+  //   }
+  // },
 });
 
 // async function extractDuration(durationInSeconds) {

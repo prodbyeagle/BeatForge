@@ -586,17 +586,15 @@ async function autoplayNextSong(currentFilePath) {
       (item) => item.dataset.filePath === currentFilePath
     );
 
-    // Überprüfen, ob das aktuelle Song-Element gefunden wurde
     if (currentSongItem) {
       const currentSongIndex = Array.from(songsList.children).indexOf(
         currentSongItem
       );
       const nextSongItem = songsList.children[currentSongIndex + 1];
 
-      // Überprüfen, ob das nächste Song-Element vorhanden ist
       if (nextSongItem) {
         const nextFilePath = nextSongItem.dataset.filePath;
-        await playAudioFile(nextFilePath);
+        await playAudioFile(nextFilePath, true); // Ensure autoplay is true here
         console.log("Next song played successfully.");
       } else {
         const audioPlayer = document.getElementById("audio-player");

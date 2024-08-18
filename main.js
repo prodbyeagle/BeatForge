@@ -154,31 +154,21 @@ app.on("ready", () => {
 
   const tray = new Tray(path.join(__dirname, "assets", "icon.png"));
   const contextMenu = Menu.buildFromTemplate([
-    { label: `Beatforge v${currentVersion}`, enabled: false },
+    { label: `Beatforge ${currentVersion}`, enabled: false },
     { type: "separator" },
     {
-      label: "✅ Open Beatforge",
-      click: () => (mainWindow ? mainWindow.show() : createMainWindow()),
-    },
-    {
-      label: "❌ Close Beatforge",
-      click: () => app.quit(),
-    },
-    { type: "separator" },
-    {
-      label: "🆙 Check for Updates",
+      label: "Check for Updates",
       click: () => checkForUpdates(),
     },
-    { type: "separator" },
     {
       label: "Debug",
       submenu: [
         {
-          label: "🔁 Restart App",
+          label: "Reload",
           click: () => app.relaunch() && app.quit(),
         },
         {
-          label: "🚯 Clear AppData and Restart",
+          label: "Clear Data and Restart",
           click: () => {
             dialog.showMessageBoxSync({
               type: "question",
@@ -193,6 +183,15 @@ app.on("ready", () => {
         },
       ],
     },
+    { type: "separator" },
+    // {
+    //   label: "Open Beatforge",
+    //   click: () => (mainWindow ? mainWindow.show() : createMainWindow()),
+    // },
+    {
+      label: "Exit",
+      click: () => app.quit(),
+    },
   ]);
 
   tray.setContextMenu(contextMenu);
@@ -206,8 +205,6 @@ function createMainWindow(file) {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 1000,
-    maxWidth: 1920,
-    maxHeight: 1080,
     minWidth: 700,
     minHeight: 700,
     autoHideMenuBar: true,

@@ -402,20 +402,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #4b5563;
+  background-color: var(--secondary-color);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #6b7280;
-    border-radius: 5px;
+  background-color: var(--quaternary-color);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #9ca3af;
+  background-color: var(--tertiary-color);
 }
 
 .button,
